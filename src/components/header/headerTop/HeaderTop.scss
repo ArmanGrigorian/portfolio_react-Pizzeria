@@ -1,0 +1,48 @@
+@use "../../modules/mixins" as mxs;
+
+.headerTop {
+    @include mxs.rowFlex(space-between, center);
+    padding: var(--my-value-max);
+
+    .headerTopLeft {
+        @include mxs.rowFlex(start, center, 8px);
+
+        img {
+            width: calc(var(--my-value-max) * 2);
+        }
+
+        div {
+            h1 {
+                @include mxs.h1();
+            }
+
+            p {
+                @include mxs.p();
+            }
+        }
+    }
+
+    .headerTopRight {
+        @include mxs.rowFlex(center, center);
+        background-color: var(--my-color-orange);
+        width: clamp(100px, 10vw, 110px);
+        height: calc(var(--my-value-max) * 2);
+        border-radius: calc(var(--my-value-min) * 8);
+
+        & > p {
+            @include mxs.p(var(--my-color-white));
+            padding-right: 7px;
+        }
+
+        div {
+            @include mxs.rowFlex(center, center, 2px);
+            border-left: 2px solid var(--my-color-white);
+            padding-left: 5px;
+
+            p {
+                @include mxs.p(var(--my-color-white));
+            }
+        }
+    }
+
+}

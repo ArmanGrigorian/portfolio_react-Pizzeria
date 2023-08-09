@@ -1,0 +1,33 @@
+@use "../../modules/mixins" as mxs;
+
+.headerBottom {
+    @include mxs.rowFlex(space-between, center);
+    padding: var(--my-value-max);
+
+    ul {
+        @include mxs.rowFlex(space-between, center, 4%);
+
+        li {
+            @include mxs.p(var(--my-color-black));
+            background-color: var(--my-color-whiteDark);
+            border-radius: 12px;
+            padding: calc(var(--my-value-min) * 4) calc(var(--my-value-mid) * 3);
+            list-style-type: none;
+        }
+    }
+
+    .headerBottomRight {
+        @include mxs.rowFlex(center, center, 2px);
+
+        p {
+            @include mxs.p(var(--my-color-black))
+        }
+
+        select {
+            padding: var(--my-value-min);
+            border: none;
+            outline: none;
+            @include mxs.p()
+        }
+    }
+}
