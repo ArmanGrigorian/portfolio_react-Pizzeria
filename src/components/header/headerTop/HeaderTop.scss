@@ -28,6 +28,11 @@
         width: clamp(100px, 10vw, 110px);
         height: calc(var(--my-value-max) * 2);
         border-radius: calc(var(--my-value-min) * 8);
+        transition: background-color 150ms linear;
+
+        &:hover{
+            background-color: var(--my-color-green);
+        }
 
         & > p {
             @include mxs.p(var(--my-color-white));
@@ -42,6 +47,7 @@
             p {
                 @include mxs.p(var(--my-color-white));
             }
+            
         }
     }
 

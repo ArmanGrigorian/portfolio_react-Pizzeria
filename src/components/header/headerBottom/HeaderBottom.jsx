@@ -5,7 +5,7 @@ export default function HeaderBottom() {
 		<div className="headerBottom">
 			<nav>
 				<ul>
-					<li>All</li>
+					<li className="active">All</li>
 					<li>Meat</li>
 					<li>Vegetarian</li>
 					<li>Grill</li>

@@ -27,7 +27,15 @@
     color: var(--my-color-black);
 }
 
-@mixin p($color: var(--my-color-greyLight), $font-size: var(--my-font-size-p)){
+@mixin h2($font-size: var(--my-font-size-h3), $font-weight: 600, $letter-spacing: 1px){
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: $letter-spacing;
+    color: var(--my-color-black);
+}
+
+@mixin p($color: var(--my-color-greyLight), $font-weight: 400px, $font-size: var(--my-font-size-p)){
     color: $color; 
+    font-weight: $font-weight;
     font-size: $font-size;
 }

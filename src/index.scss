@@ -1,25 +1,5 @@
-:root {
-    // fonts
-    --my-font-family: "Roboto", sans-serif;
-    --my-font-size-h1: clamp(24px, 3vw, 26px);
-    --my-font-size-h2: clamp(22px, 3vw, 24px);
-    --my-font-size-p: clamp(14px, 2vw, 16px);
-
-    // values
-    --my-value-min: 2px;
-    --my-value-mid: 10px;
-    --my-value-max: 20px;
-
-    // colors
-    --my-color-white: rgb(255, 255, 255);
-    --my-color-whiteDark: rgb(245, 245, 245);
-    --my-color-black: rgb(24, 24, 24);
-    --my-color-greyDark: rgb(40, 40, 40);
-    --my-color-greyLight: rgb(160, 160, 160);
-    --my-color-yellow: rgb(255, 223, 140);
-    --my-color-orange: rgb(254, 95, 30);
-    --my-color-green: rgb(0, 130, 0);
-}
+@use "./components/modules/variables";
+@use "./components/modules/mixins" as mxs;
 
 * {
     box-sizing: border-box;
@@ -29,6 +9,7 @@
 }
 
 main {
+    @include mxs.colFlex(center, space-between);
     background-color: var(--my-color-yellow);
     width: min(100%, 1120px);
     margin: 0 auto;
