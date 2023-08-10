@@ -1,5 +1,5 @@
 import "./Cart.scss";
-import { CART } from "../../DATA/cart.js";
+import { CART } from "../../../DATA/cart.js";
 
 export default function Cart() {
 	return (

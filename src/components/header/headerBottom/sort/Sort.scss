@@ -1,0 +1,16 @@
+ @use "../../../modules/index.scss" as mxs;
+
+ .sort {
+     @include mxs.rowFlex(center, center, 2px);
+
+     p {
+         @include mxs.p(var(--my-color-black))
+     }
+
+     select {
+         padding: var(--my-value-min);
+         border: none;
+         outline: none;
+         @include mxs.p()
+     }
+ }
