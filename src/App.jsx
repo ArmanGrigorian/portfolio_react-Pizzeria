@@ -1,11 +1,11 @@
-import MainPage from "./components/mainPage/MainPage.jsx";
-import CartPage from "./components/cartPage/CartPage.jsx";
+import MainPage from "./components/pages/mainPage/MainPage.jsx";
+// import CartPage from "./components/cartPage/CartPage.jsx";
 
 export default function App() {
 	return (
 		<>
-			{/* <MainPage /> */}
-			<CartPage/>
+			<MainPage />
+			{/* <CartPage/> */}
 		</>
 	);
 }
