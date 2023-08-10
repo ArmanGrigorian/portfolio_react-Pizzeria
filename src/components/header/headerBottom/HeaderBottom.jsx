@@ -7,8 +7,6 @@ export default function HeaderBottom() {
 				<ul>
 					<li className="active">All</li>
 					<li>Meat</li>
-					<li>Vegetarian</li>
-					<li>Grill</li>
 					<li>Spicy</li>
 				</ul>
 			</nav>

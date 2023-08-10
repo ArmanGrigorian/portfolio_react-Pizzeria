@@ -1,4 +1,4 @@
-@use "../../modules/mixins" as mxs;
+@use "../../modules/index.scss" as mxs;
 
 .headerTop {
     @include mxs.rowFlex(space-between, center);
