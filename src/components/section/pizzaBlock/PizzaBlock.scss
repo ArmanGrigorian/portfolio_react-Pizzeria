@@ -72,15 +72,31 @@
          border-radius: 14px;
          user-select: none;
          cursor: pointer;
-         transition: background-color 150ms linear, color 150ms linear;
+         transition:
+          background-color 150ms linear,
+           color 150ms linear;
 
          &:hover {
              background-color: var(--my-color-orange);
              color: var(--my-color-white);
-         }
+
+             p:first-of-type{
+                border-bottom-color: var(--my-color-white);
+             }
+         };
 
          &:active {
              scale: 0.95;
+         };
+
+         p:first-of-type{
+            padding-bottom: 1px;
+            border-bottom: 1px solid var(--my-color-orange);
+            transition: border 150ms linear;
+         }
+
+         p:last-of-type{
+            padding-top: 1px;
          }
 
      }

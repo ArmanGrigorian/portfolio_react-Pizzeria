@@ -2,6 +2,9 @@ import "./PizzaBlock.scss";
 import PropTypes from "prop-types";
 
 export default function PizzaBlock({ info }) {
+
+	
+
 	return (
 		<div className="pizzaBlock">
 			<img src={info.imgSrc} alt={info.imgAlt} />
@@ -26,6 +29,7 @@ export default function PizzaBlock({ info }) {
 
 				<button type="button" className="addButton">
 					<p>+ Add</p>
+					<p>0</p>
 				</button>
 			</div>
 		</div>
