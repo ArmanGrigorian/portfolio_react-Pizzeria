@@ -2,19 +2,19 @@ import { useState } from "react";
 import "./PizzaBlock.scss";
 import PropTypes from "prop-types";
 
-export default function PizzaBlock({ info }) {
+export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price }) {
 	const [pizzaSize, setPizzaSize] = useState("");
 	const [pizzaDough, setPizzaDough] = useState("");
 
 	function handleSetPizzaInfo(e, arr) {
 		switch (arr) {
-			case info.sizes:
-				if (info.sizes.some((size) => size === e.target.dataset.size)) {
+			case sizes:
+				if (sizes.some((size) => size === e.target.dataset.size)) {
 					setPizzaSize(e.target.dataset.size);
 				} else return;
 				break;
-			case info.doughs:
-				if (info.doughs.some((dough) => dough === e.target.dataset.dough)) {
+			case doughs:
+				if (doughs.some((dough) => dough === e.target.dataset.dough)) {
 					setPizzaDough(e.target.dataset.dough);
 				} else return;
 				break;
@@ -25,17 +25,17 @@ export default function PizzaBlock({ info }) {
 
 	return (
 		<div className="pizzaBlock">
-			<img src={info.imgSrc} alt={info.imgAlt} />
+			<img src={imgSrc} alt={imgAlt} />
 
-			<h4>{info.title}</h4>
+			<h4>{title}</h4>
 
 			<div className="selector">
 				<ul
 					onClick={(e) => {
-						handleSetPizzaInfo(e, info.doughs);
+						handleSetPizzaInfo(e, doughs);
 					}}>
-					{info.doughs &&
-						info.doughs.map((dough) => {
+					{doughs &&
+						doughs.map((dough) => {
 							return (
 								<li
 									key={crypto.randomUUID()}
@@ -47,9 +47,9 @@ export default function PizzaBlock({ info }) {
 						})}
 				</ul>
 
-				<ul onClick={(e) => handleSetPizzaInfo(e, info.sizes)}>
-					{info.sizes &&
-						info.sizes.map((size) => {
+				<ul onClick={(e) => handleSetPizzaInfo(e, sizes)}>
+					{sizes &&
+						sizes.map((size) => {
 							return (
 								<li
 									key={crypto.randomUUID()}
@@ -63,7 +63,7 @@ export default function PizzaBlock({ info }) {
 			</div>
 
 			<div className="pizzaBlockBottom">
-				<p>from {info.price} $</p>
+				<p>from {price} $</p>
 
 				<button type="button" className="addButton">
 					<p>+ Add</p>
@@ -75,5 +75,10 @@ export default function PizzaBlock({ info }) {
 }
 
 PizzaBlock.propTypes = {
-	info: PropTypes.object,
+	sizes: PropTypes.arrayOf(PropTypes.string),
+	doughs: PropTypes.arrayOf(PropTypes.string),
+	imgSrc: PropTypes.string,
+	imgAlt: PropTypes.string,
+	title: PropTypes.string,
+	price: PropTypes.number,
 };

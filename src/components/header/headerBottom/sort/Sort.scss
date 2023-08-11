@@ -11,6 +11,10 @@
          padding: var(--my-value-min);
          border: none;
          outline: none;
-         @include mxs.p()
+         @include mxs.p(var(--my-color-green));
+         
+         option{
+             @include mxs.p();
+         }
      }
  }

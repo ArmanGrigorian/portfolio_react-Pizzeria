@@ -1,13 +1,20 @@
 import "./Sort.scss";
 
+
 export default function Sort() {
-  return (
+	const sortCategories = ["rating", "price", "title"];
+
+
+
+	return (
 		<div className="sort">
 			<p>Sort by:</p>
 			<select name="sortBy" id="sortBy">
-				<option value="rating">rating</option>
-				<option value="price">price</option>
-				<option value="name">name</option>
+				{sortCategories && sortCategories.map((category) => {
+					return (
+						<option key={crypto.randomUUID()} value={category}>{category}</option>
+					)
+				})}
 			</select>
 		</div>
 	);

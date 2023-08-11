@@ -11,7 +11,7 @@ export default function Menu() {
 				{PIZZAS &&
 					PIZZAS.map((pizza) => {
 						return (
-							<PizzaBlock key={crypto.randomUUID()} info={pizza} />
+							<PizzaBlock key={crypto.randomUUID()} {...pizza} />
 						);
 					})}
 			</div>
