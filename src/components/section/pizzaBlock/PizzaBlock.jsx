@@ -27,7 +27,7 @@ export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price
 		<div className="pizzaBlock">
 			<img src={imgSrc} alt={imgAlt} />
 
-			<h4>{title}</h4>
+			<h3>{title}</h3>
 
 			<div className="selector">
 				<ul

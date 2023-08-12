@@ -26,7 +26,7 @@ export default function Menu() {
 
 			<div className="menu">
 				{isLoading
-					? [...new Array(4)].map(() => <PizzaBlockPlaceholder key={crypto.randomUUID()} />)
+					? [...new Array(8)].map(() => <PizzaBlockPlaceholder key={crypto.randomUUID()} />)
 					: pizzas.map((pizza) => {
 							return <PizzaBlock key={crypto.randomUUID()} {...pizza} />;
 					})

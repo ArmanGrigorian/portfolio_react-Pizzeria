@@ -11,8 +11,8 @@
          width: 100%;
      }
 
-     h4 {
-         @include mxs.h2();
+     h3 {
+         @include mxs.h3();
          padding-bottom: var(--my-value-mid);
      }
 

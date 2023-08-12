@@ -13,10 +13,9 @@
     gap: $gap;
 };
 
-@mixin h1($font-size: var(--my-font-size-h1), $font-weight: 800, $letter-spacing: 1px){
+@mixin h1($font-size: var(--my-font-size-h1), $font-weight: 800){
     font-size: $font-size;
     font-weight: $font-weight;
-    letter-spacing: $letter-spacing;
     color: var(--my-color-black);
 }
 
@@ -27,7 +26,7 @@
     color: var(--my-color-black);
 }
 
-@mixin h2($font-size: var(--my-font-size-h3), $font-weight: 600, $letter-spacing: 1px){
+@mixin h3($font-size: var(--my-font-size-h3), $font-weight: 600, $letter-spacing: 1px){
     font-size: $font-size;
     font-weight: $font-weight;
     letter-spacing: $letter-spacing;
