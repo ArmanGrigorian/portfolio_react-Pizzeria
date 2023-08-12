@@ -2,10 +2,8 @@
 
 .headerBottom {
     @include mxs.rowFlex(space-between, center);
-    padding: var(--my-value-max);
 
     @media only screen and (max-width: 400px) {
         @include mxs.colFlex(center, space-between, 20px);
-        padding: var(--my-value-mid);
     }
 }

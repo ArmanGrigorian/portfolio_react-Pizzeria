@@ -2,59 +2,34 @@
 
 .cart {
     @include mxs.colFlex(start, start, 10px);
-    padding: var(--my-value-max);
 
-    .pizzaItem {
+    .cartMid,
+    .cartBottom {
         @include mxs.rowFlex(space-between, center);
         width: 100%;
-        border-block: 3px solid var(--my-color-whiteDark);
-        background-color: var(--my-color-white);
-        padding: var(--my-value-mid) var(--my-value-min);
-
-        div {
-            @include mxs.rowFlex(start, center, 6px);
-
-            &:first-child {
-                width: 48%;
-
-                img {
-                    width: 50px;
-                    height: 50px;
-                }
-
-                div {
-                    @include mxs.colFlex(center, start);
-
-                    h4 {
-                        @include mxs.h2();
-                    }
-
-                    p {
-                        @include mxs.p();
-                    }
-                }
-            }
-        }
+        padding: var(--my-value-mid) var(--my-value-max);
 
         p {
             @include mxs.p(var(--my-color-black));
+            padding-block: calc(var(--my-value-min) * 2);
+        }
+
+        a {
+            text-decoration: none;
         }
 
         button {
-            @include mxs.rowFlex(center, center);
-            @include mxs.p(var(--my-color-orange), 600);
-            width: 30px;
-            height: 30px;
-            background-color: var(--my-color-white);
-            border: 2px solid var(--my-color-orange);
-            border-radius: 50%;
-            user-select: none;
-            cursor: pointer;
-            transition: background-color 150ms linear, color 150ms linear;
+            @include mxs.rowFlex(center, center, 3px);
+            padding: 10px 20px;
+            border-radius: calc(var(--my-value-min) * 8);
+            border: none;
+            color: var(--my-color-white);
+            background-color: var(--my-color-orange);
+            font-size: var(--my-font-size-p);
+            transition: background-color 100ms linear, scale 100ms linear;
 
             &:hover {
-                background-color: var(--my-color-orange);
-                color: var(--my-color-white);
+                background-color: var(--my-color-green);
             }
 
             &:active {

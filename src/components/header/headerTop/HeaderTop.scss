@@ -2,7 +2,6 @@
 
 .headerTop {
     @include mxs.rowFlex(space-between, center);
-    padding: var(--my-value-max);
 
     a {
         text-decoration: none;
@@ -32,11 +31,14 @@
         width: clamp(100px, 10vw, 110px);
         height: calc(var(--my-value-max) * 2);
         border-radius: calc(var(--my-value-min) * 8);
-        transition: background-color 150ms linear;
-
+        transition: background-color 100ms linear, scale 100ms liner;
 
         &:hover {
             background-color: var(--my-color-green);
+        }
+
+        &:active{
+            scale: 0.95;
         }
 
         & > p {
@@ -54,9 +56,4 @@
             }
         }
     }
-
-    @media only screen and (max-width: 400px) {
-        padding: var(--my-value-mid);
-    }
-
 }

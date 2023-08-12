@@ -11,7 +11,7 @@
 main {
     @include mxs.colFlex(start, space-between);
     background-color: var(--my-color-yellow);
-    width: min(100%, 1120px);
+    width: min(100%, 1320px);
     margin: 0 auto;
     padding: var(--my-value-max);
 

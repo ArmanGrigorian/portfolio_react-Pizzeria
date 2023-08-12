@@ -2,8 +2,9 @@
 
 section {
     background-color: var(--my-color-white);
-    padding-block: var(--my-value-max);
-    min-height: calc(100vh - 190px);
+    padding: var(--my-value-max) var(--my-value-max);
+    border-bottom-left-radius: var(--my-value-mid);
+    border-bottom-right-radius: var(--my-value-mid);
 
     h1 {
         @include mxs.h1();
@@ -14,6 +15,11 @@ section {
             padding-left: var(--my-value-mid);
             padding-bottom: var(--my-value-mid);
         }
+    }
+
+    @media only screen and (max-width: 400px) {
+        padding: var(--my-value-min);
+        padding-bottom: var(--my-value-min);
     }
 
 }
