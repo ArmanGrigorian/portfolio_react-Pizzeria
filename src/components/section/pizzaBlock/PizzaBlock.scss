@@ -23,12 +23,12 @@
          padding: calc(var(--my-value-min) * 4) calc(var(--my-value-min) * 2);
 
          ul {
-             @include mxs.rowFlex(center, center, 3%);
+             @include mxs.rowFlex(center, center, 2%);
 
              li {
                  @include mxs.p();
                  list-style-type: none;
-                 padding: calc(var(--my-value-min) * 2) var(--my-value-mid);
+                 padding: calc(var(--my-value-min) * 2) calc(var(--my-value-min) * 4);
                  cursor: pointer;
                  transition:
                      color 200ms linear,

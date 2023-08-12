@@ -1,10 +1,7 @@
 import "./Sort.scss";
 
-
 export default function Sort() {
 	const sortCategories = ["rating", "price", "title"];
-
-
 
 	return (
 		<div className="sort">
