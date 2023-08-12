@@ -1,7 +1,7 @@
 @use "../../modules/index.scss" as mxs;
 
 .cart {
-    @include mxs.colFlex(center, start, 10px);
+    @include mxs.colFlex(start, start, 10px);
     padding: var(--my-value-max);
 
     .pizzaItem {
@@ -9,7 +9,7 @@
         width: 100%;
         border-block: 3px solid var(--my-color-whiteDark);
         background-color: var(--my-color-white);
-        padding: var(--my-value-min);
+        padding: var(--my-value-mid) var(--my-value-min);
 
         div {
             @include mxs.rowFlex(start, center, 6px);

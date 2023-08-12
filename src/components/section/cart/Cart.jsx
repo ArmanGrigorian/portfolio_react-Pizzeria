@@ -4,7 +4,7 @@ import { CART } from "../../../DATA/cart.js";
 export default function Cart() {
 	return (
 		<>
-			<h2>Cart</h2>
+			<h1>Cart</h1>
 			<div className="cart">
 				{CART &&
 					CART.map((pizza) => {

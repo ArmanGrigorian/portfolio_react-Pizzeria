@@ -9,9 +9,13 @@
 }
 
 main {
-    @include mxs.colFlex(center, space-between, 20px);
+    @include mxs.colFlex(start, space-between);
     background-color: var(--my-color-yellow);
     width: min(100%, 1120px);
     margin: 0 auto;
     padding: var(--my-value-max);
+
+    @media only screen and (max-width: 400px) {
+        padding: var(--my-value-mid);
+    }
 }

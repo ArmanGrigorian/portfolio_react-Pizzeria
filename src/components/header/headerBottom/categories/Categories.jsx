@@ -12,7 +12,7 @@ export default function Categories() {
 	}
 
 	return (
-		<nav className="Categories">
+		<nav className="categories">
 			<ul onClick={(e) => handleSetCategory(e)}>
 				{categories &&
 					categories.map((category) => {

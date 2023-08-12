@@ -3,4 +3,17 @@
 section {
     background-color: var(--my-color-white);
     padding-block: var(--my-value-max);
+    min-height: calc(100vh - 190px);
+
+    h1 {
+        @include mxs.h1();
+        padding-left: var(--my-value-max);
+        padding-bottom: var(--my-value-max);
+
+        @media only screen and (max-width: 400px) {
+            padding-left: var(--my-value-mid);
+            padding-bottom: var(--my-value-mid);
+        }
+    }
+
 }

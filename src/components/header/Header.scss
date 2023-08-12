@@ -1,4 +1,11 @@
-header {
-    background-color: var(--my-color-white);
+@use "../modules/index.scss" as mxs;
 
+header {
+    @include mxs.colFlex(center, space-between);
+    background-color: var(--my-color-white);
+    height: 150px;
+
+    @media only screen and (max-width: 400px) {
+        height: 200px;
+    }
 }

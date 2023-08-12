@@ -19,4 +19,8 @@
              @include mxs.p();
          }
      }
+
+     @media only screen and (max-width: 400px) {
+        align-self: end;
+     }
  }

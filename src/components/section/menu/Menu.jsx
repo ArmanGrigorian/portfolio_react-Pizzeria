@@ -12,7 +12,8 @@ export default function Menu() {
 			.then((response) => response.json())
 			.then((data) => {
 				setPizzas(data);
-				// fack remaining
+				
+				// fake remaining
 				setTimeout(() => {
 					setisLoading(false);
 				}, 100);
@@ -21,7 +22,7 @@ export default function Menu() {
 
 	return (
 		<>
-			<h2>{isLoading ? "Loading" : "All"}</h2>
+			<h1>{isLoading ? "Loading" : "All"}</h1>
 
 			<div className="menu">
 				{isLoading
@@ -29,7 +30,7 @@ export default function Menu() {
 					: pizzas.map((pizza) => {
 							return <PizzaBlock key={crypto.randomUUID()} {...pizza} />;
 					})
-				};
+				}
 			</div>
 		</>
 	);

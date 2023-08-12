@@ -1,10 +1,5 @@
 @use "../../modules/index.scss" as mxs;
 
-h2 {
-    padding-left: var(--my-value-max);
-    padding-bottom: var(--my-value-max);
-}
-
 .menu {
     display: grid;
     grid-template-columns: repeat(auto-fill, clamp(220px, 22vw, 260px));
