@@ -1,0 +1,50 @@
+.searchBar {
+    position: relative;
+    padding-right: var(--my-value-max);
+    padding-bottom: var(--my-value-max);
+    width: 46%;
+    text-align: right;
+
+    .searchPizza {
+        width: min(100%, 230px);
+        padding-block: calc(var(--my-value-min) * 2);
+        padding-left: calc(var(--my-value-mid) * 3);
+        padding-right: calc(var(--my-value-mid) * 3);
+        border: none;
+        box-shadow: 0px 1px 4px 1px var(--my-color-black);
+        border-radius: var(--my-value-mid);
+        font-size: 16px;
+        transition: width 350ms ease-in-out;
+
+        &:focus {
+            width: 100%;
+            outline: none;
+            box-shadow: 0px 1px 4px 1px var(--my-color-orange);
+        }
+
+        @media only screen and (max-width: 630px) {
+            width: 100%;
+            padding: calc(var(--my-value-min) * 2) var(--my-value-max);
+
+        }
+
+    }
+
+    svg {
+        position: absolute;
+        top: 5px;
+        right: 36px;
+
+        @media only screen and (max-width: 630px) {
+            top: 3px;
+            right: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 630px) {
+        width: 100%;
+        text-align: center;
+        padding-inline: var(--my-value-mid);
+        padding-bottom: var(--my-value-mid);
+    }
+}

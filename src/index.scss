@@ -15,7 +15,7 @@ main {
     margin: 0 auto;
     padding: var(--my-value-max);
 
-    @media only screen and (max-width: 400px) {
+    @media only screen and (max-width: 630px) {
         padding: var(--my-value-mid);
     }
 }

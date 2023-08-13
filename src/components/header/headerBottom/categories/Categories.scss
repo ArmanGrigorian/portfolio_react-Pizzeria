@@ -1,7 +1,7 @@
 @use "../../../modules/index.scss" as mxs;
 
 .categories {
-    
+
     ul {
         @include mxs.rowFlex(space-between, center, 4%);
 
@@ -33,9 +33,14 @@
             }
         }
 
+        @media only screen and (max-width: 630px) {
+            @include mxs.colFlex(center, stretch, 10px);
+            text-align: center;
+        }
+
     }
 
-    @media only screen and (max-width: 400px) {
+    @media only screen and (max-width: 630px) {
         width: 100%;
     }
 
