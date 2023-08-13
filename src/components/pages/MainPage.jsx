@@ -15,19 +15,20 @@ export default function MainPage() {
 
 	// props of Category.jsx
 	const categories = ["All", "Meat", "Spicy"];
-	const [activeCategory, setActiveCategory] = useState("");
+	const [activeCategory, setActiveCategory] = useState("all");
 
 	// props of Sort.jsx
-	const [sortBy, setSortBy] = useState("rating");
+	const [sortBy, setSortBy] = useState("rating (high > low)");
 
 	// props of Menu.jsx
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setisLoading] = useState(true);
 
-	// functions
+	// FUNCTIONS
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
+
 			if (e.target.dataset.category.toLowerCase() === "all") {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=desc`);
@@ -35,7 +36,11 @@ export default function MainPage() {
 					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=asc`);
 				}
 			} else {
-				setUrl(`${initialUrl}?sortBy=${sortBy}&filter=${e.target.dataset.category}&order=desc`);
+				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
+					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=desc`);
+				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
+					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=asc`);
+				}
 			}
 		} else return;
 	}
