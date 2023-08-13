@@ -1,15 +1,7 @@
 import "./Categories.scss";
-import { useState } from "react";
+import PropTypes from "prop-types";
 
-export default function Categories() {
-	const categories = ["All", "Meat", "Spicy"];
-	const [activeCategory, setActiveCategory] = useState(0);
-
-	function handleSetCategory(e) {
-		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
-			setActiveCategory(e.target.dataset.category);
-		} else return;
-	}
+export default function Categories({ categories, activeCategory, handleSetCategory }) {
 
 	return (
 		<nav className="categories">
@@ -29,3 +21,9 @@ export default function Categories() {
 		</nav>
 	);
 }
+
+Categories.propTypes = {
+	categories: PropTypes.arrayOf(PropTypes.string),
+	activeCategory: PropTypes.string,
+	handleSetCategory: PropTypes.func,
+};

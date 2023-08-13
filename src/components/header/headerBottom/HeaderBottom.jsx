@@ -1,12 +1,14 @@
 import "./HeaderBottom.scss";
-import Categories from "./categories/Categories";
-import Sort from "./sort/Sort";
+import PropTypes from 'prop-types'
 
-export default function HeaderBottom() {
+export default function HeaderBottom({children}) {
 	return (
 		<div className="headerBottom">
-			<Categories />
-			<Sort />
+			{children}
 		</div>
 	);
 }
+
+HeaderBottom.propTypes = {
+	children: PropTypes.node,
+};

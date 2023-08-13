@@ -1,25 +1,11 @@
 import "./Menu.scss";
+import PropTypes from "prop-types";
 import PizzaBlock from "../pizzaBlock/PizzaBlock";
-import { useEffect, useState } from "react";
 import PizzaBlockPlaceholder from "../pizzaBlock/PizzaBlockPlaceholder.jsx";
 
-export default function Menu() {
-	const [pizzas, setPizzas] = useState([]);
-	const [isLoading, setisLoading] = useState(true);
 
-	useEffect(() => {
-		fetch("https://64d772272a017531bc134033.mockapi.io/pizzas")
-			.then((response) => response.json())
-			.then((data) => {
-				setPizzas(data);
-				
-				// fake remaining
-				setTimeout(() => {
-					setisLoading(false);
-				}, 100);
-			});
-	}, []);
-
+export default function Menu({pizzas, isLoading,}) {
+	
 	return (
 		<>
 			<h1>{isLoading ? "Loading" : "All"}</h1>
@@ -27,11 +13,13 @@ export default function Menu() {
 			<div className="menu">
 				{isLoading
 					? [...new Array(8)].map(() => <PizzaBlockPlaceholder key={crypto.randomUUID()} />)
-					: pizzas.map((pizza) => {
-							return <PizzaBlock key={crypto.randomUUID()} {...pizza} />;
-					})
-				}
+					: pizzas.map((pizza) => <PizzaBlock key={crypto.randomUUID()} {...pizza} />)}
 			</div>
 		</>
 	);
 }
+
+Menu.propTypes = {
+	pizzas: PropTypes.arrayOf(PropTypes.object),
+	isLoading: PropTypes.bool,
+};
