@@ -2,18 +2,7 @@
 
 section {
     background-color: var(--my-color-white);
-    padding: var(--my-value-max) var(--my-value-max);
-    border-bottom-left-radius: var(--my-value-mid);
-    border-bottom-right-radius: var(--my-value-mid);
-
-    .sectionTop {
-        @include mxs.rowFlex(space-between, center);
-
-        @media only screen and (max-width: 630px) {
-            @include mxs.colFlex(center, stretch, 10px);
-            text-align: center;
-        }
-    }
+    padding: var(--my-value-max);
 
     h1 {
         @include mxs.h1();
@@ -28,7 +17,6 @@ section {
 
     @media only screen and (max-width: 630px) {
         padding: var(--my-value-min);
-        padding-bottom: var(--my-value-min);
     }
 
 }

@@ -31,13 +31,18 @@
         width: clamp(100px, 10vw, 110px);
         height: calc(var(--my-value-max) * 2);
         border-radius: calc(var(--my-value-min) * 8);
-        transition: background-color 100ms linear, scale 100ms liner;
+        box-shadow: 0px 1px 4px 1px var(--my-color-orange);
+        transition:
+            background-color 100ms linear,
+            scale 100ms linear,
+            box-shadow 100ms linear;
 
         &:hover {
             background-color: var(--my-color-green);
+            box-shadow: 0px 1px 4px 1px var(--my-color-green);
         }
 
-        &:active{
+        &:active {
             scale: 0.95;
         }
 

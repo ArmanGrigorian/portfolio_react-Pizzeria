@@ -1,0 +1,10 @@
+@use "../../modules/index.scss" as mxs;
+
+.sectionTop {
+    @include mxs.rowFlex(space-between, center);
+
+    @media only screen and (max-width: 630px) {
+        @include mxs.colFlex(center, stretch, 10px);
+        text-align: center;
+    }
+}

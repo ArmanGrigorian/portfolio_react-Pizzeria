@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
+import SectionTop from "../section/sectionTop/SectionTop.jsx";
+import SearchBar from "../section/searchBar/SearchBar.jsx";
 import HeaderTop from "../header/headerTop/HeaderTop.jsx";
 import Menu from "../section/menu/Menu.jsx";
 import HeaderBottom from "../header/headerBottom/HeaderBottom.jsx";
 import Categories from "../header/headerBottom/categories/Categories.jsx";
 import Sort from "../header/headerBottom/sort/Sort.jsx";
+import Footer from "../footer/Footer.jsx";
+import Pagination from "../footer/pagination/Pagination.jsx";
 
 export default function MainPage() {
-	const initialUrl = "https://64d772272a017531bc134033.mockapi.io/pizzas";
+	const [currentPage, setCurrentPage] = useState(1);
+
+	const initialUrl = `https://64d772272a017531bc134033.mockapi.io/pizzas?page=${currentPage}&limit=4&`;
 
 	// main URL which includes all categories of pizzas
 	const [url, setUrl] = useState(initialUrl);
@@ -24,7 +30,15 @@ export default function MainPage() {
 	const [pizzas, setPizzas] = useState([]);
 	const [isLoading, setisLoading] = useState(true);
 
+	// props of SearchBar.jsx
+	const [searchValue, setSearchValue] = useState("");
+
 	// FUNCTIONS
+
+	// IT IS NOT MY FAULT THAT FILTERING/SORTING OF SEARCHED ELEMENTS NOT WORKING
+	// CORRECT AS ASPECTED I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mockAPI
+	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY FIRST PASSED VALUE...
+
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
@@ -37,9 +51,17 @@ export default function MainPage() {
 				}
 			} else {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=desc`);
+					setUrl(
+						`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${
+							e.target.dataset.category
+						}&order=desc`,
+					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=asc`);
+					setUrl(
+						`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${
+							e.target.dataset.category
+						}&order=asc`,
+					);
 				}
 			}
 		} else return;
@@ -48,15 +70,58 @@ export default function MainPage() {
 	function handleSelect(e) {
 		setSortBy(e.target.value);
 
-		if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-			setUrl(
-				`${initialUrl}?filter=${activeCategory}&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
-			);
-		} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-			setUrl(
-				`${initialUrl}?filter=${activeCategory}&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
-			);
+		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
+			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
+				setUrl(`${initialUrl}?&sortBy=${e.target.value.split(" ")[0]}&order=desc`);
+			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
+				setUrl(`${initialUrl}?&sortBy=${e.target.value.split(" ")[0]}&order=asc`);
+			}
+		} else {
+			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
+				setUrl(
+					`${initialUrl}?category=${activeCategory}&title=${searchValue}&sortBy=${
+						e.target.value.split(" ")[0]
+					}&order=desc`,
+				);
+			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
+				setUrl(
+					`${initialUrl}?category=${activeCategory}&title=${searchValue}&sortBy=${
+						e.target.value.split(" ")[0]
+					}&order=asc`,
+				);
+			}
 		}
+	}
+
+	function handleSearch(e) {
+		setSearchValue(e.target.value);
+
+		if (activeCategory.toLowerCase() === "all") {
+			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
+				setUrl(`${initialUrl}?title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`);
+			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
+				setUrl(`${initialUrl}?title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`);
+			}
+		} else {
+			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
+				setUrl(
+					`${initialUrl}?title=${e.target.value}&category=${activeCategory}&sortBy=${
+						sortBy.split(" ")[0]
+					}&order=desc`,
+				);
+			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
+				setUrl(
+					`${initialUrl}?title=${e.target.value}&category=${activeCategory}&sortBy=${
+						sortBy.split(" ")[0]
+					}&order=asc`,
+				);
+			}
+		}
+	}
+
+	function handlePage(e) {
+		setCurrentPage(e.selected + 1)
+		setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas?page=${e.selected + 1}&limit=4&`);
 	}
 
 	useEffect(() => {
@@ -78,6 +143,7 @@ export default function MainPage() {
 		<>
 			<Header>
 				<HeaderTop />
+
 				<HeaderBottom>
 					<Categories
 						categories={categories}
@@ -87,15 +153,18 @@ export default function MainPage() {
 					<Sort sortBy={sortBy} handleSelect={handleSelect} />
 				</HeaderBottom>
 			</Header>
+
 			<Section>
-				<Menu
-					url={url}
-					pizzas={pizzas}
-					setPizzas={setPizzas}
-					isLoading={isLoading}
-					setisLoading={setisLoading}
-				/>
+				<SectionTop>
+					<h1>{isLoading ? "Loading" : "All"}</h1>
+					<SearchBar searchValue={searchValue} handleSearch={handleSearch} />
+				</SectionTop>
+
+				<Menu pizzas={pizzas} isLoading={isLoading} searchValue={searchValue} />
 			</Section>
+			<Footer>
+				<Pagination handlePage={handlePage} />
+			</Footer>
 		</>
 	);
 }
