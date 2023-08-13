@@ -26,16 +26,16 @@ export default function MainPage() {
 
 	// functions
 	function handleSetCategory(e) {
-		
-
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
 			if (e.target.dataset.category.toLowerCase() === "all") {
-				setUrl(initialUrl);
+				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
+					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=desc`);
+				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
+					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=asc`);
+				}
 			} else {
-				setUrl(
-					`${initialUrl}?filter=${e.target.dataset.category}&order=desc`,
-				);
+				setUrl(`${initialUrl}?sortBy=${sortBy}&filter=${e.target.dataset.category}&order=desc`);
 			}
 		} else return;
 	}
@@ -44,9 +44,13 @@ export default function MainPage() {
 		setSortBy(e.target.value);
 
 		if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-			setUrl(`${initialUrl}?sortBy=${e.target.value.split(" ")[0]}&order=desc`);
+			setUrl(
+				`${initialUrl}?filter=${activeCategory}&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
+			);
 		} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-			setUrl(`${initialUrl}?sortBy=${e.target.value.split(" ")[0]}&order=asc`);
+			setUrl(
+				`${initialUrl}?filter=${activeCategory}&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
+			);
 		}
 	}
 
