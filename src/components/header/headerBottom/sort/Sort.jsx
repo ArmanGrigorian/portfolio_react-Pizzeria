@@ -2,7 +2,14 @@ import "./Sort.scss";
 import PropTypes from "prop-types";
 
 export default function Sort({sortBy, handleSelect}) {
-	const sortCategories = ["rating", "price", "title"];
+	const sortCategories = [
+		"rating (high > low)",
+		"rating (low > high)",
+		"price (high > low)",
+		"price (low > high)",
+		"title (A - Z)",
+		"title (Z - A)",
+	];
 
 	return (
 		<div className="sort">

@@ -27,9 +27,7 @@ export default function MainPage() {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
 			if (e.target.dataset.category.toLowerCase() === "all") {
-				setUrl(
-					`https://64d772272a017531bc134033.mockapi.io/pizzas`,
-				);
+				setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas`);
 			} else {
 				setUrl(
 					`https://64d772272a017531bc134033.mockapi.io/pizzas?filter=${e.target.dataset.category}&order=desc`,
@@ -40,12 +38,39 @@ export default function MainPage() {
 
 	function handleSelect(e) {
 		setSortBy(e.target.value);
-		setUrl(
-			`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value}&order=desc`,
-		);
+		if (e.target.value.endsWith("low)")) {
+			setUrl(
+				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
+					0,
+					-13,
+				)}&order=desc`,
+			);
+		} else if (e.target.value.endsWith("high)")) {
+			setUrl(
+				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
+					0,
+					-13,
+				)}&order=asc`,
+			);
+		} else if (e.target.value.endsWith("A)")) {
+			setUrl(
+				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
+					0,
+					-8,
+				)}&order=desc`,
+			);
+		} else if (e.target.value.endsWith("Z)")) {
+			setUrl(
+				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
+					0,
+					-8,
+				)}&order=asc`,
+			);
+		}
 	}
 
 	useEffect(() => {
+		setisLoading(true);
 		fetch(url)
 			.then((response) => response.json())
 			.then((data) => {

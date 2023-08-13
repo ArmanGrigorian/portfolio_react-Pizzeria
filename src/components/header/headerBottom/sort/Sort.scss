@@ -8,16 +8,16 @@
      }
 
      select {
-         padding: var(--my-value-min);
+         padding: var(--my-value-mid);
          border: none;
          outline: none;
          @include mxs.p(var(--my-color-green));
          text-decoration: underline dotted var(--my-color-green) 3px;
          text-underline-offset: 2px;
-
+         
          option {
              @include mxs.p();
-         }
+            }
      }
 
      @media only screen and (max-width: 400px) {
