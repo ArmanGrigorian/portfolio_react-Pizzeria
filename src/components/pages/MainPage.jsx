@@ -35,10 +35,11 @@ export default function MainPage() {
 
 	// FUNCTIONS
 
-	// IT IS NOT MY FAULT THAT FILTERING/SORTING OF SEARCHED ELEMENTS NOT WORKING
-	// CORRECT AS ASPECTED I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mockAPI
+	// IT IS NOT MY FAULT THAT FILTERING/SORTING NOT WORKING CORRECTLY...
+	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mockAPI
 	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY FIRST PASSED VALUE...
-
+	// MAYBE I WILL CHAGE THE BACKEND API TO ANOTHER ONE... MAYBE FIREBASE...
+ 
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
@@ -136,7 +137,6 @@ export default function MainPage() {
 					setisLoading(false);
 				}, 100);
 			});
-		window.scrollTo(0, 0);
 	}, [url]);
 
 	return (
