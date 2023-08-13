@@ -8,8 +8,10 @@ import Categories from "../header/headerBottom/categories/Categories.jsx";
 import Sort from "../header/headerBottom/sort/Sort.jsx";
 
 export default function MainPage() {
+	const initialUrl = "https://64d772272a017531bc134033.mockapi.io/pizzas";
+
 	// main URL which includes all categories of pizzas
-	const [url, setUrl] = useState("https://64d772272a017531bc134033.mockapi.io/pizzas");
+	const [url, setUrl] = useState(initialUrl);
 
 	// props of Category.jsx
 	const categories = ["All", "Meat", "Spicy"];
@@ -24,13 +26,15 @@ export default function MainPage() {
 
 	// functions
 	function handleSetCategory(e) {
+		
+
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 			setActiveCategory(e.target.dataset.category);
 			if (e.target.dataset.category.toLowerCase() === "all") {
-				setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas`);
+				setUrl(initialUrl);
 			} else {
 				setUrl(
-					`https://64d772272a017531bc134033.mockapi.io/pizzas?filter=${e.target.dataset.category}&order=desc`,
+					`${initialUrl}?filter=${e.target.dataset.category}&order=desc`,
 				);
 			}
 		} else return;
@@ -38,34 +42,11 @@ export default function MainPage() {
 
 	function handleSelect(e) {
 		setSortBy(e.target.value);
-		if (e.target.value.endsWith("low)")) {
-			setUrl(
-				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
-					0,
-					-13,
-				)}&order=desc`,
-			);
-		} else if (e.target.value.endsWith("high)")) {
-			setUrl(
-				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
-					0,
-					-13,
-				)}&order=asc`,
-			);
-		} else if (e.target.value.endsWith("A)")) {
-			setUrl(
-				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
-					0,
-					-8,
-				)}&order=desc`,
-			);
-		} else if (e.target.value.endsWith("Z)")) {
-			setUrl(
-				`https://64d772272a017531bc134033.mockapi.io/pizzas?sortBy=${e.target.value.slice(
-					0,
-					-8,
-				)}&order=asc`,
-			);
+
+		if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
+			setUrl(`${initialUrl}?sortBy=${e.target.value.split(" ")[0]}&order=desc`);
+		} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
+			setUrl(`${initialUrl}?sortBy=${e.target.value.split(" ")[0]}&order=asc`);
 		}
 	}
 
