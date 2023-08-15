@@ -3,7 +3,7 @@
 .headerBottom {
     @include mxs.rowFlex(space-between, center);
 
-    @media only screen and (max-width: 630px) {
+    @media only screen and (max-width: 830px) {
         @include mxs.colFlex(center, space-between, 20px);
     }
 }

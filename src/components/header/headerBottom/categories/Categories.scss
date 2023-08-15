@@ -33,14 +33,14 @@
             }
         }
 
-        @media only screen and (max-width: 630px) {
+        @media only screen and (max-width: 830px) {
             @include mxs.colFlex(center, stretch, 10px);
             text-align: center;
         }
 
     }
 
-    @media only screen and (max-width: 630px) {
+    @media only screen and (max-width: 830px) {
         width: 100%;
     }
 

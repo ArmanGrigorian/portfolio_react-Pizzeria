@@ -9,13 +9,13 @@ section {
         padding-left: var(--my-value-max);
         padding-bottom: var(--my-value-max);
 
-        @media only screen and (max-width: 630px) {
+        @media only screen and (max-width: 830px) {
             padding-left: var(--my-value-mid);
             padding-bottom: var(--my-value-mid);
         }
     }
 
-    @media only screen and (max-width: 630px) {
+    @media only screen and (max-width: 830px) {
         padding: var(--my-value-min);
     }
 

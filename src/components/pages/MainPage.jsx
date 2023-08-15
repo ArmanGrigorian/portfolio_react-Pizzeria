@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
 import SectionTop from "../section/sectionTop/SectionTop.jsx";
@@ -10,59 +10,69 @@ import Categories from "../header/headerBottom/categories/Categories.jsx";
 import Sort from "../header/headerBottom/sort/Sort.jsx";
 import Footer from "../footer/Footer.jsx";
 import Pagination from "../footer/pagination/Pagination.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	setPizzas,
+	setIsLoading,
+} from "../../redux/slices/pizzaSlice.js";
+
+import {
+	setActiveCategory,
+	setSortBy,
+	setSearchValue,
+	setCurrentPage,
+	setUrl,
+} from "../../redux/slices/filterSlice.js";
 
 export default function MainPage() {
-	const [currentPage, setCurrentPage] = useState(1);
-
-	const initialUrl = `https://64d772272a017531bc134033.mockapi.io/pizzas?page=${currentPage}&limit=4&`;
-
-	// main URL which includes all categories of pizzas
-	const [url, setUrl] = useState(initialUrl);
-
-	// props of Category.jsx
-	const categories = ["All", "Meat", "Spicy"];
-	const [activeCategory, setActiveCategory] = useState("all");
-
-	// props of Sort.jsx
-	const [sortBy, setSortBy] = useState("rating (high > low)");
-
-	// props of Menu.jsx
-	const [pizzas, setPizzas] = useState([]);
-	const [isLoading, setisLoading] = useState(true);
-
-	// props of SearchBar.jsx
-	const [searchValue, setSearchValue] = useState("");
+	// pizzaSlice
+	const pizzas = useSelector((state) => state.pizzaSlice.pizzas);
+	const isLoading = useSelector((state) => state.pizzaSlice.isLoading);
+	// filterSlice
+	const activeCategory = useSelector((state) => state.filterSlice.activeCategory);
+	const sortBy = useSelector((state) => state.filterSlice.sortBy);
+	const searchValue = useSelector((state) => state.filterSlice.searchValue);
+	const currentPage = useSelector((state) => state.filterSlice.currentPage);
+	const url = useSelector((state) => state.filterSlice.url);
+	// redux dispath
+	const dispatch = useDispatch();
+	// local variables
+	const categories = ["All", "Meat", "Spicy", "Cheese"];
+	const initialUrl = `https://64d772272a017531bc134033.mockapi.io/pizzas?page=${currentPage}&limit=8&`;
 
 	// FUNCTIONS
+	// IT IS NOT MY FAULT THAT FILTERING/SORTING WITH TWO AND MORE
+	// CONDITIONS IS NOT WORKING CORRECTLY...
+	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mock.API
+	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
+	// FIRST PASSED CONDITION AND NEVER THE SECOND ONE...
 
-	// IT IS NOT MY FAULT THAT FILTERING/SORTING NOT WORKING CORRECTLY...
-	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mockAPI
-	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY FIRST PASSED VALUE...
-	// MAYBE I WILL CHAGE THE BACKEND API TO ANOTHER ONE...
- 
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
-			setActiveCategory(e.target.dataset.category);
+			dispatch(setActiveCategory(e.target.dataset.category));
 
 			if (e.target.dataset.category.toLowerCase() === "all") {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=desc`);
+					dispatch(setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=desc`));
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=asc`);
+					dispatch(setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=asc`));
 				}
 			} else {
-				console.log(initialUrl);
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					setUrl(
-						`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
-							e.target.dataset.category
-						}&order=desc`,
+					dispatch(
+						setUrl(
+							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
+								e.target.dataset.category
+							}&order=desc`,
+						),
 					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					setUrl(
-						`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
-							e.target.dataset.category
-						}&order=asc`,
+					dispatch(
+						setUrl(
+							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
+								e.target.dataset.category
+							}&order=asc`,
+						),
 					);
 				}
 			}
@@ -70,73 +80,83 @@ export default function MainPage() {
 	}
 
 	function handleSelect(e) {
-		setSortBy(e.target.value);
+		dispatch(setSortBy(e.target.value));
 
 		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=desc`);
+				dispatch(setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=desc`));
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=asc`);
+				dispatch(setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=asc`));
 			}
 		} else {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				setUrl(
-					`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
-						e.target.value.split(" ")[0]
-					}&order=desc`,
+				dispatch(
+					setUrl(
+						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
+							e.target.value.split(" ")[0]
+						}&order=desc`,
+					),
 				);
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				setUrl(
-					`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
-						e.target.value.split(" ")[0]
-					}&order=asc`,
+				dispatch(
+					setUrl(
+						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
+							e.target.value.split(" ")[0]
+						}&order=asc`,
+					),
 				);
 			}
 		}
 	}
 
 	function handleSearch(e) {
-		setSearchValue(e.target.value);
+		dispatch(setSearchValue(e.target.value));
 
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`);
+				dispatch(
+					setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`),
+				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`);
+				dispatch(
+					setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`),
+				);
 			}
 		} else {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				setUrl(
-					`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
-						sortBy.split(" ")[0]
-					}&order=desc`,
+				dispatch(
+					setUrl(
+						`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
+							sortBy.split(" ")[0]
+						}&order=desc`,
+					),
 				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				setUrl(
-					`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
-						sortBy.split(" ")[0]
-					}&order=asc`,
+				dispatch(
+					setUrl(
+						`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
+							sortBy.split(" ")[0]
+						}&order=asc`,
+					),
 				);
 			}
 		}
 	}
 
 	function handlePage(e) {
-		setCurrentPage(e.selected + 1)
-		setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas?page=${e.selected + 1}&limit=4&`);
+		dispatch(setCurrentPage(e.selected + 1));
+		dispatch(
+			setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas?page=${e.selected + 1}&limit=8&`),
+		);
 	}
 
 	useEffect(() => {
-		setisLoading(true);
+		dispatch(setIsLoading(true));
 		fetch(url)
 			.then((response) => response.json())
 			.then((data) => {
-				setPizzas(data);
-
-				// fake remaining
-				setTimeout(() => {
-					setisLoading(false);
-				}, 100);
+				dispatch(setPizzas(data));
+				dispatch(setIsLoading(false));
 			});
 	}, [url]);
 

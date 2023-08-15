@@ -7,7 +7,7 @@ footer {
     border-bottom-right-radius: var(--my-value-mid);
     padding: calc(var(--my-value-max) * 2);
 
-    @media only screen and (max-width: 630px) {
+    @media only screen and (max-width: 830px) {
         padding: var(--my-value-mid);
     }
 }
