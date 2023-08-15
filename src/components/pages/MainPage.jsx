@@ -11,10 +11,7 @@ import Sort from "../header/headerBottom/sort/Sort.jsx";
 import Footer from "../footer/Footer.jsx";
 import Pagination from "../footer/pagination/Pagination.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import {
-	setPizzas,
-	setIsLoading,
-} from "../../redux/slices/pizzaSlice.js";
+import { setPizzas, setIsLoading } from "../../redux/slices/pizzaSlice.js";
 
 import {
 	setActiveCategory,
@@ -26,14 +23,12 @@ import {
 
 export default function MainPage() {
 	// pizzaSlice
-	const pizzas = useSelector((state) => state.pizzaSlice.pizzas);
-	const isLoading = useSelector((state) => state.pizzaSlice.isLoading);
+	const { pizzas, isLoading } = useSelector((state) => state.pizzaSlice);
 	// filterSlice
-	const activeCategory = useSelector((state) => state.filterSlice.activeCategory);
-	const sortBy = useSelector((state) => state.filterSlice.sortBy);
-	const searchValue = useSelector((state) => state.filterSlice.searchValue);
-	const currentPage = useSelector((state) => state.filterSlice.currentPage);
-	const url = useSelector((state) => state.filterSlice.url);
+	const { activeCategory, sortBy, searchValue, currentPage, url } = useSelector(
+		(state) => state.filterSlice,
+	);
+
 	// redux dispath
 	const dispatch = useDispatch();
 	// local variables
@@ -45,7 +40,7 @@ export default function MainPage() {
 	// CONDITIONS IS NOT WORKING CORRECTLY...
 	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mock.API
 	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
-	// FIRST PASSED CONDITION AND NEVER THE SECOND ONE...
+	// FIRST PASSED CONDITION...
 
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
@@ -158,7 +153,7 @@ export default function MainPage() {
 				dispatch(setPizzas(data));
 				dispatch(setIsLoading(false));
 			});
-	}, [url]);
+	}, [dispatch, url]);
 
 	return (
 		<>
