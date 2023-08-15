@@ -38,7 +38,7 @@ export default function MainPage() {
 	// IT IS NOT MY FAULT THAT FILTERING/SORTING NOT WORKING CORRECTLY...
 	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mockAPI
 	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY FIRST PASSED VALUE...
-	// MAYBE I WILL CHAGE THE BACKEND API TO ANOTHER ONE... MAYBE FIREBASE...
+	// MAYBE I WILL CHAGE THE BACKEND API TO ANOTHER ONE...
  
 	function handleSetCategory(e) {
 		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
@@ -46,20 +46,21 @@ export default function MainPage() {
 
 			if (e.target.dataset.category.toLowerCase() === "all") {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=desc`);
+					setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=desc`);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					setUrl(`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&order=asc`);
+					setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=asc`);
 				}
 			} else {
+				console.log(initialUrl);
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 					setUrl(
-						`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${
+						`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
 							e.target.dataset.category
 						}&order=desc`,
 					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 					setUrl(
-						`${initialUrl}?sortBy=${sortBy.split(" ")[0]}&filter=${
+						`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
 							e.target.dataset.category
 						}&order=asc`,
 					);
@@ -73,20 +74,20 @@ export default function MainPage() {
 
 		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				setUrl(`${initialUrl}?&sortBy=${e.target.value.split(" ")[0]}&order=desc`);
+				setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=desc`);
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				setUrl(`${initialUrl}?&sortBy=${e.target.value.split(" ")[0]}&order=asc`);
+				setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=asc`);
 			}
 		} else {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
 				setUrl(
-					`${initialUrl}?category=${activeCategory}&title=${searchValue}&sortBy=${
+					`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
 						e.target.value.split(" ")[0]
 					}&order=desc`,
 				);
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
 				setUrl(
-					`${initialUrl}?category=${activeCategory}&title=${searchValue}&sortBy=${
+					`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
 						e.target.value.split(" ")[0]
 					}&order=asc`,
 				);
@@ -99,20 +100,20 @@ export default function MainPage() {
 
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				setUrl(`${initialUrl}?title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`);
+				setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				setUrl(`${initialUrl}?title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`);
+				setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`);
 			}
 		} else {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				setUrl(
-					`${initialUrl}?title=${e.target.value}&category=${activeCategory}&sortBy=${
+					`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
 						sortBy.split(" ")[0]
 					}&order=desc`,
 				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 				setUrl(
-					`${initialUrl}?title=${e.target.value}&category=${activeCategory}&sortBy=${
+					`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
 						sortBy.split(" ")[0]
 					}&order=asc`,
 				);

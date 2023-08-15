@@ -4,15 +4,15 @@
     @include mxs.rowFlex(space-between, center);
     background-color: var(--my-color-greyDark);
     color: var(--my-color-white);
-    padding: calc(var(--my-value-min) * 8) calc(var(--my-value-mid) * 3);
+    padding: calc(var(--my-value-min) * 4) calc(var(--my-value-mid) * 3);
     border-radius: var(--my-value-max);
     box-shadow: 0px 1px 4px 1px var(--my-color-greyDark);
     width: 30%;
 
     li{
         @include mxs.rowFlex(center, center);
-        width: 24px;
-        height: 24px;
+        width: 21px;
+        height: 21px;
         list-style-type: none;
         border-radius: var(--my-value-mid);
         cursor: pointer;

@@ -12,7 +12,7 @@
          border: none;
          outline: none;
          @include mxs.p(var(--my-color-green));
-         text-decoration: underline dotted var(--my-color-green) 3px;
+         text-decoration: underline dotted var(--my-color-green) 1px;
          text-underline-offset: 2px;
          
          option {
