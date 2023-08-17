@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import axios from "axios";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
 import SectionTop from "../section/sectionTop/SectionTop.jsx";
@@ -147,12 +148,10 @@ export default function MainPage() {
 
 	useEffect(() => {
 		dispatch(setIsLoading(true));
-		fetch(url)
-			.then((response) => response.json())
-			.then((data) => {
-				dispatch(setPizzas(data));
-				dispatch(setIsLoading(false));
-			});
+		axios.get(url).then((response) => {
+			dispatch(setPizzas(response.data));
+			dispatch(setIsLoading(false));
+		});
 	}, [dispatch, url]);
 
 	return (
