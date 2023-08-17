@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import axios from "axios";
+import debounce from "lodash.debounce";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
 import SectionTop from "../section/sectionTop/SectionTop.jsx";
@@ -17,6 +18,7 @@ import { setPizzas, setIsLoading } from "../../redux/slices/pizzaSlice.js";
 import {
 	setActiveCategory,
 	setSortBy,
+	setInputValue,
 	setSearchValue,
 	setCurrentPage,
 	setUrl,
@@ -26,7 +28,7 @@ export default function MainPage() {
 	// pizzaSlice
 	const { pizzas, isLoading } = useSelector((state) => state.pizzaSlice);
 	// filterSlice
-	const { activeCategory, sortBy, searchValue, currentPage, url } = useSelector(
+	const { activeCategory, sortBy, inputValue, searchValue, currentPage, url } = useSelector(
 		(state) => state.filterSlice,
 	);
 
@@ -105,24 +107,43 @@ export default function MainPage() {
 		}
 	}
 
-	function handleSearch(e) {
-		dispatch(setSearchValue(e.target.value));
+	const updateSearchValue = useCallback(
+		debounce((str) => {
+			dispatch(setSearchValue(str));
+		}, 1000), []
+	);
+
+	const updateHandleSearch = useCallback(
+		debounce((str) => {
+			handleSearch(str);
+		}, 1000), []
+	)
+
+	function onChangeInput(e) {
+		dispatch(setInputValue(e.target.value));
+		updateSearchValue(e.target.value);
+		updateHandleSearch(e.target.value);
+
+		
+	}
+	
+	function handleSearch(currentSearchValue) {
 
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				dispatch(
-					setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=desc`),
+					setUrl(`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=desc`),
 				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 				dispatch(
-					setUrl(`${initialUrl}title=${e.target.value}&sortBy=${sortBy.split(" ")[0]}&order=asc`),
+					setUrl(`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=asc`),
 				);
 			}
 		} else {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
+						`${initialUrl}title=${currentSearchValue}&category=${activeCategory}&sortBy=${
 							sortBy.split(" ")[0]
 						}&order=desc`,
 					),
@@ -130,7 +151,7 @@ export default function MainPage() {
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}title=${e.target.value}&category=${activeCategory}&sortBy=${
+						`${initialUrl}title=${currentSearchValue}&category=${activeCategory}&sortBy=${
 							sortBy.split(" ")[0]
 						}&order=asc`,
 					),
@@ -172,10 +193,10 @@ export default function MainPage() {
 			<Section>
 				<SectionTop>
 					<h1>{isLoading ? "Loading" : "All"}</h1>
-					<SearchBar searchValue={searchValue} handleSearch={handleSearch} />
+					<SearchBar searchValue={searchValue} onChangeInput={onChangeInput} />
 				</SectionTop>
 
-				<Menu pizzas={pizzas} isLoading={isLoading} searchValue={searchValue} />
+				<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue}/>
 			</Section>
 			<Footer>
 				<Pagination handlePage={handlePage} />

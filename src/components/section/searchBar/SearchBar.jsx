@@ -2,7 +2,7 @@ import "./SearchBar.scss";
 import PropTypes from "prop-types";
 import { FcSearch } from "react-icons/Fc";
 
-export default function SearchBar({ searchValue, handleSearch }) {
+export default function SearchBar({inputValue, onChangeInput}) {
 
 	return (
 		<div className="searchBar">
@@ -12,8 +12,8 @@ export default function SearchBar({ searchValue, handleSearch }) {
 				placeholder="looking for something"
 				className="searchPizza"
 				id="searchPizza"
-				value={searchValue}
-				onChange={(e) => handleSearch(e)}
+				value={inputValue}
+				onChange={(e) => onChangeInput(e)}
 			/>
 			<FcSearch />
 		</div>
@@ -21,6 +21,6 @@ export default function SearchBar({ searchValue, handleSearch }) {
 }
 
 SearchBar.propTypes = {
-	searchValue: PropTypes.string,
-	handleSearch: PropTypes.func,
+	inputValue: PropTypes.string,
+	onChangeInput: PropTypes.func,
 }
