@@ -15,11 +15,13 @@
         height: 21px;
         list-style-type: none;
         border-radius: var(--my-value-mid);
+        user-select: none;
         cursor: pointer;
         
         a{
             text-align: center;
             text-decoration: none;
+            user-select: none;
             font-size: var(--my-font-size-p);
 
         }

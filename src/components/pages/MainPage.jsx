@@ -59,17 +59,13 @@ export default function MainPage() {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 					dispatch(
 						setUrl(
-							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
-								e.target.dataset.category
-							}&order=desc`,
+							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=desc`,
 						),
 					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 					dispatch(
 						setUrl(
-							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${
-								e.target.dataset.category
-							}&order=asc`,
+							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=asc`,
 						),
 					);
 				}
@@ -90,17 +86,13 @@ export default function MainPage() {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
-							e.target.value.split(" ")[0]
-						}&order=desc`,
+						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
 					),
 				);
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${
-							e.target.value.split(" ")[0]
-						}&order=asc`,
+						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
 					),
 				);
 			}
@@ -110,33 +102,29 @@ export default function MainPage() {
 	const updateSearchValue = useCallback(
 		debounce((str) => {
 			dispatch(setSearchValue(str));
-		}, 1000), []
-	);
-
-	const updateHandleSearch = useCallback(
-		debounce((str) => {
 			handleSearch(str);
-		}, 1000), []
-	)
+		}, 1000),
+		[],
+	);
 
 	function onChangeInput(e) {
 		dispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
-		updateHandleSearch(e.target.value);
-
-		
 	}
-	
-	function handleSearch(currentSearchValue) {
 
+	function handleSearch(currentSearchValue) {
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				dispatch(
-					setUrl(`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=desc`),
+					setUrl(
+						`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=desc`,
+					),
 				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 				dispatch(
-					setUrl(`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=asc`),
+					setUrl(
+						`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=asc`,
+					),
 				);
 			}
 		} else {
@@ -196,7 +184,7 @@ export default function MainPage() {
 					<SearchBar searchValue={searchValue} onChangeInput={onChangeInput} />
 				</SectionTop>
 
-				<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue}/>
+				<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue} />
 			</Section>
 			<Footer>
 				<Pagination handlePage={handlePage} />

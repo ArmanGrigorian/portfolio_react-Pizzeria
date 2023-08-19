@@ -9,7 +9,7 @@
      padding: var(--my-value-mid) var(--my-value-max);
 
      p {
-         @include mxs.p(var(--my-color-black));
+         @include mxs.h3(var(--my-color-black));
      }
 
      button {
@@ -38,7 +38,7 @@
          @include mxs.rowFlex(start, center, 6px);
 
          &:first-child {
-             width: 48%;
+             width: 46%;
 
              img {
                  width: 50px;

@@ -1,7 +1,11 @@
 import "./HeaderTop.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function HeaderTop() {
+
+	const {totalPrice, totalCount } = useSelector(state => state.cartSlice);
+	
 	return (
 		<div className="headerTop">
 			<Link to="/">
@@ -16,10 +20,10 @@ export default function HeaderTop() {
 
 			<Link to="/cartPage">
 				<div className="headerTopRight">
-					<p>0 $</p>
+					<p>{totalPrice} $</p>
 					<div>
 						<img src="/img/shoppingCart.png" alt="shopping cart image" />
-						<p>0</p>
+						<p>{totalCount}</p>
 					</div>
 				</div>
 			</Link>

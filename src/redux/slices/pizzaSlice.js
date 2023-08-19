@@ -11,12 +11,12 @@ export const pizzaSlice = createSlice({
     initialState,
 
     reducers: {
-        setPizzas(state, action) {
-            state.pizzas = action.payload;
+        setPizzas(state, {payload}) {
+            state.pizzas = payload;
         },
 
-        setIsLoading(state, action) {
-            state.isLoading = action.payload
+        setIsLoading(state, {payload}) {
+            state.isLoading = payload;
         },
     }
 })

@@ -15,28 +15,28 @@ export const filterSlice = createSlice({
 	initialState,
 
 	reducers: {
-		setActiveCategory(state, action) {
-			state.activeCategory = action.payload;
+		setActiveCategory(state, {payload}) {
+			state.activeCategory = payload;
         },
         
-		setSortBy(state, action){
-			state.sortBy = action.payload;
+		setSortBy(state, {payload}){
+			state.sortBy = payload;
 		},
 
-		setInputValue(state, action) {
-			state.inputValue = action.payload;
+		setInputValue(state, {payload}) {
+			state.inputValue = payload;
 		},
 		
-		setSearchValue(state, action) {
-			state.searchValue = action.payload;
+		setSearchValue(state, {payload}) {
+			state.searchValue = payload;
 		},
 
-		setCurrentPage(state, action) {
-			state.currentPage = action.payload;
+		setCurrentPage(state, {payload}) {
+			state.currentPage = payload;
 		},
 
-		setUrl(state, action) {
-			state.url = action.payload;
+		setUrl(state, {payload}) {
+			state.url = payload;
 		},
 	},
 });

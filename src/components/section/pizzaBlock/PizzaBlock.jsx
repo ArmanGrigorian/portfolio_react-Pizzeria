@@ -1,10 +1,32 @@
 import { useState } from "react";
 import "./PizzaBlock.scss";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { addPizzaToCart } from "../../../redux/slices/cartSlice";
 
-export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price }) {
-	const [pizzaSize, setPizzaSize] = useState("");
-	const [pizzaDough, setPizzaDough] = useState("");
+export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, price }) {	
+	const dispatch = useDispatch();
+	
+	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
+	const [pizzaDough, setPizzaDough] = useState(doughs[0]);
+	const [pizzaCount, setPizzaCount] = useState(0);
+
+
+	function handleAddPizzaToCart() {
+		const item = {
+			id,
+			title,
+			price,
+			imgSrc,
+			imgAlt,
+			sizes: pizzaSize,
+			doughs: pizzaDough,
+			count: 1,
+		};
+		dispatch(addPizzaToCart(item))
+		setPizzaCount((prevPizzaCount)=> prevPizzaCount += 1)
+	}
+
 
 	function handleSetPizzaInfo(e, arr) {
 		switch (arr) {
@@ -34,8 +56,7 @@ export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price
 					onClick={(e) => {
 						handleSetPizzaInfo(e, doughs);
 					}}>
-					{doughs &&
-						doughs.map((dough) => {
+					{doughs.map((dough) => {
 							return (
 								<li
 									key={crypto.randomUUID()}
@@ -48,8 +69,7 @@ export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price
 				</ul>
 
 				<ul onClick={(e) => handleSetPizzaInfo(e, sizes)}>
-					{sizes &&
-						sizes.map((size) => {
+					{sizes.map((size) => {
 							return (
 								<li
 									key={crypto.randomUUID()}
@@ -63,11 +83,11 @@ export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price
 			</div>
 
 			<div className="pizzaBlockBottom">
-				<p>from {price} $</p>
+				<p>price: {price} $</p>
 
-				<button type="button" className="addButton">
+				<button type="button" className="addButton" onClick={handleAddPizzaToCart}>
 					<p>+ Add</p>
-					<p>0</p>
+					<p>{pizzaCount}</p>
 				</button>
 			</div>
 		</div>
@@ -75,6 +95,7 @@ export default function PizzaBlock({ sizes, doughs, imgSrc, imgAlt, title, price
 }
 
 PizzaBlock.propTypes = {
+	id: PropTypes.string,
 	sizes: PropTypes.arrayOf(PropTypes.string),
 	doughs: PropTypes.arrayOf(PropTypes.string),
 	imgSrc: PropTypes.string,
