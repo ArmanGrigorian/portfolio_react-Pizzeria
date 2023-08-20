@@ -1,9 +1,13 @@
 import "./CartItem.scss";
 import PropTypes from "prop-types";
-import { addPizzaToCart, decrementPizzaCount, removePizzaFromCart } from "../../../redux/slices/cartSlice.js";
+import {
+	addPizzaToCart,
+	decrementPizzaCount,
+	removePizzaFromCart,
+} from "../../../redux/slices/cartSlice.js";
 import { useDispatch } from "react-redux";
 
-export default function CartItem({id, imgSrc, imgAlt, title, price, sizes, doughs, count }) {
+export default function CartItem({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }) {
 	const dispatch = useDispatch();
 
 	function handleClick(e) {
@@ -16,7 +20,7 @@ export default function CartItem({id, imgSrc, imgAlt, title, price, sizes, dough
 				break;
 			case "removeButton":
 				if (confirm(`remove ${title} from your cart`)) {
-					dispatch(removePizzaFromCart({id, sizes, doughs}));
+					dispatch(removePizzaFromCart({ id, title, sizes, doughs, price, count }));
 				}
 				break;
 			default:

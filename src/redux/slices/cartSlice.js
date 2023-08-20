@@ -46,10 +46,14 @@ export const cartSlice = createSlice({
 		},
 
 		removePizzaFromCart(state, { payload }) {
-			// not finished
 			state.items = state.items.filter((obj) => {
-				return obj.id !== payload.id
+				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs) {
+					setTimeout(() => alert("removed"), 150);
+				} else return obj;	
 			})
+
+			state.totalPrice -= payload.price;
+			state.totalCount -= payload.count;
 		},
 
 		clearCart(state) {

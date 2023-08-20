@@ -20,7 +20,18 @@ export default function Cart() {
 		<>
 			<div className="cart">
 				{items.map((pizza) => {
-					return <CartItem key={crypto.randomUUID()} {...pizza} />;
+					return <CartItem
+						key={crypto.randomUUID()}
+						id={pizza.id}
+						title={pizza.title}
+						imgSrc={pizza.imgSrc}
+						imgAlt={pizza.imgAlt}
+						doughs={pizza.doughs}
+						sizes={pizza.sizes}
+						price={pizza.price}
+						count={pizza.count}
+
+					/>;
 				})}
 
 				<div className="cartMid">
