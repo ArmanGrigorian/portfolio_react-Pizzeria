@@ -1,5 +1,4 @@
 import { useEffect, useCallback } from "react";
-import axios from "axios";
 import debounce from "lodash.debounce";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
@@ -13,32 +12,34 @@ import Sort from "../header/headerBottom/sort/Sort.jsx";
 import Footer from "../footer/Footer.jsx";
 import Pagination from "../footer/pagination/Pagination.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { setPizzas, setIsLoading } from "../../redux/slices/pizzaSlice.js";
-
 import {
+	fetchPizzasByUrl,
+	setUrl,
+	setCurrentPage,
 	setActiveCategory,
 	setSortBy,
 	setInputValue,
 	setSearchValue,
-	setCurrentPage,
-	setUrl,
-} from "../../redux/slices/filterSlice.js";
+} from "../../redux/slices/pizzaSlice.js";
+import NotFound from "../section/NotFound.jsx";
 
 export default function MainPage() {
-	// pizzaSlice
-	const { pizzas, isLoading } = useSelector((state) => state.pizzaSlice);
-	// filterSlice
-	const { activeCategory, sortBy, inputValue, searchValue, currentPage, url } = useSelector(
-		(state) => state.filterSlice,
-	);
-
-	// redux dispath
-	const dispatch = useDispatch();
-	// local variables
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
-	const initialUrl = `https://64d772272a017531bc134033.mockapi.io/pizzas?page=${currentPage}&limit=8&`;
+	const {
+		url,
+		initialUrl,
+		currentPage,
+		status,
+		isLoading,
+		pizzas,
+		activeCategory,
+		sortBy,
+		inputValue,
+		searchValue,
+	} = useSelector((state) => state.pizzaSlice);
 
-	// FUNCTIONS
+	const dispatch = useDispatch();
+
 	// IT IS NOT MY FAULT THAT FILTERING/SORTING WITH TWO AND MORE
 	// CONDITIONS IS NOT WORKING CORRECTLY...
 	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mock.API
@@ -51,21 +52,29 @@ export default function MainPage() {
 
 			if (e.target.dataset.category.toLowerCase() === "all") {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					dispatch(setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=desc`));
+					dispatch(
+						setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=desc`),
+					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					dispatch(setUrl(`${initialUrl}sortBy=${sortBy.split(" ")[0]}&order=asc`));
+					dispatch(
+						setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=asc`),
+					);
 				}
 			} else {
 				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 					dispatch(
 						setUrl(
-							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=desc`,
+							`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
+								e.target.dataset.category
+							}&order=desc`,
 						),
 					);
 				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 					dispatch(
 						setUrl(
-							`${initialUrl}sortBy=${sortBy.split(" ")[0]}&filter=${e.target.dataset.category}&order=asc`,
+							`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
+								e.target.dataset.category
+							}&order=asc`,
 						),
 					);
 				}
@@ -78,21 +87,33 @@ export default function MainPage() {
 
 		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				dispatch(setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=desc`));
-			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				dispatch(setUrl(`${initialUrl}sortBy=${e.target.value.split(" ")[0]}&order=asc`));
-			}
-		} else {
-			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
+						`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
 					),
 				);
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}category=${activeCategory}&title=${searchValue}&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
+						`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
+					),
+				);
+			}
+		} else {
+			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
+				dispatch(
+					setUrl(
+						`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&title=${searchValue}&sortBy=${
+							e.target.value.split(" ")[0]
+						}&order=desc`,
+					),
+				);
+			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
+				dispatch(
+					setUrl(
+						`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&title=${searchValue}&sortBy=${
+							e.target.value.split(" ")[0]
+						}&order=asc`,
 					),
 				);
 			}
@@ -113,25 +134,12 @@ export default function MainPage() {
 	}
 
 	function handleSearch(currentSearchValue) {
+		console.log(currentSearchValue);
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=desc`,
-					),
-				);
-			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}title=${currentSearchValue}&sortBy=${sortBy.split(" ")[0]}&order=asc`,
-					),
-				);
-			}
-		} else {
-			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}title=${currentSearchValue}&category=${activeCategory}&sortBy=${
+						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&sortBy=${
 							sortBy.split(" ")[0]
 						}&order=desc`,
 					),
@@ -139,7 +147,25 @@ export default function MainPage() {
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
 				dispatch(
 					setUrl(
-						`${initialUrl}title=${currentSearchValue}&category=${activeCategory}&sortBy=${
+						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&sortBy=${
+							sortBy.split(" ")[0]
+						}&order=asc`,
+					),
+				);
+			}
+		} else {
+			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
+				dispatch(
+					setUrl(
+						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&category=${activeCategory}&sortBy=${
+							sortBy.split(" ")[0]
+						}&order=desc`,
+					),
+				);
+			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
+				dispatch(
+					setUrl(
+						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&category=${activeCategory}&sortBy=${
 							sortBy.split(" ")[0]
 						}&order=asc`,
 					),
@@ -150,17 +176,15 @@ export default function MainPage() {
 
 	function handlePage(e) {
 		dispatch(setCurrentPage(e.selected + 1));
-		dispatch(
-			setUrl(`https://64d772272a017531bc134033.mockapi.io/pizzas?page=${e.selected + 1}&limit=8&`),
-		);
+		dispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
+	}
+
+	async function controlBusiness() {
+		dispatch(fetchPizzasByUrl({ url }));
 	}
 
 	useEffect(() => {
-		dispatch(setIsLoading(true));
-		axios.get(url).then((response) => {
-			dispatch(setPizzas(response.data));
-			dispatch(setIsLoading(false));
-		});
+		controlBusiness();
 	}, [dispatch, url]);
 
 	return (
@@ -179,12 +203,17 @@ export default function MainPage() {
 			</Header>
 
 			<Section>
-				<SectionTop>
-					<h1>{isLoading ? "Loading" : "All"}</h1>
-					<SearchBar searchValue={searchValue} onChangeInput={onChangeInput} />
-				</SectionTop>
-
-				<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue} />
+				{status === "rejected" ? (
+					<NotFound title="OOP SOMETHING WENT WRONG" />
+				) : (
+					<>
+						<SectionTop>
+							<h1>{isLoading ? "Loading" : "All"}</h1>
+							<SearchBar searchValue={searchValue} onChangeInput={onChangeInput} />
+						</SectionTop>
+						<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue} />
+					</>
+				)}
 			</Section>
 			<Footer>
 				<Pagination handlePage={handlePage} />
