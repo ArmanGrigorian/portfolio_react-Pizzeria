@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import debounce from "lodash.debounce";
+import debounce from "../../utils/debounce.js";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
 import SectionTop from "../section/sectionTop/SectionTop.jsx";
@@ -40,8 +40,9 @@ export default function MainPage() {
 
 	const dispatch = useDispatch();
 
-	// IT IS NOT MY FAULT THAT FILTERING/SORTING WITH TWO AND MORE
-	// CONDITIONS IS NOT WORKING CORRECTLY...
+	// IT IS NOT MY FAULT THAT FILTER COMAND of mock.API
+	// IS NOT WORKING CORRECTLY WHENE I AM PASSING TWO AND MORE
+	// CONDITIONS...
 	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mock.API
 	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
 	// FIRST PASSED CONDITION...
@@ -124,7 +125,7 @@ export default function MainPage() {
 		debounce((str) => {
 			dispatch(setSearchValue(str));
 			handleSearch(str);
-		}, 1000),
+		}),
 		[],
 	);
 

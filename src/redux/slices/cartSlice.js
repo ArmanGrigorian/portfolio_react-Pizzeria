@@ -48,7 +48,7 @@ export const cartSlice = createSlice({
 		removePizzaFromCart(state, { payload }) {
 			state.items = state.items.filter((obj) => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs) {
-					setTimeout(() => alert("removed"), 150);
+					setTimeout(() => alert("removed"), 125);
 				} else return obj;	
 			})
 
