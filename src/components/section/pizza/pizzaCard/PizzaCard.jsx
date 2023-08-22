@@ -1,16 +1,15 @@
 import { useState } from "react";
-import "./PizzaBlock.scss";
+import "./PizzaCard.scss";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { addPizzaToCart } from "../../../redux/slices/cartSlice";
+import { addPizzaToCart } from "../../../../redux/slices/cartSlice";
 
-export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, price }) {	
+export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, price }) {
 	const dispatch = useDispatch();
-	
+
 	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
 	const [pizzaDough, setPizzaDough] = useState(doughs[0]);
 	const [pizzaCount, setPizzaCount] = useState(0);
-
 
 	function handleAddPizzaToCart() {
 		const item = {
@@ -23,10 +22,9 @@ export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, pr
 			doughs: pizzaDough,
 			count: 1,
 		};
-		dispatch(addPizzaToCart(item))
-		setPizzaCount((prevPizzaCount)=> prevPizzaCount += 1)
+		dispatch(addPizzaToCart(item));
+		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 	}
-
 
 	function handleSetPizzaInfo(e, arr) {
 		switch (arr) {
@@ -46,7 +44,7 @@ export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, pr
 	}
 
 	return (
-		<div className="pizzaBlock">
+		<div className="pizzaCard">
 			<img src={imgSrc} alt={imgAlt} />
 
 			<h3>{title}</h3>
@@ -57,32 +55,32 @@ export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, pr
 						handleSetPizzaInfo(e, doughs);
 					}}>
 					{doughs.map((dough) => {
-							return (
-								<li
-									key={crypto.randomUUID()}
-									data-dough={dough}
-									className={pizzaDough === dough ? "active" : ""}>
-									{dough}
-								</li>
-							);
-						})}
+						return (
+							<li
+								key={crypto.randomUUID()}
+								data-dough={dough}
+								className={pizzaDough === dough ? "active" : ""}>
+								{dough}
+							</li>
+						);
+					})}
 				</ul>
 
 				<ul onClick={(e) => handleSetPizzaInfo(e, sizes)}>
 					{sizes.map((size) => {
-							return (
-								<li
-									key={crypto.randomUUID()}
-									data-size={size}
-									className={pizzaSize === size ? "active" : ""}>
-									{size} sm
-								</li>
-							);
-						})}
+						return (
+							<li
+								key={crypto.randomUUID()}
+								data-size={size}
+								className={pizzaSize === size ? "active" : ""}>
+								{size} sm
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 
-			<div className="pizzaBlockBottom">
+			<div className="pizzaCardBottom">
 				<p>price: {price} $</p>
 
 				<button type="button" className="addButton" onClick={handleAddPizzaToCart}>
@@ -94,7 +92,7 @@ export default function PizzaBlock({id, sizes, doughs, imgSrc, imgAlt, title, pr
 	);
 }
 
-PizzaBlock.propTypes = {
+PizzaCard.propTypes = {
 	id: PropTypes.string,
 	sizes: PropTypes.arrayOf(PropTypes.string),
 	doughs: PropTypes.arrayOf(PropTypes.string),

@@ -1,6 +1,6 @@
-@use "../../modules/index.scss" as mxs;
+@use "../../../modules/index.scss" as mxs;
 
-.pizzaBlock {
+.pizzaCard {
      background-color: var(--my-color-white);
      width: 100%;
      margin: 0 auto;
@@ -24,9 +24,10 @@
          padding: calc(var(--my-value-min) * 4) calc(var(--my-value-min) * 2);
 
          ul {
-             @include mxs.rowFlex(center, center, 2%);
+             @include mxs.rowFlex(space-evenly, center, 2%);
 
              li {
+                width: 58px;
                  @include mxs.p();
                  list-style-type: none;
                  padding: calc(var(--my-value-min) * 2) calc(var(--my-value-min) * 4);
@@ -59,7 +60,7 @@
          }
      }
 
-     .pizzaBlockBottom {
+     .pizzaCardBottom {
          @include mxs.rowFlex(space-between, center);
          padding: 10px 5px;
      }

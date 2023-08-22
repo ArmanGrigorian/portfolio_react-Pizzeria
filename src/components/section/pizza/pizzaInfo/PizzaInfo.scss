@@ -1,0 +1,41 @@
+@use "../../../modules/index.scss" as mxs;
+
+.pizzaInfo {
+   @include mxs.rowFlex(space-between, start);
+   background-color: var(--my-color-white);
+   width: 100%;
+   padding: var(--my-value-mid);
+
+   img {
+      width: 30%;
+      aspect-ratio: 1;
+      user-select: none;
+   }
+
+   
+   .info {
+      width: 70%;
+      @include mxs.colFlex(start, center);
+      background-color: var(--my-color-whiteDark);
+      border-radius: var(--my-value-mid);
+      padding: var(--my-value-max);
+      overflow-y: auto;
+
+      h3 {
+         @include mxs.h3();
+         padding-block: var(--my-value-mid);
+      }
+
+      p{
+         font-size: var(--my-font-size-p);
+         letter-spacing: 1px;
+         line-height: 19px;
+         word-spacing: 3px;
+         font-style: oblique;
+         text-align: justify;
+         text-align-last: end;
+      }
+      
+     
+   }
+}

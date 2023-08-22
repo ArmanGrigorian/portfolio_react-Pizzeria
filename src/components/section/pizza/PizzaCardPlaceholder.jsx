@@ -1,6 +1,6 @@
 import ContentLoader from "react-content-loader";
 
-const PizzaBlockPlaceholder = (props) => (
+const PizzaCardPlaceholder = (props) => (
 	<ContentLoader
 		className="pizzaBlock"
 		speed={2}
@@ -18,4 +18,4 @@ const PizzaBlockPlaceholder = (props) => (
 	</ContentLoader>
 );
 
-export default PizzaBlockPlaceholder;
+export default PizzaCardPlaceholder;
