@@ -3,6 +3,7 @@ import "./PizzaCard.scss";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
 
 export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, price }) {
 	const dispatch = useDispatch();
@@ -45,7 +46,9 @@ export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, pr
 
 	return (
 		<div className="pizzaCard">
-			<img src={imgSrc} alt={imgAlt} />
+			<Link to={`/pizzaPage/${id}`}>
+				<img src={imgSrc} alt={imgAlt} />
+			</Link>
 
 			<h3>{title}</h3>
 
