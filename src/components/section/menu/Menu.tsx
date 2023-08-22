@@ -1,7 +1,7 @@
 import "./Menu.scss";
 import PropTypes from "prop-types";
-import PizzaCard from "../pizza/pizzaCard/PizzaCard.jsx";
-import PizzaCardPlaceholder from "../pizza/PizzaCardPlaceholder.jsx";
+import PizzaCard from "../pizza/pizzaCard/PizzaCard.tsx";
+import PizzaCardPlaceholder from "../pizza/PizzaCardPlaceholder.tsx";
 
 export default function Menu({ pizzas, isLoading }) {
 	return (

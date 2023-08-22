@@ -1,16 +1,16 @@
 import { useEffect, useCallback } from "react";
-import debounce from "../../utilities/debounce.js";
-import Header from "../header/Header.jsx";
-import Section from "../section/Section.jsx";
-import SectionTop from "../section/sectionTop/SectionTop.jsx";
-import SearchBar from "../section/searchBar/SearchBar.jsx";
-import HeaderTop from "../header/headerTop/HeaderTop.jsx";
-import Menu from "../section/menu/Menu.jsx";
-import HeaderBottom from "../header/headerBottom/HeaderBottom.jsx";
-import Categories from "../header/headerBottom/categories/Categories.jsx";
-import Sort from "../header/headerBottom/sort/Sort.jsx";
-import Footer from "../footer/Footer.jsx";
-import Pagination from "../footer/pagination/Pagination.jsx";
+import debounce from "../../utilities/debounce.ts";
+import Header from "../header/Header.tsx";
+import Section from "../section/Section.tsx";
+import SectionTop from "../section/sectionTop/SectionTop.tsx";
+import SearchBar from "../section/searchBar/SearchBar.tsx";
+import HeaderTop from "../header/headerTop/HeaderTop.tsx";
+import Menu from "../section/menu/Menu.tsx";
+import HeaderBottom from "../header/headerBottom/HeaderBottom.tsx";
+import Categories from "../header/headerBottom/categories/Categories.tsx";
+import Sort from "../header/headerBottom/sort/Sort.tsx";
+import Footer from "../footer/Footer.tsx";
+import Pagination from "../footer/pagination/Pagination.tsx";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	fetchPizzasByUrl,
@@ -20,11 +20,11 @@ import {
 	setSortBy,
 	setInputValue,
 	setSearchValue,
-} from "../../redux/slices/pizzaSlice.js";
-import NotFound from "../section/NotFound.jsx";
-import { handleGetCategory } from "../../utilities/getCategory.js";
-import { handleGetSelect } from "../../utilities/getSelect.js";
-import { getSearch } from "../../utilities/getSearch.js";
+} from "../../redux/slices/pizzaSlice.ts";
+	import NotFound from "../section/NotFound.tsx";
+import { handleGetCategory } from "../../utilities/getCategory.ts";
+import { handleGetSelect } from "../../utilities/getSelect.ts";
+import { getSearch } from "../../utilities/getSearch.ts";
 
 export default function MainPage() {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];

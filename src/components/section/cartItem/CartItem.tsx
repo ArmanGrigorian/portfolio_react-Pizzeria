@@ -4,7 +4,7 @@ import {
 	addPizzaToCart,
 	decrementPizzaCount,
 	removePizzaFromCart,
-} from "../../../redux/slices/cartSlice.js";
+} from "../../../redux/slices/cartSlice.ts";
 import { useDispatch } from "react-redux";
 
 export default function CartItem({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }) {

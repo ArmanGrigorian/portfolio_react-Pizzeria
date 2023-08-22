@@ -1,8 +1,8 @@
-import Header from "../header/Header.jsx";
-import HeaderTop from "../header/headerTop/HeaderTop.jsx";
-import Section from "../section/Section.jsx";
-import Cart from "../section/cart/Cart.jsx";
-import NotFound from "../section/NotFound.jsx";
+import Header from "../header/Header.tsx";
+import HeaderTop from "../header/headerTop/HeaderTop.tsx";
+import Section from "../section/Section.tsx";
+import Cart from "../section/cart/Cart.tsx";
+import NotFound from "../section/NotFound.tsx";
 import { BsCart3 } from "react-icons/bs";
 import { useSelector} from "react-redux";
 	

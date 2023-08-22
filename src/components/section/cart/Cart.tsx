@@ -2,8 +2,8 @@ import "./Cart.scss";
 import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/Ri";
 import { IoIosArrowBack } from "react-icons/Io";
-import CartItem from "../cartItem/CartItem";
-import { clearCart } from "../../../redux/slices/cartSlice.js";
+import CartItem from "../cartItem/CartItem.tsx";
+import { clearCart } from "../../../redux/slices/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Cart() {

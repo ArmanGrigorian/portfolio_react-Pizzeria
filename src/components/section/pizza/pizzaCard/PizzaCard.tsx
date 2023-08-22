@@ -1,9 +1,9 @@
-import { useState } from "react";
 import "./PizzaCard.scss";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { addPizzaToCart } from "../../../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
+import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
 
 export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, price }) {
 	const dispatch = useDispatch();
