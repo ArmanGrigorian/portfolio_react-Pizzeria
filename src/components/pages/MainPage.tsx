@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useCallback } from "react";
 import debounce from "../../utilities/debounce.ts";
 import Header from "../header/Header.tsx";
@@ -21,12 +22,12 @@ import {
 	setInputValue,
 	setSearchValue,
 } from "../../redux/slices/pizzaSlice.ts";
-	import NotFound from "../section/NotFound.tsx";
+import NotFound from "../section/NotFound.tsx";
 import { handleGetCategory } from "../../utilities/getCategory.ts";
 import { handleGetSelect } from "../../utilities/getSelect.ts";
 import { getSearch } from "../../utilities/getSearch.ts";
 
-export default function MainPage() {
+const MainPage: React.FC = () => {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
 
 	const {
@@ -40,12 +41,27 @@ export default function MainPage() {
 		sortBy,
 		inputValue,
 		searchValue,
-	} = useSelector((state) => state.pizzaSlice);
+	} = useSelector(
+		(state: {
+			pizzaSlice: {
+				url: string;
+				initialUrl: string;
+				currentPage: number;
+				status: string;
+				isLoading: boolean;
+				pizzas: object[];
+				activeCategory: string;
+				sortBy: string;
+				inputValue: string;
+				searchValue: string;
+			};
+		}) => state.pizzaSlice,
+	);
 
 	const dispatch = useDispatch();
 
 	const updateSearchValue = useCallback(
-		debounce((str) => {
+		debounce((str: string) => {
 			dispatch(setSearchValue(str));
 			getSearch(str, activeCategory, sortBy, dispatch, setUrl, initialUrl, currentPage);
 		}),
@@ -57,7 +73,7 @@ export default function MainPage() {
 		updateSearchValue(e.target.value);
 	}
 
-	function handlePage(e) {
+	function handlePage(e: { selected: number }) {
 		dispatch(setCurrentPage(e.selected + 1));
 		dispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
 	}
@@ -128,4 +144,6 @@ export default function MainPage() {
 			</Footer>
 		</>
 	);
-}
+};
+
+export default MainPage;

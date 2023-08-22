@@ -1,12 +1,17 @@
+import React from "react";
 import "./PizzaInfo.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function PizzaInfo() {
+const PizzaInfo: React.FC =()=> {
 	const { id } = useParams();
 
-	const [pizza, setPizza] = useState([]);
+	const [pizza, setPizza] = useState<{
+		imgSrc?: string;
+		imgAlt?: string;
+		title?: string;
+	}>({});
 
 	useEffect(() => {
 		!(async function fetchPizza() {
@@ -44,3 +49,5 @@ export default function PizzaInfo() {
 		</div>
 	);
 }
+
+export default PizzaInfo;

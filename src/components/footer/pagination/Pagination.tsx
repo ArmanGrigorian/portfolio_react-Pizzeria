@@ -1,8 +1,8 @@
+import React from "react";
 import "./Pagination.scss";
-import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
 
-export default function Pagination({ handlePage }) {
+const Pagination: React.FC<{handlePage: (e: {selected:number})=>number}>=({ handlePage })=> {
 	return (
 		<>
 			<ReactPaginate
@@ -20,6 +20,4 @@ export default function Pagination({ handlePage }) {
 	);
 }
 
-Pagination.propTypes = {
-	handlePage: PropTypes.func,
-};
+export default Pagination;

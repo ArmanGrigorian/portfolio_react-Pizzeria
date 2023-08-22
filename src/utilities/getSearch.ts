@@ -8,11 +8,11 @@
 export function getSearch(
 	currentSearchValue,
 	activeCategory,
-	sortBy,
+	sortBy: string,
 	dispatch,
 	setUrl,
-	initialUrl,
-	currentPage,
+	initialUrl: string,
+	currentPage: number,
 ) {
 	if (activeCategory.toLowerCase() === "all") {
 		if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {

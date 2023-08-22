@@ -1,13 +1,10 @@
-import PropTypes from "prop-types";
+import React from "react";
 
-export default function NotFound({ title }) {
+const NotFound: React.FC<{title:string}>=({ title })=> {
 	return (
 		<>
 			<h1>{title}</h1>
 		</>
 	);
 }
-
-NotFound.propTypes = {
-	title: PropTypes.string,
-};
+export default NotFound;

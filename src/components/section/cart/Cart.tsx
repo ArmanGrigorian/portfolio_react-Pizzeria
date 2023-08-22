@@ -1,3 +1,4 @@
+import React from "react";
 import "./Cart.scss";
 import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/Ri";
@@ -6,9 +7,12 @@ import CartItem from "../cartItem/CartItem.tsx";
 import { clearCart } from "../../../redux/slices/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function Cart() {
+const Cart: React.FC = () => {
 	const dispatch = useDispatch();
-	const { items, totalPrice, totalCount } = useSelector((state) => state.cartSlice);
+	const { items, totalPrice, totalCount } = useSelector(
+		(state: { cartSlice: { items: []; totalPrice: number; totalCount: number } }) =>
+			state.cartSlice,
+	);
 
 	function handleClearCart() {
 		if (confirm("CLEAR CART?")) {
@@ -19,21 +23,32 @@ export default function Cart() {
 	return (
 		<>
 			<div className="cart">
-				{items.map((pizza) => {
-					return (
-						<CartItem
-							key={crypto.randomUUID()}
-							id={pizza.id}
-							title={pizza.title}
-							imgSrc={pizza.imgSrc}
-							imgAlt={pizza.imgAlt}
-							doughs={pizza.doughs}
-							sizes={pizza.sizes}
-							price={pizza.price}
-							count={pizza.count}
-						/>
-					);
-				})}
+				{items.map(
+					(pizza: {
+						id: string;
+						title: string;
+						imgSrc: string;
+						imgAlt: string;
+						doughs: string[];
+						sizes: string[];
+						price: number;
+						count: number;
+					}) => {
+						return (
+							<CartItem
+								key={crypto.randomUUID()}
+								id={pizza.id}
+								title={pizza.title}
+								imgSrc={pizza.imgSrc}
+								imgAlt={pizza.imgAlt}
+								doughs={pizza.doughs}
+								sizes={pizza.sizes}
+								price={pizza.price}
+								count={pizza.count}
+							/>
+						);
+					},
+				)}
 
 				<div className="cartMid">
 					<div>
@@ -58,4 +73,6 @@ export default function Cart() {
 			</div>
 		</>
 	);
-}
+};
+
+export default Cart;

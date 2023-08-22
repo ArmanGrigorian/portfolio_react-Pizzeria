@@ -1,4 +1,13 @@
-export function handleGetSelect(e, dispatch, setSortBy, activeCategory, searchValue, setUrl, initialUrl, currentPage) {
+export function handleGetSelect(
+	e,
+	dispatch,
+	setSortBy,
+	activeCategory,
+	searchValue: string,
+	setUrl,
+	initialUrl: string,
+	currentPage: number,
+) {
 	dispatch(setSortBy(e.target.value));
 
 	if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {

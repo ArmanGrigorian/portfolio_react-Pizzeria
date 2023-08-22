@@ -1,11 +1,19 @@
+import React from "react";
 import "./PizzaCard.scss";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
 
-export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, price }) {
+const PizzaCard: React.FC<{
+	id: string;
+	sizes: string[];
+	doughs: string[];
+	imgSrc: string;
+	imgAlt: string;
+	title: string;
+	price: number;
+}> = ({ id, sizes, doughs, imgSrc, imgAlt, title, price }) => {
 	const dispatch = useDispatch();
 
 	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
@@ -13,7 +21,16 @@ export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, pr
 	const [pizzaCount, setPizzaCount] = useState(0);
 
 	function handleAddPizzaToCart() {
-		const item = {
+		const item: {
+			id: string;
+			title: string;
+			price: number;
+			imgSrc: string;
+			imgAlt: string;
+			sizes: string;
+			doughs: string;
+			count: number;
+		} = {
 			id,
 			title,
 			price,
@@ -27,7 +44,8 @@ export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, pr
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 	}
 
-	function handleSetPizzaInfo(e, arr) {
+
+	function handleSetPizzaInfo(e, arr: string[]) {
 		switch (arr) {
 			case sizes:
 				if (sizes.some((size) => size === e.target.dataset.size)) {
@@ -93,14 +111,6 @@ export default function PizzaCard({ id, sizes, doughs, imgSrc, imgAlt, title, pr
 			</div>
 		</div>
 	);
-}
-
-PizzaCard.propTypes = {
-	id: PropTypes.string,
-	sizes: PropTypes.arrayOf(PropTypes.string),
-	doughs: PropTypes.arrayOf(PropTypes.string),
-	imgSrc: PropTypes.string,
-	imgAlt: PropTypes.string,
-	title: PropTypes.string,
-	price: PropTypes.number,
 };
+
+export default PizzaCard;

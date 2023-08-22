@@ -1,11 +1,13 @@
+import React from "react";
 import "./HeaderTop.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function HeaderTop() {
+const HeaderTop: React.FC = () => {
+	const { totalPrice, totalCount } = useSelector(
+		(state: { cartSlice: { totalPrice: number; totalCount: number } }) => state.cartSlice,
+	);
 
-	const {totalPrice, totalCount } = useSelector(state => state.cartSlice);
-	
 	return (
 		<div className="headerTop">
 			<Link to="/">
@@ -29,4 +31,6 @@ export default function HeaderTop() {
 			</Link>
 		</div>
 	);
-}
+};
+
+export default HeaderTop;

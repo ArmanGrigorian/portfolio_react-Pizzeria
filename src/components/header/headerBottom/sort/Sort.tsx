@@ -1,7 +1,10 @@
+import React from "react";
 import "./Sort.scss";
-import PropTypes from "prop-types";
 
-export default function Sort({sortBy, handleGetSelect}) {
+const Sort: React.FC<{
+	sortBy: string,
+	handleGetSelect: (e: React.ChangeEvent)=>string,
+}> = ({ sortBy, handleGetSelect }) => {
 	const sortCategories = [
 		"rating (high > low)",
 		"rating (low > high)",
@@ -26,9 +29,6 @@ export default function Sort({sortBy, handleGetSelect}) {
 			</select>
 		</div>
 	);
-}
+};
 
-Sort.propTypes = {
-	sortBy: PropTypes.string,
-	handleGetSelect: PropTypes.func,
-}
+export default Sort;

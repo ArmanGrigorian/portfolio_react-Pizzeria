@@ -1,14 +1,8 @@
+import React from "react";
 import "./SectionTop.scss";
-import PropTypes from "prop-types";
 
-export default function SectionTop({children}) {
-  return (
-      <div className="sectionTop">
-          {children}
-      </div>
-  )
-}
+const SectionTop: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({ children }) => {
+	return <div className="sectionTop">{children}</div>;
+};
 
-SectionTop.propTypes = {
-    children: PropTypes.node,
-}
+export default SectionTop;

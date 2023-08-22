@@ -1,8 +1,11 @@
+import React from "react";
 import "./Categories.scss";
-import PropTypes from "prop-types";
 
-export default function Categories({ categories, activeCategory, handleGetCategory }) {
-
+const Categories: React.FC<{
+	categories: string[];
+	activeCategory: string;
+	handleGetCategory: (e: React.MouseEvent) => string;
+}> = ({ categories, activeCategory, handleGetCategory }) => {
 	return (
 		<nav className="categories">
 			<ul onClick={(e) => handleGetCategory(e)}>
@@ -20,10 +23,6 @@ export default function Categories({ categories, activeCategory, handleGetCatego
 			</ul>
 		</nav>
 	);
-}
-
-Categories.propTypes = {
-	categories: PropTypes.arrayOf(PropTypes.string),
-	activeCategory: PropTypes.string,
-	handleGetCategory: PropTypes.func,
 };
+
+export default Categories;

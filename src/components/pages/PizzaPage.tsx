@@ -1,9 +1,10 @@
+import React from "react";
 import Header from "../header/Header.tsx";
 import HeaderTop from "../header/headerTop/HeaderTop.tsx";
 import Section from "../section/Section.tsx";
 import PizzaInfo from "../section/pizza/pizzaInfo/PizzaInfo.tsx";
 
-export default function PizzaPage() {
+const PizzaPage: React.FC =()=> {
 	return (
 		<>
 			<Header>
@@ -17,3 +18,5 @@ export default function PizzaPage() {
 		</>
 	);
 }
+
+export default PizzaPage;

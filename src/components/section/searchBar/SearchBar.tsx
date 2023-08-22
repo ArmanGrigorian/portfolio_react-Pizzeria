@@ -1,9 +1,11 @@
+import React from "react";
 import "./SearchBar.scss";
-import PropTypes from "prop-types";
 import { FcSearch } from "react-icons/Fc";
 
-export default function SearchBar({inputValue, handleSearch}) {
-
+const SearchBar: React.FC<{
+	inputValue: string;
+	handleSearch: (e: React.ChangeEvent)=>string,
+}> = ({ inputValue, handleSearch }) => {
 	return (
 		<div className="searchBar">
 			<input
@@ -18,9 +20,7 @@ export default function SearchBar({inputValue, handleSearch}) {
 			<FcSearch />
 		</div>
 	);
-}
+};
 
-SearchBar.propTypes = {
-	inputValue: PropTypes.string,
-	handleSearch: PropTypes.func,
-}
+
+export default SearchBar;

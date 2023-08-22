@@ -1,12 +1,10 @@
+import React from "react";
 import "./Footer.scss";
-import PropTypes from "prop-types";
 
-export default function Footer({ children }) {
+const Footer: React.FC<{children: JSX.Element | JSX.Element[]}> =({ children })=> {
   return (
       <footer>{children}</footer>
   )
 }
 
-Footer.propTypes = {
-    children: PropTypes.node,
-}
+export default Footer;

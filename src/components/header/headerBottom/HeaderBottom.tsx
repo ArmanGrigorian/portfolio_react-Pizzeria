@@ -1,14 +1,9 @@
+import React from "react";
 import "./HeaderBottom.scss";
-import PropTypes from 'prop-types'
 
-export default function HeaderBottom({children}) {
-	return (
-		<div className="headerBottom">
-			{children}
-		</div>
-	);
+const HeaderBottom: React.FC<{children: JSX.Element | JSX.Element[]}>=({ children })=> {
+	return <div className="headerBottom">{children}</div>;
 }
 
-HeaderBottom.propTypes = {
-	children: PropTypes.node,
-};
+
+export default HeaderBottom;

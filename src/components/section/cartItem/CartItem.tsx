@@ -1,5 +1,5 @@
+import React from "react";
 import "./CartItem.scss";
-import PropTypes from "prop-types";
 import {
 	addPizzaToCart,
 	decrementPizzaCount,
@@ -7,7 +7,16 @@ import {
 } from "../../../redux/slices/cartSlice.ts";
 import { useDispatch } from "react-redux";
 
-export default function CartItem({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }) {
+const CartItem: React.FC<{
+	id: string;
+	title: string;
+	imgSrc: string;
+	imgAlt: string;
+	doughs: string[];
+	sizes: string[];
+	price: number;
+	count: number;
+}> = ({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }) => {
 	const dispatch = useDispatch();
 
 	function handleClick(e) {
@@ -57,15 +66,6 @@ export default function CartItem({ id, imgSrc, imgAlt, title, price, sizes, doug
 			</button>
 		</div>
 	);
-}
-
-CartItem.propTypes = {
-	id: PropTypes.string,
-	imgSrc: PropTypes.string,
-	imgAlt: PropTypes.string,
-	title: PropTypes.string,
-	price: PropTypes.number,
-	sizes: PropTypes.string,
-	doughs: PropTypes.string,
-	count: PropTypes.number,
 };
+
+export default CartItem;

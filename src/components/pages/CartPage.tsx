@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "../header/Header.tsx";
 import HeaderTop from "../header/headerTop/HeaderTop.tsx";
 import Section from "../section/Section.tsx";
@@ -7,8 +8,8 @@ import { BsCart3 } from "react-icons/bs";
 import { useSelector} from "react-redux";
 	
 
-export default function CartPage() {
-	const items = useSelector((state) => state.cartSlice.items);
+const CartPage: React.FC =()=> {
+	const items = useSelector((state: {cartSlice: {items: [string | number]}}) => state.cartSlice.items);
 	console.log(items)
 	return (
 		<>
@@ -31,3 +32,5 @@ export default function CartPage() {
 		</>
 	);
 }
+
+export default CartPage;

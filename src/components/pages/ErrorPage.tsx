@@ -1,9 +1,10 @@
+import React from "react";
 import Header from "../header/Header.tsx";
 import HeaderTop from "../header/headerTop/HeaderTop.tsx";
 import Section from "../section/Section.tsx";
 import NotFound from "../section/NotFound.tsx";
 
-export default function ErrorPage() {
+const ErrorPage: React.FC=()=> {
 	return (
 		<>
 			<Header>
@@ -15,3 +16,6 @@ export default function ErrorPage() {
 		</>
 	);
 }
+
+export default ErrorPage;
+
