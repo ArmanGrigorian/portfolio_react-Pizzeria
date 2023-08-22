@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchPizzasByUrl = createAsyncThunk("pizza/fetchByUrlStatus", async ({ url }, thunkApi) => {
+export const fetchPizzasByUrl = createAsyncThunk("pizza/fetchByUrlStatus", async ({ url }) => {
 	const { data } = await axios.get(url);
 
-	console.log(thunkApi);
 	
 	return data;
 });

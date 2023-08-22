@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import debounce from "../../utils/debounce.js";
+import debounce from "../../utilities/debounce.js";
 import Header from "../header/Header.jsx";
 import Section from "../section/Section.jsx";
 import SectionTop from "../section/sectionTop/SectionTop.jsx";
@@ -22,9 +22,13 @@ import {
 	setSearchValue,
 } from "../../redux/slices/pizzaSlice.js";
 import NotFound from "../section/NotFound.jsx";
+import { handleGetCategory } from "../../utilities/getCategory.js";
+import { handleGetSelect } from "../../utilities/getSelect.js";
+import { getSearch } from "../../utilities/getSearch.js";
 
 export default function MainPage() {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
+
 	const {
 		url,
 		initialUrl,
@@ -40,139 +44,17 @@ export default function MainPage() {
 
 	const dispatch = useDispatch();
 
-	// IT IS NOT MY FAULT THAT FILTER COMAND of mock.API
-	// IS NOT WORKING CORRECTLY WHENE I AM PASSING TWO AND MORE
-	// CONDITIONS...
-	// I'AM DOING EVERYTHING AS IT DESCRIBED IN THE DOCS OF mock.API
-	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
-	// FIRST PASSED CONDITION...
-
-	function handleSetCategory(e) {
-		if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
-			dispatch(setActiveCategory(e.target.dataset.category));
-
-			if (e.target.dataset.category.toLowerCase() === "all") {
-				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					dispatch(
-						setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=desc`),
-					);
-				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					dispatch(
-						setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=asc`),
-					);
-				}
-			} else {
-				if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-					dispatch(
-						setUrl(
-							`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
-								e.target.dataset.category
-							}&order=desc`,
-						),
-					);
-				} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-					dispatch(
-						setUrl(
-							`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
-								e.target.dataset.category
-							}&order=asc`,
-						),
-					);
-				}
-			}
-		} else return;
-	}
-
-	function handleSelect(e) {
-		dispatch(setSortBy(e.target.value));
-
-		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
-			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
-					),
-				);
-			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
-					),
-				);
-			}
-		} else {
-			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&title=${searchValue}&sortBy=${
-							e.target.value.split(" ")[0]
-						}&order=desc`,
-					),
-				);
-			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&title=${searchValue}&sortBy=${
-							e.target.value.split(" ")[0]
-						}&order=asc`,
-					),
-				);
-			}
-		}
-	}
-
 	const updateSearchValue = useCallback(
 		debounce((str) => {
 			dispatch(setSearchValue(str));
-			handleSearch(str);
+			getSearch(str, activeCategory, sortBy, dispatch, setUrl, initialUrl, currentPage);
 		}),
 		[],
 	);
 
-	function onChangeInput(e) {
+	function handleSearch(e) {
 		dispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
-	}
-
-	function handleSearch(currentSearchValue) {
-		console.log(currentSearchValue);
-		if (activeCategory.toLowerCase() === "all") {
-			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&sortBy=${
-							sortBy.split(" ")[0]
-						}&order=desc`,
-					),
-				);
-			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&sortBy=${
-							sortBy.split(" ")[0]
-						}&order=asc`,
-					),
-				);
-			}
-		} else {
-			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&category=${activeCategory}&sortBy=${
-							sortBy.split(" ")[0]
-						}&order=desc`,
-					),
-				);
-			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				dispatch(
-					setUrl(
-						`${initialUrl}${currentPage}&limit=8&title=${currentSearchValue}&category=${activeCategory}&sortBy=${
-							sortBy.split(" ")[0]
-						}&order=asc`,
-					),
-				);
-			}
-		}
 	}
 
 	function handlePage(e) {
@@ -197,9 +79,34 @@ export default function MainPage() {
 					<Categories
 						categories={categories}
 						activeCategory={activeCategory}
-						handleSetCategory={handleSetCategory}
+						handleGetCategory={(e) =>
+							handleGetCategory(
+								e,
+								categories,
+								dispatch,
+								setActiveCategory,
+								setUrl,
+								sortBy,
+								initialUrl,
+								currentPage,
+							)
+						}
 					/>
-					<Sort sortBy={sortBy} handleSelect={handleSelect} />
+					<Sort
+						sortBy={sortBy}
+						handleGetSelect={(e) =>
+							handleGetSelect(
+								e,
+								dispatch,
+								setSortBy,
+								activeCategory,
+								searchValue,
+								setUrl,
+								initialUrl,
+								currentPage,
+							)
+						}
+					/>
 				</HeaderBottom>
 			</Header>
 
@@ -210,7 +117,7 @@ export default function MainPage() {
 					<>
 						<SectionTop>
 							<h1>{isLoading ? "Loading" : "All"}</h1>
-							<SearchBar searchValue={searchValue} onChangeInput={onChangeInput} />
+							<SearchBar searchValue={searchValue} handleSearch={handleSearch} />
 						</SectionTop>
 						<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue} />
 					</>

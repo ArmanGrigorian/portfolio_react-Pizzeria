@@ -1,7 +1,7 @@
 import "./Sort.scss";
 import PropTypes from "prop-types";
 
-export default function Sort({sortBy, handleSelect}) {
+export default function Sort({sortBy, handleGetSelect}) {
 	const sortCategories = [
 		"rating (high > low)",
 		"rating (low > high)",
@@ -14,7 +14,7 @@ export default function Sort({sortBy, handleSelect}) {
 	return (
 		<div className="sort">
 			<p>Sort by:</p>
-			<select name="sortBy" id="sortBy" value={sortBy} onChange={(e) => handleSelect(e)}>
+			<select name="sortBy" id="sortBy" value={sortBy} onChange={(e) => handleGetSelect(e)}>
 				{sortCategories &&
 					sortCategories.map((category) => {
 						return (
@@ -30,5 +30,5 @@ export default function Sort({sortBy, handleSelect}) {
 
 Sort.propTypes = {
 	sortBy: PropTypes.string,
-	handleSelect: PropTypes.func,
+	handleGetSelect: PropTypes.func,
 }

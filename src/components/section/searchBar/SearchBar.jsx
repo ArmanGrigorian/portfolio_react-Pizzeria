@@ -2,7 +2,7 @@ import "./SearchBar.scss";
 import PropTypes from "prop-types";
 import { FcSearch } from "react-icons/Fc";
 
-export default function SearchBar({inputValue, onChangeInput}) {
+export default function SearchBar({inputValue, handleSearch}) {
 
 	return (
 		<div className="searchBar">
@@ -13,7 +13,7 @@ export default function SearchBar({inputValue, onChangeInput}) {
 				className="searchPizza"
 				id="searchPizza"
 				value={inputValue}
-				onChange={(e) => onChangeInput(e)}
+				onChange={(e) => handleSearch(e)}
 			/>
 			<FcSearch />
 		</div>
@@ -22,5 +22,5 @@ export default function SearchBar({inputValue, onChangeInput}) {
 
 SearchBar.propTypes = {
 	inputValue: PropTypes.string,
-	onChangeInput: PropTypes.func,
+	handleSearch: PropTypes.func,
 }

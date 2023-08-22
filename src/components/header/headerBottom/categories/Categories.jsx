@@ -1,11 +1,11 @@
 import "./Categories.scss";
 import PropTypes from "prop-types";
 
-export default function Categories({ categories, activeCategory, handleSetCategory }) {
+export default function Categories({ categories, activeCategory, handleGetCategory }) {
 
 	return (
 		<nav className="categories">
-			<ul onClick={(e) => handleSetCategory(e)}>
+			<ul onClick={(e) => handleGetCategory(e)}>
 				{categories &&
 					categories.map((category) => {
 						return (
@@ -25,5 +25,5 @@ export default function Categories({ categories, activeCategory, handleSetCatego
 Categories.propTypes = {
 	categories: PropTypes.arrayOf(PropTypes.string),
 	activeCategory: PropTypes.string,
-	handleSetCategory: PropTypes.func,
+	handleGetCategory: PropTypes.func,
 };
