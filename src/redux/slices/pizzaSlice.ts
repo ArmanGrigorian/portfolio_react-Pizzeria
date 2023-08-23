@@ -4,7 +4,6 @@ import axios from "axios";
 export const fetchPizzasByUrl = createAsyncThunk("pizza/fetchByUrlStatus", async ({ url }) => {
 	const { data } = await axios.get(url);
 
-	
 	return data;
 });
 
@@ -27,27 +26,27 @@ export const pizzaSlice = createSlice({
 	initialState,
 
 	reducers: {
-		setUrl(state, { payload }) {
+		setUrl(state, { payload }): void {
 			state.url = payload;
 		},
 
-		setCurrentPage(state, { payload }) {
+		setCurrentPage(state, { payload }): void {
 			state.currentPage = payload;
 		},
 
-		setActiveCategory(state, { payload }) {
+		setActiveCategory(state, { payload }): void {
 			state.activeCategory = payload;
 		},
 
-		setSortBy(state, { payload }) {
+		setSortBy(state, { payload }): void {
 			state.sortBy = payload;
 		},
 
-		setInputValue(state, { payload }) {
+		setInputValue(state, { payload }): void {
 			state.inputValue = payload;
 		},
 
-		setSearchValue(state, { payload }) {
+		setSearchValue(state, { payload }): void {
 			state.searchValue = payload;
 		},
 	},

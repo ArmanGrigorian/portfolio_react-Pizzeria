@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { useEffect, useCallback } from "react";
 import debounce from "../../utilities/debounce.ts";
 import Header from "../header/Header.tsx";
@@ -27,7 +27,7 @@ import { handleGetCategory } from "../../utilities/getCategory.ts";
 import { handleGetSelect } from "../../utilities/getSelect.ts";
 import { getSearch } from "../../utilities/getSearch.ts";
 
-const MainPage: React.FC = () => {
+const MainPage: React.FC = ():ReactElement => {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
 
 	const {
@@ -68,17 +68,17 @@ const MainPage: React.FC = () => {
 		[],
 	);
 
-	function handleSearch(e) {
+	function handleSearch(e): void {
 		dispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
 	}
 
-	function handlePage(e: { selected: number }) {
+	function handlePage(e: { selected: number }): void {
 		dispatch(setCurrentPage(e.selected + 1));
 		dispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
 	}
 
-	async function controlBusiness() {
+	async function controlBusiness(): Promise<void> {
 		dispatch(fetchPizzasByUrl({ url }));
 	}
 
@@ -97,14 +97,7 @@ const MainPage: React.FC = () => {
 						activeCategory={activeCategory}
 						handleGetCategory={(e) =>
 							handleGetCategory(
-								e,
-								categories,
-								dispatch,
-								setActiveCategory,
-								setUrl,
-								sortBy,
-								initialUrl,
-								currentPage,
+								e, categories, dispatch,setActiveCategory, setUrl,sortBy, initialUrl, currentPage,
 							)
 						}
 					/>

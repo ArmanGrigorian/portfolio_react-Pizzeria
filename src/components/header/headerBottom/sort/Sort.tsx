@@ -4,7 +4,7 @@ import "./Sort.scss";
 const Sort: React.FC<{
 	sortBy: string,
 	handleGetSelect: (e: React.ChangeEvent)=>string,
-}> = ({ sortBy, handleGetSelect }) => {
+}> = ({ sortBy, handleGetSelect }):JSX.Element => {
 	const sortCategories = [
 		"rating (high > low)",
 		"rating (low > high)",

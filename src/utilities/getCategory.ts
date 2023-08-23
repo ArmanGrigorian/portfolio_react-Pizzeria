@@ -1,12 +1,13 @@
 export function handleGetCategory(
 	e,
 	categories: string[],
-	dispatch,
-	setActiveCategory,
-	setUrl,
+	dispatch: ()=> void,
+	setActiveCategory: () => string,
+	setUrl: () => string,
 	sortBy: string,
 	initialUrl: string,
-	currentPage: number) {
+	currentPage: number,
+) {
 	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
 		dispatch(setActiveCategory(e.target.dataset.category));
 

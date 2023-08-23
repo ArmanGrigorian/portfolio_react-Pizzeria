@@ -5,7 +5,7 @@ const Categories: React.FC<{
 	categories: string[];
 	activeCategory: string;
 	handleGetCategory: (e: React.MouseEvent) => string;
-}> = ({ categories, activeCategory, handleGetCategory }) => {
+}> = ({ categories, activeCategory, handleGetCategory }): JSX.Element => {
 	return (
 		<nav className="categories">
 			<ul onClick={(e) => handleGetCategory(e)}>

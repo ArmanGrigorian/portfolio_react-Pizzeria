@@ -4,8 +4,8 @@ import { FcSearch } from "react-icons/Fc";
 
 const SearchBar: React.FC<{
 	inputValue: string;
-	handleSearch: (e: React.ChangeEvent)=>string,
-}> = ({ inputValue, handleSearch }) => {
+	handleSearch: (e: React.ChangeEvent) => string;
+}> = ({ inputValue, handleSearch }): JSX.Element => {
 	return (
 		<div className="searchBar">
 			<input
@@ -21,6 +21,5 @@ const SearchBar: React.FC<{
 		</div>
 	);
 };
-
 
 export default SearchBar;

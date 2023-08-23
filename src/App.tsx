@@ -4,7 +4,7 @@ import PizzaPage from "./components/pages/PizzaPage.jsx";
 import CartPage from "./components/pages/CartPage.jsx";
 import ErrorPage from "./components/pages/ErrorPage.jsx";
 
-export default function App() {
+export default function App(): JSX.Element {
 	return (
 		<>
 			<Routes>

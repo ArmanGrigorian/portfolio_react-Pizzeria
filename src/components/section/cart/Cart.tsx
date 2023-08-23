@@ -7,14 +7,14 @@ import CartItem from "../cartItem/CartItem.tsx";
 import { clearCart } from "../../../redux/slices/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 
-const Cart: React.FC = () => {
+const Cart: React.FC = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { items, totalPrice, totalCount } = useSelector(
 		(state: { cartSlice: { items: []; totalPrice: number; totalCount: number } }) =>
 			state.cartSlice,
 	);
 
-	function handleClearCart() {
+	function handleClearCart(): void {
 		if (confirm("CLEAR CART?")) {
 			dispatch(clearCart());
 		}

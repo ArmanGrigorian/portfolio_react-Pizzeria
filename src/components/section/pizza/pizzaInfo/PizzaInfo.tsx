@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const PizzaInfo: React.FC =()=> {
+const PizzaInfo: React.FC = (): JSX.Element => {
 	const { id } = useParams();
 
 	const [pizza, setPizza] = useState<{
@@ -14,7 +14,7 @@ const PizzaInfo: React.FC =()=> {
 	}>({});
 
 	useEffect(() => {
-		!(async function fetchPizza() {
+		!(async function fetchPizza(): Promise<void> {
 			try {
 				const { data } = await axios.get(
 					"https://64d772272a017531bc134033.mockapi.io/pizzas/" + id,
@@ -35,19 +35,18 @@ const PizzaInfo: React.FC =()=> {
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem ut molestias hic
 					doloremque fuga, accusantium tenetur, amet deleniti praesentium blanditiis deserunt. Sit,
-					et voluptatibus ea molestias velit, soluta ratione at corrupti culpa, unde autem
-					laborum ad id ut nihil adipisci. Voluptatem ipsa expedita minima facere optio nostrum
-					error dolores deleniti nisi, ullam tenetur nemo! Deleniti modi maiores facilis aut
-					incidunt quas unde perspiciatis eaque voluptatem.
+					et voluptatibus ea molestias velit, soluta ratione at corrupti culpa, unde autem laborum
+					ad id ut nihil adipisci. Voluptatem ipsa expedita minima facere optio nostrum error
+					dolores deleniti nisi, ullam tenetur nemo! Deleniti modi maiores facilis aut incidunt quas
+					unde perspiciatis eaque voluptatem.
 					<br />
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, id itaque! Necessitatibus
 					doloribus laudantium pariatur, nostrum ducimus nulla, obcaecati, numquam asperiores! Nihil
 					adipisci corporis reiciendis ratione animi?
 				</p>
-
 			</div>
 		</div>
 	);
-}
+};
 
 export default PizzaInfo;

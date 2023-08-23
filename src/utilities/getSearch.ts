@@ -6,14 +6,14 @@
 // FIRST PASSED CONDITION...
 
 export function getSearch(
-	currentSearchValue,
-	activeCategory,
+	currentSearchValue: string,
+	activeCategory: string,
 	sortBy: string,
-	dispatch,
-	setUrl,
+	dispatch: () => void,
+	setUrl: () => string,
 	initialUrl: string,
 	currentPage: number,
-) {
+): void {
 	if (activeCategory.toLowerCase() === "all") {
 		if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 			dispatch(

@@ -16,10 +16,10 @@ const CartItem: React.FC<{
 	sizes: string[];
 	price: number;
 	count: number;
-}> = ({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }) => {
+}> = ({ id, imgSrc, imgAlt, title, price, sizes, doughs, count }): JSX.Element => {
 	const dispatch = useDispatch();
 
-	function handleClick(e) {
+	function handleClick(e): void {
 		switch (e.target.name) {
 			case "incrementButton":
 				dispatch(addPizzaToCart({ id, sizes, doughs }));

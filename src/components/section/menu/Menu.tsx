@@ -3,7 +3,7 @@ import "./Menu.scss";
 import PizzaCard from "../pizza/pizzaCard/PizzaCard.tsx";
 import PizzaCardPlaceholder from "../pizza/PizzaCardPlaceholder.tsx";
 
-const Menu: React.FC<{ pizzas: []; isLoading: boolean }> = ({ pizzas, isLoading }) => {
+const Menu: React.FC<{ pizzas: []; isLoading: boolean }> = ({ pizzas, isLoading }): JSX.Element => {
 	return (
 		<>
 			<div className="menu">

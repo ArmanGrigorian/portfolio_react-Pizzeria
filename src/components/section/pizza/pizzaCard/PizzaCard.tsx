@@ -13,14 +13,14 @@ const PizzaCard: React.FC<{
 	imgAlt: string;
 	title: string;
 	price: number;
-}> = ({ id, sizes, doughs, imgSrc, imgAlt, title, price }) => {
+}> = ({ id, sizes, doughs, imgSrc, imgAlt, title, price }): JSX.Element => {
 	const dispatch = useDispatch();
 
 	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
 	const [pizzaDough, setPizzaDough] = useState(doughs[0]);
 	const [pizzaCount, setPizzaCount] = useState(0);
 
-	function handleAddPizzaToCart() {
+	function handleAddPizzaToCart(): void {
 		const item: {
 			id: string;
 			title: string;
@@ -44,8 +44,7 @@ const PizzaCard: React.FC<{
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 	}
 
-
-	function handleSetPizzaInfo(e, arr: string[]) {
+	function handleSetPizzaInfo(e, arr: string[]): void {
 		switch (arr) {
 			case sizes:
 				if (sizes.some((size) => size === e.target.dataset.size)) {

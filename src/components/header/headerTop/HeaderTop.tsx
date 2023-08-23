@@ -3,7 +3,7 @@ import "./HeaderTop.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const HeaderTop: React.FC = () => {
+const HeaderTop: React.FC = (): JSX.Element => {
 	const { totalPrice, totalCount } = useSelector(
 		(state: { cartSlice: { totalPrice: number; totalCount: number } }) => state.cartSlice,
 	);

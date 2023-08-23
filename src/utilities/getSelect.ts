@@ -1,10 +1,10 @@
 export function handleGetSelect(
 	e,
-	dispatch,
-	setSortBy,
-	activeCategory,
+	dispatch: () => void,
+	setSortBy: () => string,
+	activeCategory: string,
 	searchValue: string,
-	setUrl,
+	setUrl: () => string,
 	initialUrl: string,
 	currentPage: number,
 ) {
