@@ -1,6 +1,6 @@
  @use "../../../modules/index.scss" as mxs;
 
- .sort {
+ .sortPanel {
      @include mxs.rowFlex(center, center, 2px);
 
      p {

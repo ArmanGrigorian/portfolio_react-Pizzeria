@@ -2,10 +2,12 @@ import React from "react";
 import "./SearchBar.scss";
 import { FcSearch } from "react-icons/Fc";
 
-const SearchBar: React.FC<{
+type SearchBarProps = {
 	inputValue: string;
-	handleSearch: (e: React.ChangeEvent) => string;
-}> = ({ inputValue, handleSearch }): JSX.Element => {
+	handleSearch: (e: React.ChangeEvent) => void;
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({ inputValue, handleSearch }): JSX.Element => {
 	return (
 		<div className="searchBar">
 			<input
@@ -15,7 +17,7 @@ const SearchBar: React.FC<{
 				className="searchPizza"
 				id="searchPizza"
 				value={inputValue}
-				onChange={(e) => handleSearch(e)}
+				onChange={(e: React.ChangeEvent) => handleSearch(e)}
 			/>
 			<FcSearch />
 		</div>

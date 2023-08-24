@@ -1,7 +1,11 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const PizzaCardPlaceholder: React.FC = (props):JSX.Element => (
+type PizzaCardPlaceholderProps = {
+	props: object;
+};
+
+const PizzaCardPlaceholder: React.FC<PizzaCardPlaceholderProps> = (props): JSX.Element => (
 	<ContentLoader
 		className="pizzaBlock"
 		speed={2}

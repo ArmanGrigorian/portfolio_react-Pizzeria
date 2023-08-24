@@ -1,7 +1,11 @@
 import React from "react";
 import "./Header.scss";
 
-const Header: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({
+type HeaderProps = {
+	children: JSX.Element | JSX.Element[];
+};
+
+const Header: React.FC<HeaderProps> = ({
 	children,
 }): JSX.Element | JSX.Element[] => {
 	return <header>{children}</header>;

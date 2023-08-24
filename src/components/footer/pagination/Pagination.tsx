@@ -2,7 +2,13 @@ import React from "react";
 import "./Pagination.scss";
 import ReactPaginate from "react-paginate";
 
-const Pagination: React.FC<{handlePage: (e: {selected:number})=>number}>=({ handlePage }):JSX.Element=> {
+type PaginationProps = {
+	handlePage: (e: { selected: number }) => void;
+};
+
+const Pagination: React.FC<PaginationProps> = ({
+	handlePage,
+}): JSX.Element => {
 	return (
 		<>
 			<ReactPaginate
@@ -18,6 +24,6 @@ const Pagination: React.FC<{handlePage: (e: {selected:number})=>number}>=({ hand
 			/>
 		</>
 	);
-}
+};
 
 export default Pagination;

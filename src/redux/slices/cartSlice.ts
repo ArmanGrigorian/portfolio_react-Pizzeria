@@ -13,8 +13,9 @@ export const cartSlice = createSlice({
 
 	reducers: {
 		addPizzaToCart(state, { payload }): void {
-			const findItem = state.items.find((obj): object | undefined => {
+			const findItem= state.items.find((obj)=> {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs)
+					console.log(obj)
 					return obj;
 			});
 
@@ -22,17 +23,17 @@ export const cartSlice = createSlice({
 				findItem.count += 1;
 			} else state.items.push(payload);
 
-			state.totalPrice = state.items.reduce((sum, obj) => {
+			state.totalPrice = state.items.reduce((sum: number, obj: object): number => {
 				return obj.count * obj.price + sum;
 			}, 0);
 
-			state.totalCount = state.items.reduce((sum, obj) => {
+			state.totalCount = state.items.reduce((sum: number, obj: object): number => {
 				return obj.count + sum;
 			}, 0);
 		},
 
 		decrementPizzaCount(state, { payload }): void {
-			const findItem = state.items.find((obj): object | undefined => {
+			const findItem = state.items.find((obj) => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs)
 					return obj;
 			});

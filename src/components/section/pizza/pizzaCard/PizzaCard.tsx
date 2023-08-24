@@ -5,15 +5,36 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
 
-const PizzaCard: React.FC<{
+type PizzaCardProps = {
 	id: string;
-	sizes: string[];
-	doughs: string[];
-	imgSrc: string;
-	imgAlt: string;
 	title: string;
 	price: number;
-}> = ({ id, sizes, doughs, imgSrc, imgAlt, title, price }): JSX.Element => {
+	imgSrc: string;
+	imgAlt: string;
+	sizes: string[];
+	doughs: string[];
+};
+
+type Item = {
+	id: string;
+	title: string;
+	price: number;
+	imgSrc: string;
+	imgAlt: string;
+	sizes: string;
+	doughs: string;
+	count: number;
+};
+
+const PizzaCard: React.FC<PizzaCardProps> = ({
+	id,
+	sizes,
+	doughs,
+	imgSrc,
+	imgAlt,
+	title,
+	price,
+}): JSX.Element => {
 	const dispatch = useDispatch();
 
 	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
@@ -21,16 +42,7 @@ const PizzaCard: React.FC<{
 	const [pizzaCount, setPizzaCount] = useState(0);
 
 	function handleAddPizzaToCart(): void {
-		const item: {
-			id: string;
-			title: string;
-			price: number;
-			imgSrc: string;
-			imgAlt: string;
-			sizes: string;
-			doughs: string;
-			count: number;
-		} = {
+		const item: Item = {
 			id,
 			title,
 			price,
@@ -47,12 +59,12 @@ const PizzaCard: React.FC<{
 	function handleSetPizzaInfo(e, arr: string[]): void {
 		switch (arr) {
 			case sizes:
-				if (sizes.some((size) => size === e.target.dataset.size)) {
+				if (sizes.some((size: string) => size === e.target.dataset.size)) {
 					setPizzaSize(e.target.dataset.size);
 				} else return;
 				break;
 			case doughs:
-				if (doughs.some((dough) => dough === e.target.dataset.dough)) {
+				if (doughs.some((dough: string) => dough === e.target.dataset.dough)) {
 					setPizzaDough(e.target.dataset.dough);
 				} else return;
 				break;
@@ -71,7 +83,7 @@ const PizzaCard: React.FC<{
 
 			<div className="selector">
 				<ul
-					onClick={(e) => {
+					onClick={(e: React.MouseEvent) => {
 						handleSetPizzaInfo(e, doughs);
 					}}>
 					{doughs.map((dough) => {
@@ -86,8 +98,8 @@ const PizzaCard: React.FC<{
 					})}
 				</ul>
 
-				<ul onClick={(e) => handleSetPizzaInfo(e, sizes)}>
-					{sizes.map((size) => {
+				<ul onClick={(e: React.MouseEvent) => handleSetPizzaInfo(e, sizes)}>
+					{sizes.map((size: string) => {
 						return (
 							<li
 								key={crypto.randomUUID()}

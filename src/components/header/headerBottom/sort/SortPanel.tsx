@@ -1,11 +1,13 @@
 import React from "react";
-import "./Sort.scss";
+import "./SortPanel.scss";
 
-const Sort: React.FC<{
-	sortBy: string,
-	handleGetSelect: (e: React.ChangeEvent)=>string,
-}> = ({ sortBy, handleGetSelect }):JSX.Element => {
-	const sortCategories = [
+type SortPanelProps = {
+	sortBy: string;
+	handleGetSelect: (e: React.ChangeEvent) => void;
+};
+
+const SortPanel: React.FC<SortPanelProps> = ({ sortBy, handleGetSelect }): JSX.Element => {
+	const sortCategories: string[] = [
 		"rating (high > low)",
 		"rating (low > high)",
 		"price (high > low)",
@@ -15,7 +17,7 @@ const Sort: React.FC<{
 	];
 
 	return (
-		<div className="sort">
+		<div className="sortPanel">
 			<p>Sort by:</p>
 			<select name="sortBy" id="sortBy" value={sortBy} onChange={(e) => handleGetSelect(e)}>
 				{sortCategories &&
@@ -31,4 +33,4 @@ const Sort: React.FC<{
 	);
 };
 
-export default Sort;
+export default SortPanel;

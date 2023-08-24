@@ -1,6 +1,6 @@
 @use "../../../modules/index.scss" as mxs;
 
-.categories {
+.categoriesPanel {
 
     ul {
         @include mxs.rowFlex(space-between, center, 4%);

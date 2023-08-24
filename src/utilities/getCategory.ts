@@ -1,9 +1,9 @@
 export function handleGetCategory(
-	e,
+	e: React.MouseEvent,
 	categories: string[],
-	dispatch: ()=> void,
-	setActiveCategory: () => string,
-	setUrl: () => string,
+	dispatch,
+	setActiveCategory: (str: string) => string,
+	setUrl: (str: string) => string,
 	sortBy: string,
 	initialUrl: string,
 	currentPage: number,

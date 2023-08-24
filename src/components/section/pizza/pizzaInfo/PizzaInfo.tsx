@@ -16,7 +16,7 @@ const PizzaInfo: React.FC = (): JSX.Element => {
 	useEffect(() => {
 		!(async function fetchPizza(): Promise<void> {
 			try {
-				const { data } = await axios.get(
+				const { data }: { data: object } = await axios.get(
 					"https://64d772272a017531bc134033.mockapi.io/pizzas/" + id,
 				);
 				setPizza(data);

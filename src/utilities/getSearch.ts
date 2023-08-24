@@ -9,8 +9,8 @@ export function getSearch(
 	currentSearchValue: string,
 	activeCategory: string,
 	sortBy: string,
-	dispatch: () => void,
-	setUrl: () => string,
+	dispatch,
+	setUrl: (str: string) => string,
 	initialUrl: string,
 	currentPage: number,
 ): void {

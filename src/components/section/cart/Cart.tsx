@@ -7,6 +7,17 @@ import CartItem from "../cartItem/CartItem.tsx";
 import { clearCart } from "../../../redux/slices/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 
+type Pizza = {
+	id: string;
+	title: string;
+	imgSrc: string;
+	imgAlt: string;
+	doughs: string[];
+	sizes: string[];
+	price: number;
+	count: number;
+};
+
 const Cart: React.FC = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { items, totalPrice, totalCount } = useSelector(
@@ -23,32 +34,21 @@ const Cart: React.FC = (): JSX.Element => {
 	return (
 		<>
 			<div className="cart">
-				{items.map(
-					(pizza: {
-						id: string;
-						title: string;
-						imgSrc: string;
-						imgAlt: string;
-						doughs: string[];
-						sizes: string[];
-						price: number;
-						count: number;
-					}) => {
-						return (
-							<CartItem
-								key={crypto.randomUUID()}
-								id={pizza.id}
-								title={pizza.title}
-								imgSrc={pizza.imgSrc}
-								imgAlt={pizza.imgAlt}
-								doughs={pizza.doughs}
-								sizes={pizza.sizes}
-								price={pizza.price}
-								count={pizza.count}
-							/>
-						);
-					},
-				)}
+				{items.map((pizza: Pizza) => {
+					return (
+						<CartItem
+							key={crypto.randomUUID()}
+							id={pizza.id}
+							title={pizza.title}
+							imgSrc={pizza.imgSrc}
+							imgAlt={pizza.imgAlt}
+							doughs={pizza.doughs}
+							sizes={pizza.sizes}
+							price={pizza.price}
+							count={pizza.count}
+						/>
+					);
+				})}
 
 				<div className="cartMid">
 					<div>

@@ -8,8 +8,8 @@ import SearchBar from "../section/searchBar/SearchBar.tsx";
 import HeaderTop from "../header/headerTop/HeaderTop.tsx";
 import Menu from "../section/menu/Menu.tsx";
 import HeaderBottom from "../header/headerBottom/HeaderBottom.tsx";
-import Categories from "../header/headerBottom/categories/Categories.tsx";
-import Sort from "../header/headerBottom/sort/Sort.tsx";
+import CategoriesPanel from "../header/headerBottom/categories/CategoriesPanel.tsx";
+import SortPanel from "../header/headerBottom/sort/SortPanel.tsx";
 import Footer from "../footer/Footer.tsx";
 import Pagination from "../footer/pagination/Pagination.tsx";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,7 +27,20 @@ import { handleGetCategory } from "../../utilities/getCategory.ts";
 import { handleGetSelect } from "../../utilities/getSelect.ts";
 import { getSearch } from "../../utilities/getSearch.ts";
 
-const MainPage: React.FC = ():ReactElement => {
+type PizzaSlice = {
+	url: string;
+	initialUrl: string;
+	currentPage: number;
+	status: string;
+	isLoading: boolean;
+	pizzas: object[];
+	activeCategory: string;
+	sortBy: string;
+	inputValue: string;
+	searchValue: string;
+};
+
+const MainPage: React.FC = (): ReactElement => {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
 
 	const {
@@ -41,22 +54,7 @@ const MainPage: React.FC = ():ReactElement => {
 		sortBy,
 		inputValue,
 		searchValue,
-	} = useSelector(
-		(state: {
-			pizzaSlice: {
-				url: string;
-				initialUrl: string;
-				currentPage: number;
-				status: string;
-				isLoading: boolean;
-				pizzas: object[];
-				activeCategory: string;
-				sortBy: string;
-				inputValue: string;
-				searchValue: string;
-			};
-		}) => state.pizzaSlice,
-	);
+	} = useSelector((state: { pizzaSlice: PizzaSlice }) => state.pizzaSlice);
 
 	const dispatch = useDispatch();
 
@@ -92,16 +90,23 @@ const MainPage: React.FC = ():ReactElement => {
 				<HeaderTop />
 
 				<HeaderBottom>
-					<Categories
+					<CategoriesPanel
 						categories={categories}
 						activeCategory={activeCategory}
 						handleGetCategory={(e) =>
 							handleGetCategory(
-								e, categories, dispatch,setActiveCategory, setUrl,sortBy, initialUrl, currentPage,
+								e,
+								categories,
+								dispatch,
+								setActiveCategory,
+								setUrl,
+								sortBy,
+								initialUrl,
+								currentPage,
 							)
 						}
 					/>
-					<Sort
+					<SortPanel
 						sortBy={sortBy}
 						handleGetSelect={(e) =>
 							handleGetSelect(
@@ -126,9 +131,9 @@ const MainPage: React.FC = ():ReactElement => {
 					<>
 						<SectionTop>
 							<h1>{isLoading ? "Loading" : "All"}</h1>
-							<SearchBar searchValue={searchValue} handleSearch={handleSearch} />
+							<SearchBar inputValue={inputValue} handleSearch={handleSearch} />
 						</SectionTop>
-						<Menu pizzas={pizzas} isLoading={isLoading} inputValue={inputValue} />
+						<Menu pizzas={pizzas} isLoading={isLoading} />
 					</>
 				)}
 			</Section>

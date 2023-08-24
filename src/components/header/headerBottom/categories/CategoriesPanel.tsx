@@ -1,13 +1,15 @@
 import React from "react";
-import "./Categories.scss";
+import "./CategoriesPanel.scss";
 
-const Categories: React.FC<{
+type CategoriesPanelProps = {
 	categories: string[];
 	activeCategory: string;
-	handleGetCategory: (e: React.MouseEvent) => string;
-}> = ({ categories, activeCategory, handleGetCategory }): JSX.Element => {
+	handleGetCategory: (e: React.MouseEvent) => void;
+};
+
+const CategoriesPanel: React.FC<CategoriesPanelProps> = ({ categories, activeCategory, handleGetCategory }): JSX.Element => {
 	return (
-		<nav className="categories">
+		<nav className="categoriesPanel">
 			<ul onClick={(e) => handleGetCategory(e)}>
 				{categories &&
 					categories.map((category) => {
@@ -25,4 +27,4 @@ const Categories: React.FC<{
 	);
 };
 
-export default Categories;
+export default CategoriesPanel;

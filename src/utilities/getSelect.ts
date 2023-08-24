@@ -1,10 +1,10 @@
 export function handleGetSelect(
-	e,
-	dispatch: () => void,
-	setSortBy: () => string,
+	e: React.MouseEvent,
+	dispatch,
+	setSortBy: (str: string) => string,
 	activeCategory: string,
 	searchValue: string,
-	setUrl: () => string,
+	setUrl: (str: string) => string,
 	initialUrl: string,
 	currentPage: number,
 ) {
