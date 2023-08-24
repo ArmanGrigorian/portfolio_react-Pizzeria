@@ -4,18 +4,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
+import { Tpizzas } from "../../../../redux/slices/pizzaSlice.ts";
 
-type PizzaCardProps = {
-	id: string;
-	title: string;
-	price: number;
-	imgSrc: string;
-	imgAlt: string;
-	sizes: string[];
-	doughs: string[];
-};
+interface PizzaCardProps {
+	info: Tpizzas;
+}
 
-type Item = {
+interface Iitem {
 	id: string;
 	title: string;
 	price: number;
@@ -24,25 +19,19 @@ type Item = {
 	sizes: string;
 	doughs: string;
 	count: number;
-};
+}
 
-const PizzaCard: React.FC<PizzaCardProps> = ({
-	id,
-	sizes,
-	doughs,
-	imgSrc,
-	imgAlt,
-	title,
-	price,
-}): JSX.Element => {
+const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
+	const { id, sizes, doughs, imgSrc, imgAlt, title, price } = info;
+	
 	const dispatch = useDispatch();
 
-	const [pizzaSize, setPizzaSize] = useState(sizes[0]);
-	const [pizzaDough, setPizzaDough] = useState(doughs[0]);
-	const [pizzaCount, setPizzaCount] = useState(0);
+	const [pizzaSize, setPizzaSize] = useState<string>(sizes[0]);
+	const [pizzaDough, setPizzaDough] = useState<string>(doughs[0]);
+	const [pizzaCount, setPizzaCount] = useState<number>(0);
 
 	function handleAddPizzaToCart(): void {
-		const item: Item = {
+		const item: Iitem = {
 			id,
 			title,
 			price,
@@ -56,7 +45,7 @@ const PizzaCard: React.FC<PizzaCardProps> = ({
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 	}
 
-	function handleSetPizzaInfo(e, arr: string[]): void {
+	function handleSetPizzaInfo(e: React.MouseEvent<Element, MouseEvent>, arr: string[]): void {
 		switch (arr) {
 			case sizes:
 				if (sizes.some((size: string) => size === e.target.dataset.size)) {

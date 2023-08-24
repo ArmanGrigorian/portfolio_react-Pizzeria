@@ -1,13 +1,15 @@
-export function handleGetSelect(
-	e: React.MouseEvent,
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+
+const handleGetSelect = (
+	e: React.ChangeEvent<HTMLSelectElement>,
 	dispatch,
-	setSortBy: (str: string) => string,
+	setSortBy: ActionCreatorWithPayload<string>,
 	activeCategory: string,
 	searchValue: string,
-	setUrl: (str: string) => string,
+	setUrl: ActionCreatorWithPayload<string>,
 	initialUrl: string,
 	currentPage: number,
-) {
+) => {
 	dispatch(setSortBy(e.target.value));
 
 	if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
@@ -43,4 +45,5 @@ export function handleGetSelect(
 			);
 		}
 	}
-}
+};
+export default handleGetSelect;

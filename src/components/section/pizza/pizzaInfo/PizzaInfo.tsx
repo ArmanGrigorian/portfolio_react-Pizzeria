@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PizzaInfo: React.FC = (): JSX.Element => {
-	const { id } = useParams();
+	const { id } = useParams<string>();
 
 	const [pizza, setPizza] = useState<{
 		imgSrc?: string;

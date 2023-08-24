@@ -1,14 +1,16 @@
-export function handleGetCategory(
-	e: React.MouseEvent,
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+
+const handleGetCategory = (
+	e: React.MouseEvent<HTMLLIElement>,
 	categories: string[],
 	dispatch,
-	setActiveCategory: (str: string) => string,
-	setUrl: (str: string) => string,
+	setActiveCategory: ActionCreatorWithPayload<string>,
+	setUrl: ActionCreatorWithPayload<string>,
 	sortBy: string,
 	initialUrl: string,
 	currentPage: number,
-) {
-	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
+): void => {
+	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {		
 		dispatch(setActiveCategory(e.target.dataset.category));
 
 		if (e.target.dataset.category.toLowerCase() === "all") {
@@ -40,5 +42,7 @@ export function handleGetCategory(
 				);
 			}
 		}
-	} else return;
-}
+	}
+};
+
+export default handleGetCategory;

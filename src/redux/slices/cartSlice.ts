@@ -1,6 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState: { totalPrice: number; totalCount: number; items: object[] } = {
+export type TcartItem = {
+	id: string;
+	title: string;
+	price: number;
+	imgSrc: string;
+	imgAlt: string;
+	sizes: string;
+	doughs: string;
+	count: number;
+};
+
+interface IinitialState {
+	totalPrice: number;
+	totalCount: number;
+	items: TcartItem[];
+}
+
+const initialState: IinitialState = {
 	totalPrice: 0,
 	totalCount: 0,
 	items: [],
@@ -12,10 +29,9 @@ export const cartSlice = createSlice({
 	initialState,
 
 	reducers: {
-		addPizzaToCart(state, { payload }): void {
-			const findItem= state.items.find((obj)=> {
+		addPizzaToCart(state, { payload }: PayloadAction<TcartItem>): void {
+			const findItem = state.items.find((obj) => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs)
-					console.log(obj)
 					return obj;
 			});
 
@@ -23,16 +39,16 @@ export const cartSlice = createSlice({
 				findItem.count += 1;
 			} else state.items.push(payload);
 
-			state.totalPrice = state.items.reduce((sum: number, obj: object): number => {
+			state.totalPrice = state.items.reduce((sum: number, obj): number => {
 				return obj.count * obj.price + sum;
 			}, 0);
 
-			state.totalCount = state.items.reduce((sum: number, obj: object): number => {
+			state.totalCount = state.items.reduce((sum: number, obj): number => {
 				return obj.count + sum;
 			}, 0);
 		},
 
-		decrementPizzaCount(state, { payload }): void {
+		decrementPizzaCount(state, { payload }: PayloadAction<TcartItem>): void {
 			const findItem = state.items.find((obj) => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs)
 					return obj;
@@ -46,8 +62,8 @@ export const cartSlice = createSlice({
 			state.totalCount -= 1;
 		},
 
-		removePizzaFromCart(state, { payload }): void {
-			state.items = state.items.filter((obj):object | undefined => {
+		removePizzaFromCart(state, { payload }: PayloadAction<TcartItem>): void {
+			state.items = state.items.filter((obj): object | undefined => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs) {
 					setTimeout(() => alert("removed"), 125);
 				} else return obj;

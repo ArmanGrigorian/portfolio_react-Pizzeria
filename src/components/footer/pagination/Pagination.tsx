@@ -2,11 +2,11 @@ import React from "react";
 import "./Pagination.scss";
 import ReactPaginate from "react-paginate";
 
-type PaginationProps = {
+type TpaginationProps = {
 	handlePage: (e: { selected: number }) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination: React.FC<TpaginationProps> = ({
 	handlePage,
 }): JSX.Element => {
 	return (

@@ -3,7 +3,7 @@ import "./SortPanel.scss";
 
 type SortPanelProps = {
 	sortBy: string;
-	handleGetSelect: (e: React.ChangeEvent) => void;
+	handleGetSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const SortPanel: React.FC<SortPanelProps> = ({ sortBy, handleGetSelect }): JSX.Element => {

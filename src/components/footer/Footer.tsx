@@ -1,11 +1,11 @@
 import React from "react";
 import "./Footer.scss";
 
-type FooterProps = {
+type TfooterProps = {
 	children: JSX.Element | JSX.Element[];
 };
 
-const Footer: React.FC<FooterProps> = ({
+const Footer: React.FC<TfooterProps> = ({
 	children,
 }): JSX.Element | JSX.Element[] => {
 	return <footer>{children}</footer>;

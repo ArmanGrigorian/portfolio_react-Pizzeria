@@ -23,22 +23,10 @@ import {
 	setSearchValue,
 } from "../../redux/slices/pizzaSlice.ts";
 import NotFound from "../section/NotFound.tsx";
-import { handleGetCategory } from "../../utilities/getCategory.ts";
-import { handleGetSelect } from "../../utilities/getSelect.ts";
-import { getSearch } from "../../utilities/getSearch.ts";
-
-type PizzaSlice = {
-	url: string;
-	initialUrl: string;
-	currentPage: number;
-	status: string;
-	isLoading: boolean;
-	pizzas: object[];
-	activeCategory: string;
-	sortBy: string;
-	inputValue: string;
-	searchValue: string;
-};
+import handleGetCategory from "../../utilities/getCategory.ts";
+import handleGetSelect from "../../utilities/getSelect.ts";
+import getSearch from "../../utilities/getSearch.ts";
+import { RootState } from "../../redux/store.ts";
 
 const MainPage: React.FC = (): ReactElement => {
 	const categories = ["All", "Meat", "Spicy", "Cheese"];
@@ -54,7 +42,7 @@ const MainPage: React.FC = (): ReactElement => {
 		sortBy,
 		inputValue,
 		searchValue,
-	} = useSelector((state: { pizzaSlice: PizzaSlice }) => state.pizzaSlice);
+	} = useSelector((state: RootState) => state.pizzaSlice);
 
 	const dispatch = useDispatch();
 
@@ -66,7 +54,7 @@ const MainPage: React.FC = (): ReactElement => {
 		[],
 	);
 
-	function handleSearch(e): void {
+	function handleSearch(e: React.ChangeEvent<HTMLInputElement>): void {
 		dispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
 	}

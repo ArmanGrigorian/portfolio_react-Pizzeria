@@ -1,11 +1,11 @@
 import React from "react";
 import "./HeaderBottom.scss";
 
-type HeaderBottomProps = {
+type TheaderBottomProps = {
 	children: JSX.Element | JSX.Element[];
 };
 
-const HeaderBottom: React.FC<HeaderBottomProps> = ({ children }): JSX.Element | JSX.Element[] => {
+const HeaderBottom: React.FC<TheaderBottomProps> = ({ children }): JSX.Element | JSX.Element[] => {
 	return <div className="headerBottom">{children}</div>;
 };
 

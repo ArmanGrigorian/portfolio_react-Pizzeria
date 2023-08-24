@@ -5,15 +5,17 @@
 // BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
 // FIRST PASSED CONDITION...
 
-export function getSearch(
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+
+const getSearch = (
 	currentSearchValue: string,
 	activeCategory: string,
 	sortBy: string,
 	dispatch,
-	setUrl: (str: string) => string,
+	setUrl: ActionCreatorWithPayload<string>,
 	initialUrl: string,
 	currentPage: number,
-): void {
+): void => {
 	if (activeCategory.toLowerCase() === "all") {
 		if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 			dispatch(
@@ -51,4 +53,6 @@ export function getSearch(
 			);
 		}
 	}
-}
+};
+
+export default getSearch;

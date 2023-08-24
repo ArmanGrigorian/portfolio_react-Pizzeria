@@ -6,24 +6,14 @@ import { IoIosArrowBack } from "react-icons/Io";
 import CartItem from "../cartItem/CartItem.tsx";
 import { clearCart } from "../../../redux/slices/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../redux/store.ts";
+import { TcartItem } from "../../../redux/slices/cartSlice.ts";
 
-type Pizza = {
-	id: string;
-	title: string;
-	imgSrc: string;
-	imgAlt: string;
-	doughs: string[];
-	sizes: string[];
-	price: number;
-	count: number;
-};
+
 
 const Cart: React.FC = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const { items, totalPrice, totalCount } = useSelector(
-		(state: { cartSlice: { items: []; totalPrice: number; totalCount: number } }) =>
-			state.cartSlice,
-	);
+	const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cartSlice);
 
 	function handleClearCart(): void {
 		if (confirm("CLEAR CART?")) {
@@ -34,20 +24,8 @@ const Cart: React.FC = (): JSX.Element => {
 	return (
 		<>
 			<div className="cart">
-				{items.map((pizza: Pizza) => {
-					return (
-						<CartItem
-							key={crypto.randomUUID()}
-							id={pizza.id}
-							title={pizza.title}
-							imgSrc={pizza.imgSrc}
-							imgAlt={pizza.imgAlt}
-							doughs={pizza.doughs}
-							sizes={pizza.sizes}
-							price={pizza.price}
-							count={pizza.count}
-						/>
-					);
+				{items.map((pizza: TcartItem) => {
+					return <CartItem key={crypto.randomUUID()} info={pizza} />;
 				})}
 
 				<div className="cartMid">

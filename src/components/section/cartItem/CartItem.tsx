@@ -6,31 +6,17 @@ import {
 	removePizzaFromCart,
 } from "../../../redux/slices/cartSlice.ts";
 import { useDispatch } from "react-redux";
+import { TcartItem } from "../../../redux/slices/cartSlice.ts";
 
-type CartItemProps = {
-	id: string;
-	title: string;
-	imgSrc: string;
-	imgAlt: string;
-	doughs: string[];
-	sizes: string[];
-	price: number;
-	count: number;
+type TcartItemProps = {
+	info: TcartItem;
 };
 
-const CartItem: React.FC<CartItemProps> = ({
-	id,
-	imgSrc,
-	imgAlt,
-	title,
-	price,
-	sizes,
-	doughs,
-	count,
-}): JSX.Element => {
+const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
+	const { id, sizes, doughs, price, count, title, imgSrc, imgAlt } = info;
 	const dispatch = useDispatch();
 
-	function handleClick(e): void {
+	function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
 		switch (e.target.name) {
 			case "incrementButton":
 				dispatch(addPizzaToCart({ id, sizes, doughs }));

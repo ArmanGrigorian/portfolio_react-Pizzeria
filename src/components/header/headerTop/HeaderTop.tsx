@@ -2,11 +2,12 @@ import React from "react";
 import "./HeaderTop.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 
 const HeaderTop: React.FC = (): JSX.Element => {
 	const { totalPrice, totalCount } = useSelector(
-		(state: { cartSlice: { totalPrice: number; totalCount: number } }) => state.cartSlice,
+		(state: RootState) => state.cartSlice,
 	);
 
 	return (

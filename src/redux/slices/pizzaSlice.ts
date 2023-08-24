@@ -1,13 +1,39 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchPizzasByUrl = createAsyncThunk("pizza/fetchByUrlStatus", async ({ url }) => {
-	const { data } = await axios.get(url);
+export const fetchPizzasByUrl = createAsyncThunk(
+	"pizza/fetchByUrlStatus",
+	async ({ url }: { url: string }): Promise<object> => {
+		const { data }: { data: Tpizzas[] } = await axios.get(url);
 
-	return data;
-});
+		return data;
+	},
+);
 
-const initialState = {
+export type Tpizzas = {
+	id: string;
+	sizes: string[];
+	doughs: string[];
+	imgSrc: string;
+	imgAlt: string;
+	title: string;
+	price: number;
+};
+
+interface IinitialState {
+	initialUrl: string;
+	url: string;
+	currentPage: number;
+	status: string;
+	isLoading: boolean;
+	pizzas: Tpizzas[] | object;
+	activeCategory: string;
+	sortBy: string;
+	inputValue: string;
+	searchValue: string;
+}
+
+const initialState: IinitialState = {
 	initialUrl: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=`,
 	url: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=1&limit=8&`,
 	currentPage: 1,
@@ -26,27 +52,27 @@ export const pizzaSlice = createSlice({
 	initialState,
 
 	reducers: {
-		setUrl(state, { payload }): void {
+		setUrl(state, { payload }: PayloadAction<string>): void {
 			state.url = payload;
 		},
 
-		setCurrentPage(state, { payload }): void {
+		setCurrentPage(state, { payload }: PayloadAction<number>): void {
 			state.currentPage = payload;
 		},
 
-		setActiveCategory(state, { payload }): void {
+		setActiveCategory(state, { payload }: PayloadAction<string>): void {
 			state.activeCategory = payload;
 		},
 
-		setSortBy(state, { payload }): void {
+		setSortBy(state, { payload }: PayloadAction<string>): void {
 			state.sortBy = payload;
 		},
 
-		setInputValue(state, { payload }): void {
+		setInputValue(state, { payload }: PayloadAction<string>): void {
 			state.inputValue = payload;
 		},
 
-		setSearchValue(state, { payload }): void {
+		setSearchValue(state, { payload }: PayloadAction<string>): void {
 			state.searchValue = payload;
 		},
 	},

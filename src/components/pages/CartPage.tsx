@@ -6,12 +6,12 @@ import Cart from "../section/cart/Cart.tsx";
 import NotFound from "../section/NotFound.tsx";
 import { BsCart3 } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store.ts";
 
 const CartPage: React.FC = (): ReactElement => {
 	const items = useSelector(
-		(state: { cartSlice: { items: [string | number] } }) => state.cartSlice.items,
+		(state: RootState) => state.cartSlice.items,
 	);
-	console.log(items);
 	return (
 		<>
 			<Header>
