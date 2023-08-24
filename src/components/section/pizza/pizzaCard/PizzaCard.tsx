@@ -1,7 +1,7 @@
 import React from "react";
 import "./PizzaCard.scss";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../../redux/store.ts";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
 import { Tpizzas } from "../../../../redux/slices/pizzaSlice.ts";
@@ -23,8 +23,8 @@ interface Iitem {
 
 const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 	const { id, sizes, doughs, imgSrc, imgAlt, title, price } = info;
-	
-	const dispatch = useDispatch();
+
+	const appDispatch = useAppDispatch();
 
 	const [pizzaSize, setPizzaSize] = useState<string>(sizes[0]);
 	const [pizzaDough, setPizzaDough] = useState<string>(doughs[0]);
@@ -41,20 +41,22 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 			doughs: pizzaDough,
 			count: 1,
 		};
-		dispatch(addPizzaToCart(item));
+		appDispatch(addPizzaToCart(item));
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 	}
 
-	function handleSetPizzaInfo(e: React.MouseEvent<Element, MouseEvent>, arr: string[]): void {
+	function handleSetPizzaInfo(e: React.MouseEvent<HTMLLIElement, MouseEvent>, arr: string[]): void {
+		const target = e.target as HTMLLIElement;
+
 		switch (arr) {
 			case sizes:
-				if (sizes.some((size: string) => size === e.target.dataset.size)) {
-					setPizzaSize(e.target.dataset.size);
+				if (sizes.some((size: string) => size === target.dataset.size)) {
+					setPizzaSize(target.dataset.size || "");
 				} else return;
 				break;
 			case doughs:
-				if (doughs.some((dough: string) => dough === e.target.dataset.dough)) {
-					setPizzaDough(e.target.dataset.dough);
+				if (doughs.some((dough: string) => dough === target.dataset.dough)) {
+					setPizzaDough(target.dataset.dough || "");
 				} else return;
 				break;
 			default:
@@ -71,15 +73,15 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 			<h3>{title}</h3>
 
 			<div className="selector">
-				<ul
-					onClick={(e: React.MouseEvent) => {
-						handleSetPizzaInfo(e, doughs);
-					}}>
+				<ul>
 					{doughs.map((dough) => {
 						return (
 							<li
 								key={crypto.randomUUID()}
 								data-dough={dough}
+								onClick={(e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+									handleSetPizzaInfo(e, doughs);
+								}}
 								className={pizzaDough === dough ? "active" : ""}>
 								{dough}
 							</li>
@@ -87,12 +89,15 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 					})}
 				</ul>
 
-				<ul onClick={(e: React.MouseEvent) => handleSetPizzaInfo(e, sizes)}>
+				<ul>
 					{sizes.map((size: string) => {
 						return (
 							<li
 								key={crypto.randomUUID()}
 								data-size={size}
+								onClick={(e: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+									handleSetPizzaInfo(e, sizes)
+								}
 								className={pizzaSize === size ? "active" : ""}>
 								{size} sm
 							</li>

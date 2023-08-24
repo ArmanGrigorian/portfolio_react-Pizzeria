@@ -12,7 +12,8 @@ import CategoriesPanel from "../header/headerBottom/categories/CategoriesPanel.t
 import SortPanel from "../header/headerBottom/sort/SortPanel.tsx";
 import Footer from "../footer/Footer.tsx";
 import Pagination from "../footer/pagination/Pagination.tsx";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../redux/store.ts";
 import {
 	fetchPizzasByUrl,
 	setUrl,
@@ -44,33 +45,33 @@ const MainPage: React.FC = (): ReactElement => {
 		searchValue,
 	} = useSelector((state: RootState) => state.pizzaSlice);
 
-	const dispatch = useDispatch();
+	const appDispatch = useAppDispatch();
 
 	const updateSearchValue = useCallback(
 		debounce((str: string) => {
-			dispatch(setSearchValue(str));
-			getSearch(str, activeCategory, sortBy, dispatch, setUrl, initialUrl, currentPage);
+			appDispatch(setSearchValue(str));
+			getSearch(str, activeCategory, sortBy, appDispatch, setUrl, initialUrl, currentPage);
 		}),
 		[],
 	);
 
 	function handleSearch(e: React.ChangeEvent<HTMLInputElement>): void {
-		dispatch(setInputValue(e.target.value));
+		appDispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
 	}
 
 	function handlePage(e: { selected: number }): void {
-		dispatch(setCurrentPage(e.selected + 1));
-		dispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
+		appDispatch(setCurrentPage(e.selected + 1));
+		appDispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
 	}
 
 	async function controlBusiness(): Promise<void> {
-		dispatch(fetchPizzasByUrl({ url }));
+		appDispatch(fetchPizzasByUrl({ url }));
 	}
 
 	useEffect(() => {
 		controlBusiness();
-	}, [dispatch, url]);
+	}, [appDispatch, url]);
 
 	return (
 		<>
@@ -85,7 +86,7 @@ const MainPage: React.FC = (): ReactElement => {
 							handleGetCategory(
 								e,
 								categories,
-								dispatch,
+								appDispatch,
 								setActiveCategory,
 								setUrl,
 								sortBy,
@@ -99,7 +100,7 @@ const MainPage: React.FC = (): ReactElement => {
 						handleGetSelect={(e) =>
 							handleGetSelect(
 								e,
-								dispatch,
+								appDispatch,
 								setSortBy,
 								activeCategory,
 								searchValue,

@@ -5,7 +5,7 @@ import {
 	decrementPizzaCount,
 	removePizzaFromCart,
 } from "../../../redux/slices/cartSlice.ts";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../redux/store.ts";
 import { TcartItem } from "../../../redux/slices/cartSlice.ts";
 
 type TcartItemProps = {
@@ -14,19 +14,54 @@ type TcartItemProps = {
 
 const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
 	const { id, sizes, doughs, price, count, title, imgSrc, imgAlt } = info;
-	const dispatch = useDispatch();
+	const appDispatch = useAppDispatch();
 
 	function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-		switch (e.target.name) {
+		const target = e.target as HTMLButtonElement;
+
+		switch (target.name) {
 			case "incrementButton":
-				dispatch(addPizzaToCart({ id, sizes, doughs }));
+				appDispatch(
+					addPizzaToCart({
+						id,
+						sizes,
+						doughs,
+						title,
+						price,
+						imgSrc,
+						imgAlt,
+						count,
+					}),
+				);
 				break;
 			case "decrementButton":
-				dispatch(decrementPizzaCount({ id, sizes, doughs, price, count }));
+				appDispatch(
+					decrementPizzaCount({
+						id,
+						sizes,
+						doughs,
+						price,
+						count,
+						title,
+						imgSrc,
+						imgAlt,
+					}),
+				);
 				break;
 			case "removeButton":
 				if (confirm(`remove ${title} from your cart`)) {
-					dispatch(removePizzaFromCart({ id, title, sizes, doughs, price, count }));
+					appDispatch(
+						removePizzaFromCart({
+							id,
+							title,
+							sizes,
+							doughs,
+							price,
+							count,
+							imgSrc,
+							imgAlt,
+						}),
+					);
 				}
 				break;
 			default:

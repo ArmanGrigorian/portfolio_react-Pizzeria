@@ -1,43 +1,44 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ActionCreatorWithPayload, Dispatch } from "@reduxjs/toolkit";
 
 const handleGetCategory = (
-	e: React.MouseEvent<HTMLLIElement>,
+	e: React.MouseEvent<HTMLLIElement, MouseEvent>,
 	categories: string[],
-	dispatch,
+	appDispatch: Dispatch,
 	setActiveCategory: ActionCreatorWithPayload<string>,
 	setUrl: ActionCreatorWithPayload<string>,
 	sortBy: string,
 	initialUrl: string,
 	currentPage: number,
 ): void => {
-	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {		
-		dispatch(setActiveCategory(e.target.dataset.category));
+	const DESC: string = "&order=desc";
+	const ASC: string = "&order=asc";
+	const L8S: string = "&limit=8&sortBy=";
+	const F: string = "&filter=";
+
+	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
+		appDispatch(setActiveCategory(e.target.dataset.category));
 
 		if (e.target.dataset.category.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				dispatch(
-					setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=desc`),
-				);
+				appDispatch(setUrl(`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${DESC}`));
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				dispatch(
-					setUrl(`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&order=asc`),
-				);
+				appDispatch(setUrl(`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${ASC}`));
 			}
 		} else {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
-				dispatch(
+				appDispatch(
 					setUrl(
-						`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
+						`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${F}${
 							e.target.dataset.category
-						}&order=desc`,
+						}${DESC}`,
 					),
 				);
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
-				dispatch(
+				appDispatch(
 					setUrl(
-						`${initialUrl}${currentPage}&limit=8&sortBy=${sortBy.split(" ")[0]}&filter=${
+						`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${F}${
 							e.target.dataset.category
-						}&order=asc`,
+						}${ASC}`,
 					),
 				);
 			}

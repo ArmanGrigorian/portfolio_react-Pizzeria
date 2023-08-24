@@ -5,19 +5,20 @@ import { RiDeleteBinLine } from "react-icons/Ri";
 import { IoIosArrowBack } from "react-icons/Io";
 import CartItem from "../cartItem/CartItem.tsx";
 import { clearCart } from "../../../redux/slices/cartSlice.ts";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../redux/store.ts";
 import { RootState } from "../../../redux/store.ts";
 import { TcartItem } from "../../../redux/slices/cartSlice.ts";
 
 
 
 const Cart: React.FC = (): JSX.Element => {
-	const dispatch = useDispatch();
+	const appDispatch = useAppDispatch();
 	const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cartSlice);
 
 	function handleClearCart(): void {
 		if (confirm("CLEAR CART?")) {
-			dispatch(clearCart());
+			appDispatch(clearCart());
 		}
 	}
 

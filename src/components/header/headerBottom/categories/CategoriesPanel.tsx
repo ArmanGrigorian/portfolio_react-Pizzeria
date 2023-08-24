@@ -4,7 +4,7 @@ import "./CategoriesPanel.scss";
 type TcategoriesPanelProps = {
 	categories: string[];
 	activeCategory: string;
-	handleGetCategory: (e: React.MouseEvent<HTMLLIElement>) => void;
+	handleGetCategory: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
 };
 
 const CategoriesPanel: React.FC<TcategoriesPanelProps> = ({ categories, activeCategory, handleGetCategory }): JSX.Element => {

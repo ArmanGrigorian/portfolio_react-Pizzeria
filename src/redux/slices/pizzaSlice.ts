@@ -10,6 +10,13 @@ export const fetchPizzasByUrl = createAsyncThunk(
 	},
 );
 
+export enum Status {
+	LOADING = "loading",
+	PENDING = "pending",
+	FULFILLED = "fulfilled",
+	REJECTED = "rejected",
+}
+
 export type Tpizzas = {
 	id: string;
 	sizes: string[];
@@ -24,9 +31,9 @@ interface IinitialState {
 	initialUrl: string;
 	url: string;
 	currentPage: number;
-	status: string;
+	status: Status;
 	isLoading: boolean;
-	pizzas: Tpizzas[] | object;
+	pizzas: object | Tpizzas[];
 	activeCategory: string;
 	sortBy: string;
 	inputValue: string;
@@ -37,7 +44,7 @@ const initialState: IinitialState = {
 	initialUrl: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=`,
 	url: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=1&limit=8&`,
 	currentPage: 1,
-	status: "loading",
+	status: Status.LOADING,
 	isLoading: true,
 	pizzas: [],
 	activeCategory: "all",
@@ -80,17 +87,17 @@ export const pizzaSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchPizzasByUrl.pending, (state) => {
-				state.status = "pending";
+				state.status = Status.PENDING;
 				state.isLoading = true;
 				state.pizzas = [];
 			})
 			.addCase(fetchPizzasByUrl.fulfilled, (state, { payload }) => {
-				state.status = "fulfilled";
+				state.status = Status.FULFILLED;
 				state.isLoading = false;
 				state.pizzas = payload;
 			})
 			.addCase(fetchPizzasByUrl.rejected, (state) => {
-				state.status = "rejected";
+				state.status = Status.REJECTED;
 				state.isLoading = false;
 				state.pizzas = [];
 			});

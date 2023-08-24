@@ -1,8 +1,8 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ActionCreatorWithPayload, Dispatch } from "@reduxjs/toolkit";
 
 const handleGetSelect = (
 	e: React.ChangeEvent<HTMLSelectElement>,
-	dispatch,
+	appDispatch: Dispatch,
 	setSortBy: ActionCreatorWithPayload<string>,
 	activeCategory: string,
 	searchValue: string,
@@ -10,37 +10,36 @@ const handleGetSelect = (
 	initialUrl: string,
 	currentPage: number,
 ) => {
-	dispatch(setSortBy(e.target.value));
+	const DESC: string = "&order=desc";
+	const ASC: string = "&order=asc";
+	const L8S: string = "&limit=8&sortBy=";
+	const L8C: string = "&limit=8&category=";
+
+	appDispatch(setSortBy(e.target.value));
 
 	if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
 		if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-			dispatch(
-				setUrl(
-					`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=desc`,
-				),
+			appDispatch(
+				setUrl(`${initialUrl}${currentPage}${L8S}${e.target.value.split(" ")[0]}${DESC}`),
 			);
 		} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-			dispatch(
-				setUrl(
-					`${initialUrl}${currentPage}&limit=8&sortBy=${e.target.value.split(" ")[0]}&order=asc`,
-				),
-			);
+			appDispatch(setUrl(`${initialUrl}${currentPage}${L8S}${e.target.value.split(" ")[0]}${ASC}`));
 		}
 	} else {
 		if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
-			dispatch(
+			appDispatch(
 				setUrl(
-					`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&sortBy=${
+					`${initialUrl}${currentPage}${L8C}${activeCategory}&sortBy=${
 						e.target.value.split(" ")[0]
-					}&order=desc`,
+					}${DESC}`,
 				),
 			);
 		} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
-			dispatch(
+			appDispatch(
 				setUrl(
-					`${initialUrl}${currentPage}&limit=8&category=${activeCategory}&sortBy=${
+					`${initialUrl}${currentPage}${L8C}${activeCategory}&sortBy=${
 						e.target.value.split(" ")[0]
-					}&order=asc`,
+					}${ASC}`,
 				),
 			);
 		}
