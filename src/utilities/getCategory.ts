@@ -14,11 +14,12 @@ const handleGetCategory = (
 	const ASC: string = "&order=asc";
 	const L8S: string = "&limit=8&sortBy=";
 	const F: string = "&filter=";
+	const li: HTMLLIElement = e.target as HTMLLIElement;
 
-	if (categories.some((category) => category.toLowerCase() === e.target.dataset.category)) {
-		appDispatch(setActiveCategory(e.target.dataset.category));
+	if (categories.some((category) => category.toLowerCase() === li.dataset.category)) {
+		appDispatch(setActiveCategory(li.dataset!.category!));
 
-		if (e.target.dataset.category.toLowerCase() === "all") {
+		if (li.dataset.category!.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				appDispatch(setUrl(`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${DESC}`));
 			} else if (sortBy.endsWith("high)") || sortBy.endsWith("Z)")) {
@@ -29,7 +30,7 @@ const handleGetCategory = (
 				appDispatch(
 					setUrl(
 						`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${F}${
-							e.target.dataset.category
+							li.dataset.category
 						}${DESC}`,
 					),
 				);
@@ -37,7 +38,7 @@ const handleGetCategory = (
 				appDispatch(
 					setUrl(
 						`${initialUrl}${currentPage}${L8S}${sortBy.split(" ")[0]}${F}${
-							e.target.dataset.category
+							li.dataset.category
 						}${ASC}`,
 					),
 				);

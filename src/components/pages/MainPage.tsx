@@ -22,6 +22,7 @@ import {
 	setSortBy,
 	setInputValue,
 	setSearchValue,
+	Tpizzas,
 } from "../../redux/slices/pizzaSlice.ts";
 import NotFound from "../section/NotFound.tsx";
 import handleGetCategory from "../../utilities/getCategory.ts";
@@ -47,6 +48,7 @@ const MainPage: React.FC = (): ReactElement => {
 
 	const appDispatch = useAppDispatch();
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateSearchValue = useCallback(
 		debounce((str: string) => {
 			appDispatch(setSearchValue(str));
@@ -71,6 +73,7 @@ const MainPage: React.FC = (): ReactElement => {
 
 	useEffect(() => {
 		controlBusiness();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [appDispatch, url]);
 
 	return (
@@ -122,7 +125,7 @@ const MainPage: React.FC = (): ReactElement => {
 							<h1>{isLoading ? "Loading" : "All"}</h1>
 							<SearchBar inputValue={inputValue} handleSearch={handleSearch} />
 						</SectionTop>
-						<Menu pizzas={pizzas} isLoading={isLoading} />
+						<Menu pizzas={pizzas as Tpizzas[]} isLoading={isLoading} />
 					</>
 				)}
 			</Section>
