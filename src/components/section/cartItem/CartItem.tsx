@@ -27,9 +27,7 @@ const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
 				count > 1 && appDispatch(decrementPizzaCount(info));
 				break;
 			case "removeButton":
-				if (confirm(`remove ${title} from your cart`)) {
-					appDispatch(removePizzaFromCart(info));
-				}
+				appDispatch(removePizzaFromCart(info));
 				break;
 			default:
 				break;

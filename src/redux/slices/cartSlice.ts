@@ -65,11 +65,13 @@ export const cartSlice = createSlice({
 		removePizzaFromCart(state, { payload }: PayloadAction<TcartItem>): void {
 			state.items = state.items.filter((obj): object | undefined => {
 				if (obj.id === payload.id && obj.sizes === payload.sizes && obj.doughs === payload.doughs) {
-					setTimeout(() => alert("removed"), 125);
+					// no practical use of it just for fun
+					const time = new Date();
+					console.log(`${obj.title} was removed from cart ${time.getHours()}:${time.getMinutes()}`);
 				} else return obj;
 			});
 
-			state.totalPrice -= payload.price;
+			state.totalPrice -= payload.price * payload.count;
 			state.totalCount -= payload.count;
 		},
 
