@@ -3,10 +3,11 @@
  .cartItem {
      @include mxs.rowFlex(space-between, center);
      width: 100%;
-     border: 3px solid var(--my-color-green);
+     border: 2px solid var(--my-color-black);
      border-radius: var(--my-value-max);
      background-color: var(--my-color-white);
      padding: var(--my-value-mid) var(--my-value-max);
+    
 
      p {
          @include mxs.h3(var(--my-color-black));
@@ -23,6 +24,28 @@
          user-select: none;
          cursor: pointer;
          transition: background-color 100ms linear, color 100ms linear;
+
+
+         &.removeButton {
+             color: var(--my-color-black);
+             border: 2px solid var(--my-color-black);
+             color: var(--my-color-black);
+             background-color: var(--my-color-white);
+             
+             &:hover {
+                 color: var(--my-color-white);
+                 background-color: var(--my-color-black);
+             }
+
+         }
+
+         &.minCount {
+             opacity: 0.5;
+
+             &:active {
+                 scale: 1;
+             }
+         }
 
          &:hover {
              background-color: var(--my-color-orange);

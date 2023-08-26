@@ -13,7 +13,7 @@ type TcartItemProps = {
 };
 
 const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
-	const { id, sizes, doughs, price, count, title, imgSrc, imgAlt } = info;
+	const { sizes, doughs, price, count, title, imgSrc, imgAlt } = info;
 	const appDispatch = useAppDispatch();
 
 	function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
@@ -21,47 +21,14 @@ const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
 
 		switch (target.name) {
 			case "incrementButton":
-				appDispatch(
-					addPizzaToCart({
-						id,
-						sizes,
-						doughs,
-						title,
-						price,
-						imgSrc,
-						imgAlt,
-						count,
-					}),
-				);
+				appDispatch(addPizzaToCart(info));
 				break;
 			case "decrementButton":
-				appDispatch(
-					decrementPizzaCount({
-						id,
-						sizes,
-						doughs,
-						price,
-						count,
-						title,
-						imgSrc,
-						imgAlt,
-					}),
-				);
+				count > 1 && appDispatch(decrementPizzaCount(info));
 				break;
 			case "removeButton":
 				if (confirm(`remove ${title} from your cart`)) {
-					appDispatch(
-						removePizzaFromCart({
-							id,
-							title,
-							sizes,
-							doughs,
-							price,
-							count,
-							imgSrc,
-							imgAlt,
-						}),
-					);
+					appDispatch(removePizzaFromCart(info));
 				}
 				break;
 			default:
@@ -82,7 +49,7 @@ const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
 			</div>
 
 			<div>
-				<button type="button" name="decrementButton">
+				<button type="button" name="decrementButton" className={count <= 1 ? "minCount" : undefined}>
 					-
 				</button>
 				<p>{count}</p>

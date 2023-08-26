@@ -17,6 +17,7 @@
         div {
             h2 {
                 @include mxs.h2();
+                text-shadow: 1px 1px 3px var(--my-color-greyLight);
             }
 
             p {
@@ -31,7 +32,7 @@
         width: clamp(100px, 10vw, 110px);
         height: calc(var(--my-value-max) * 2);
         border-radius: calc(var(--my-value-min) * 8);
-        box-shadow: 0px 1px 4px 1px var(--my-color-orange);
+        box-shadow: 0px 0px 3px 1px var(--my-color-greyLight);
         transition:
             background-color 100ms linear,
             scale 100ms linear,
