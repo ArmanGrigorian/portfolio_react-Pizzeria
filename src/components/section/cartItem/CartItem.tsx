@@ -4,9 +4,9 @@ import {
 	addPizzaToCart,
 	decrementPizzaCount,
 	removePizzaFromCart,
-} from "../../../redux/slices/cartSlice.ts";
+} from "../../../redux/slices/cart/cartSlice.ts";
 import { useAppDispatch } from "../../../redux/store.ts";
-import { TcartItem } from "../../../redux/slices/cartSlice.ts";
+import { TcartItem } from "../../../redux/slices/cart/types.ts";
 
 type TcartItemProps = {
 	info: TcartItem;
@@ -47,7 +47,10 @@ const CartItem: React.FC<TcartItemProps> = ({ info }): JSX.Element => {
 			</div>
 
 			<div>
-				<button type="button" name="decrementButton" className={count <= 1 ? "minCount" : undefined}>
+				<button
+					type="button"
+					name="decrementButton"
+					className={count <= 1 ? "minCount" : undefined}>
 					-
 				</button>
 				<p>{count}</p>

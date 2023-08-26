@@ -1,11 +1,11 @@
 import React from "react";
 import "./Section.scss";
 
-type SectionProps = {
+type TsectionProps = {
 	children: JSX.Element | JSX.Element[];
 };
 
-const Section: React.FC<SectionProps> = ({ children }): JSX.Element => {
+const Section: React.FC<TsectionProps> = ({ children }): JSX.Element => {
 	return <section>{children}</section>;
 };
 

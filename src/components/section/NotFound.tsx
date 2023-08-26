@@ -1,10 +1,10 @@
 import React from "react";
 
-type NotFoundProps = {
+type TnotFoundProps = {
 	title: string;
 };
 
-const NotFound: React.FC<NotFoundProps> = ({ title }): JSX.Element => {
+const NotFound: React.FC<TnotFoundProps> = ({ title }): JSX.Element => {
 	return (
 		<>
 			<h1>{title}</h1>

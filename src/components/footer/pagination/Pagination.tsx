@@ -6,9 +6,7 @@ type TpaginationProps = {
 	handlePage: (e: { selected: number }) => void;
 };
 
-const Pagination: React.FC<TpaginationProps> = ({
-	handlePage,
-}): JSX.Element => {
+const Pagination: React.FC<TpaginationProps> = ({ handlePage }): JSX.Element => {
 	return (
 		<>
 			<ReactPaginate

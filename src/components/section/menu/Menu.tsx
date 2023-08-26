@@ -2,14 +2,14 @@ import React from "react";
 import "./Menu.scss";
 import PizzaCard from "../pizza/pizzaCard/PizzaCard.tsx";
 import PizzaCardPlaceholder from "../pizza/PizzaCardPlaceholder.tsx";
-import { Tpizzas } from "../../../redux/slices/pizzaSlice.ts";
+import { Tpizzas } from "../../../redux/slices/pizzas/types.ts";
 
-type MenuProps = {
-	pizzas:  Tpizzas[],
-	isLoading: boolean,
+type TmenuProps = {
+	pizzas: Tpizzas[];
+	isLoading: boolean;
 };
 
-const Menu: React.FC<MenuProps> = ({ pizzas, isLoading }): JSX.Element => {
+const Menu: React.FC<TmenuProps> = ({ pizzas, isLoading }): JSX.Element => {
 	return (
 		<>
 			<div className="menu">
@@ -17,8 +17,8 @@ const Menu: React.FC<MenuProps> = ({ pizzas, isLoading }): JSX.Element => {
 					? [...new Array(4)].map(() => <PizzaCardPlaceholder key={crypto.randomUUID()} />)
 					: pizzas.map(
 							(pizza: Tpizzas): JSX.Element => <PizzaCard key={crypto.randomUUID()} info={pizza} />,
-					)
-				}
+							// eslint-disable-next-line no-mixed-spaces-and-tabs
+					  )}
 			</div>
 		</>
 	);

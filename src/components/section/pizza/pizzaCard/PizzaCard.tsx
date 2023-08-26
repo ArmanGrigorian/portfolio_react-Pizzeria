@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "./PizzaCard.scss";
 import { useAppDispatch } from "../../../../redux/store.ts";
 import { Link } from "react-router-dom";
-import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
-import { Tpizzas } from "../../../../redux/slices/pizzaSlice.ts";
+import { addPizzaToCart } from "../../../../redux/slices/cart/cartSlice.ts";
+import { Tpizzas } from "../../../../redux/slices/pizzas/types.ts";
 
-interface PizzaCardProps {
+type TpizzaCardProps = {
 	info: Tpizzas;
-}
+};
 
-interface Iitem {
+type Titem = {
 	id: string;
 	title: string;
 	price: number;
@@ -19,9 +19,9 @@ interface Iitem {
 	doughs: string;
 	count: number;
 	currentTotalCount: number;
-}
+};
 
-const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
+const PizzaCard: React.FC<TpizzaCardProps> = ({ info }): JSX.Element => {
 	const { id, sizes, doughs, imgSrc, imgAlt, title, price } = info;
 
 	const appDispatch = useAppDispatch();
@@ -33,7 +33,7 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 	const [pizzaCount, setPizzaCount] = useState<number>(currentCount);
 
 	function handleAddPizzaToCart(): void {
-		const item: Iitem = {
+		const item: Titem = {
 			id,
 			title,
 			price,
@@ -47,7 +47,7 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 		appDispatch(addPizzaToCart(item));
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
 		const newItem = { ...item };
-		newItem.currentTotalCount += 1
+		newItem.currentTotalCount += 1;
 		localStorage.setItem(title, JSON.stringify(newItem));
 	}
 

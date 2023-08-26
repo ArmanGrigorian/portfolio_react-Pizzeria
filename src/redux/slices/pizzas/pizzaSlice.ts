@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { IinitialStatePizza, Tpizzas, Status } from "./types";
 import axios from "axios";
 
 export const fetchPizzasByUrl = createAsyncThunk(
@@ -9,36 +10,6 @@ export const fetchPizzasByUrl = createAsyncThunk(
 		return data;
 	},
 );
-
-export enum Status {
-	LOADING = "loading",
-	PENDING = "pending",
-	FULFILLED = "fulfilled",
-	REJECTED = "rejected",
-}
-
-export type Tpizzas = {
-	id: string;
-	sizes: string[];
-	doughs: string[];
-	imgSrc: string;
-	imgAlt: string;
-	title: string;
-	price: number;
-};
-
-interface IinitialStatePizza {
-	initialUrl: string;
-	url: string;
-	currentPage: number;
-	status: Status;
-	isLoading: boolean;
-	pizzas: object | Tpizzas[];
-	activeCategory: string;
-	sortBy: string;
-	inputValue: string;
-	searchValue: string;
-}
 
 const initialState: IinitialStatePizza = {
 	initialUrl: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=`,

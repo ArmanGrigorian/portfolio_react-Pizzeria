@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/Ri";
 import { IoIosArrowBack } from "react-icons/Io";
 import CartItem from "../cartItem/CartItem.tsx";
-import { clearCart } from "../../../redux/slices/cartSlice.ts";
+import { clearCart } from "../../../redux/slices/cart/cartSlice.ts";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../redux/store.ts";
 import { RootState } from "../../../redux/store.ts";
-import { TcartItem } from "../../../redux/slices/cartSlice.ts";
-
-
+import { TcartItem } from "../../../redux/slices/cart/types.ts";
 
 const Cart: React.FC = (): JSX.Element => {
 	const appDispatch = useAppDispatch();

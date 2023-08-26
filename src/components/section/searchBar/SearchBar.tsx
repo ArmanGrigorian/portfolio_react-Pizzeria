@@ -2,12 +2,12 @@ import React from "react";
 import "./SearchBar.scss";
 import { FcSearch } from "react-icons/Fc";
 
-type SearchBarProps = {
+type TsearchBarProps = {
 	inputValue: string;
 	handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({ inputValue, handleSearch }): JSX.Element => {
+const SearchBar: React.FC<TsearchBarProps> = ({ inputValue, handleSearch }): JSX.Element => {
 	return (
 		<div className="searchBar">
 			<input

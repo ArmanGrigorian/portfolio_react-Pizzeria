@@ -1,12 +1,8 @@
 import React from "react";
+import { TsortPanelProps } from "./types.ts";
 import "./SortPanel.scss";
 
-type SortPanelProps = {
-	sortBy: string;
-	handleGetSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-
-const SortPanel: React.FC<SortPanelProps> = ({ sortBy, handleGetSelect }): JSX.Element => {
+const SortPanel: React.FC<TsortPanelProps> = ({ sortBy, handleGetSelect }): JSX.Element => {
 	const sortCategories: string[] = [
 		"rating (high > low)",
 		"rating (low > high)",
