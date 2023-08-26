@@ -1,4 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import getLocalCart from "../../utilities/getLocalCart";
+import calcTotalPrice from "../../utilities/calcTotalPrice";
+import calcTotalCount from "../../utilities/calcTotalCount";
 
 export type TcartItem = {
 	id: string;
@@ -9,18 +12,21 @@ export type TcartItem = {
 	sizes: string;
 	doughs: string;
 	count: number;
+	currentTotalCount: number;
 };
 
-interface IinitialState {
+export interface IinitialStateCart {
 	totalPrice: number;
 	totalCount: number;
 	items: TcartItem[];
 }
 
-const initialState: IinitialState = {
-	totalPrice: 0,
-	totalCount: 0,
-	items: [],
+const localCart: IinitialStateCart = getLocalCart();
+
+const initialState: IinitialStateCart = {
+	totalPrice: localCart.totalPrice,
+	totalCount: localCart.totalCount,
+	items: localCart.items,
 };
 
 export const cartSlice = createSlice({
@@ -39,13 +45,9 @@ export const cartSlice = createSlice({
 				findItem.count += 1;
 			} else state.items.push(payload);
 
-			state.totalPrice = state.items.reduce((sum: number, obj): number => {
-				return obj.count * obj.price + sum;
-			}, 0);
+			state.totalPrice = calcTotalPrice(state.items);
 
-			state.totalCount = state.items.reduce((sum: number, obj): number => {
-				return obj.count + sum;
-			}, 0);
+			state.totalCount = calcTotalCount(state.items);
 		},
 
 		decrementPizzaCount(state, { payload }: PayloadAction<TcartItem>): void {
@@ -56,6 +58,10 @@ export const cartSlice = createSlice({
 
 			if (findItem) {
 				findItem.count -= 1;
+				const data: string | null = localStorage.getItem(findItem.title);
+				const localItem: TcartItem = data ? JSON.parse(data) : findItem;
+				localItem.currentTotalCount = findItem.count;
+				localStorage.setItem(findItem.title, JSON.stringify(localItem));
 			}
 
 			state.totalPrice -= payload.price;
@@ -79,6 +85,7 @@ export const cartSlice = createSlice({
 			state.items = [];
 			state.totalPrice = 0;
 			state.totalCount = 0;
+			localStorage.clear();
 		},
 	},
 });

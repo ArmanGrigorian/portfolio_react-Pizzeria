@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 import { useEffect, useCallback } from "react";
 import debounce from "../../utilities/debounce.ts";
 import Header from "../header/Header.tsx";
@@ -28,7 +28,7 @@ import NotFound from "../section/NotFound.tsx";
 import { RootState } from "../../redux/store.ts";
 
 const MainPage: React.FC = (): ReactElement => {
-	const categories = ["All", "Meat", "Spicy", "Cheese"];
+	const categories = useMemo(() => ["All", "Meat", "Spicy", "Cheese"], []);
 
 	const {
 		url,
@@ -62,7 +62,7 @@ const MainPage: React.FC = (): ReactElement => {
 	// BUT & OPERATOR NOT OPERATING AS IT MUST. IT IS CHECKING ONLY
 	// FIRST PASSED CONDITION...
 
-	const getSearch = (currentSearchValue: string): void => {
+	const getSearch = useCallback((currentSearchValue: string): void => {
 		if (activeCategory.toLowerCase() === "all") {
 			if (sortBy.endsWith("low)") || sortBy.endsWith("A)")) {
 				appDispatch(
@@ -100,7 +100,7 @@ const MainPage: React.FC = (): ReactElement => {
 				);
 			}
 		}
-	};
+	}, [activeCategory, appDispatch, currentPage, initialUrl, sortBy]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateSearchValue = useCallback(
@@ -111,12 +111,12 @@ const MainPage: React.FC = (): ReactElement => {
 		[],
 	);
 
-	function handleSearch(e: React.ChangeEvent<HTMLInputElement>): void {
+	const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
 		appDispatch(setInputValue(e.target.value));
 		updateSearchValue(e.target.value);
-	}
+	}, [appDispatch, updateSearchValue]);
 
-	const handleGetCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
+	const handleGetCategory = useCallback((e: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
 		const li: HTMLLIElement = e.target as HTMLLIElement;
 
 		if (categories.some((category) => category.toLowerCase() === li.dataset.category)) {
@@ -148,9 +148,9 @@ const MainPage: React.FC = (): ReactElement => {
 				}
 			}
 		}
-	};
+	}, [appDispatch, categories, currentPage, initialUrl, sortBy]);
 
-	const handleGetSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleGetSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
 		appDispatch(setSortBy(e.target.value));
 
 		if (activeCategory.toLowerCase() === "all" && searchValue.toLowerCase() === "") {
@@ -167,7 +167,7 @@ const MainPage: React.FC = (): ReactElement => {
 			if (e.target.value.endsWith("low)") || e.target.value.endsWith("A)")) {
 				appDispatch(
 					setUrl(
-						`${initialUrl}${currentPage}${L8C}${activeCategory}&sortBy=${
+						`${initialUrl}${currentPage}${L8C}${activeCategory}${S}${
 							e.target.value.split(" ")[0]
 						}${DESC}`,
 					),
@@ -175,19 +175,22 @@ const MainPage: React.FC = (): ReactElement => {
 			} else if (e.target.value.endsWith("high)") || e.target.value.endsWith("Z)")) {
 				appDispatch(
 					setUrl(
-						`${initialUrl}${currentPage}${L8C}${activeCategory}&sortBy=${
+						`${initialUrl}${currentPage}${L8C}${activeCategory}${S}=${
 							e.target.value.split(" ")[0]
 						}${ASC}`,
 					),
 				);
 			}
 		}
-	};
+	}, [activeCategory, appDispatch, currentPage, initialUrl, searchValue]);
 
-	function handlePage(e: { selected: number }): void {
-		appDispatch(setCurrentPage(e.selected + 1));
-		appDispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
-	}
+	const handlePage = useCallback(
+		(e: { selected: number }): void => {
+			appDispatch(setCurrentPage(e.selected + 1));
+			appDispatch(setUrl(`${initialUrl}${e.selected + 1}&limit=8&`));
+		},
+		[appDispatch, initialUrl],
+	);
 
 	async function controlBusiness(): Promise<void> {
 		appDispatch(fetchPizzasByUrl({ url }));

@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PizzaCard.scss";
-import { useState } from "react";
 import { useAppDispatch } from "../../../../redux/store.ts";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cartSlice.ts";
@@ -19,16 +18,19 @@ interface Iitem {
 	sizes: string;
 	doughs: string;
 	count: number;
+	currentTotalCount: number;
 }
 
 const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 	const { id, sizes, doughs, imgSrc, imgAlt, title, price } = info;
 
 	const appDispatch = useAppDispatch();
+	const data: string | null = localStorage.getItem(title);
+	const currentCount: number = data ? JSON.parse(data).currentTotalCount : 0;
 
 	const [pizzaSize, setPizzaSize] = useState<string>(sizes[0]);
 	const [pizzaDough, setPizzaDough] = useState<string>(doughs[0]);
-	const [pizzaCount, setPizzaCount] = useState<number>(0);
+	const [pizzaCount, setPizzaCount] = useState<number>(currentCount);
 
 	function handleAddPizzaToCart(): void {
 		const item: Iitem = {
@@ -40,9 +42,13 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ info }): JSX.Element => {
 			sizes: pizzaSize,
 			doughs: pizzaDough,
 			count: 1,
+			currentTotalCount: pizzaCount,
 		};
 		appDispatch(addPizzaToCart(item));
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
+		const newItem = { ...item };
+		newItem.currentTotalCount += 1
+		localStorage.setItem(title, JSON.stringify(newItem));
 	}
 
 	function handleSetPizzaInfo(e: React.MouseEvent<HTMLLIElement, MouseEvent>, arr: string[]): void {

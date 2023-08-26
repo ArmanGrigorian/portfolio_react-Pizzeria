@@ -1,14 +1,20 @@
-import React from "react";
+import React, { memo, useEffect, useState } from "react";
 import "./HeaderTop.scss";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
+const HeaderTop: React.FC = memo((): JSX.Element => {
+	const { totalPrice, totalCount, items } = useSelector((state: RootState) => state.cartSlice);
 
-const HeaderTop: React.FC = (): JSX.Element => {
-	const { totalPrice, totalCount } = useSelector(
-		(state: RootState) => state.cartSlice,
-	);
+	const [isMounted, setIsMounted] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (isMounted) {
+			const localCart: string = JSON.stringify(items);
+			localStorage.setItem("localCart", localCart);
+		} else setIsMounted(true);
+	}, [isMounted, items]);
 
 	return (
 		<div className="headerTop">
@@ -33,6 +39,8 @@ const HeaderTop: React.FC = (): JSX.Element => {
 			</Link>
 		</div>
 	);
-};
+});
+
+HeaderTop.displayName = "HeaderTop";
 
 export default HeaderTop;

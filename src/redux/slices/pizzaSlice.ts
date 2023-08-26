@@ -27,7 +27,7 @@ export type Tpizzas = {
 	price: number;
 };
 
-interface IinitialState {
+interface IinitialStatePizza {
 	initialUrl: string;
 	url: string;
 	currentPage: number;
@@ -40,7 +40,7 @@ interface IinitialState {
 	searchValue: string;
 }
 
-const initialState: IinitialState = {
+const initialState: IinitialStatePizza = {
 	initialUrl: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=`,
 	url: `https://64d772272a017531bc134033.mockapi.io/pizzas?page=1&limit=8&`,
 	currentPage: 1,

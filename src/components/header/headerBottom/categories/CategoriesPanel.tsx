@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./CategoriesPanel.scss";
 
 type TcategoriesPanelProps = {
@@ -7,7 +8,11 @@ type TcategoriesPanelProps = {
 	handleGetCategory: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
 };
 
-const CategoriesPanel: React.FC<TcategoriesPanelProps> = ({ categories, activeCategory, handleGetCategory }): JSX.Element => {
+const CategoriesPanel: React.FC<TcategoriesPanelProps> = ({
+	categories,
+	activeCategory,
+	handleGetCategory,
+}): JSX.Element => {
 	return (
 		<nav className="categoriesPanel">
 			<ul>
