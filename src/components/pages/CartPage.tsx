@@ -1,17 +1,11 @@
 import React, { ReactElement } from "react";
-import Header from "../header/Header.tsx";
-import HeaderTop from "../header/headerTop/HeaderTop.tsx";
-import Section from "../section/Section.tsx";
-import Cart from "../section/cart/Cart.tsx";
-import NotFound from "../section/NotFound.tsx";
+import { Header, HeaderTop, Section, Cart, NotFound } from "../index.ts";
 import { BsCart3 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store.ts";
 
 const CartPage: React.FC = (): ReactElement => {
-	const items = useSelector(
-		(state: RootState) => state.cartSlice.items,
-	);
+	const items = useSelector((state: RootState) => state.cartSlice.items);
 	return (
 		<>
 			<Header>

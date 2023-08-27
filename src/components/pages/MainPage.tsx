@@ -1,19 +1,22 @@
-import React, { ReactElement, useMemo } from "react";
-import { useEffect, useCallback } from "react";
+import React, { ReactElement, useMemo, useEffect, useCallback } from "react";
 import debounce from "../../utilities/debounce.ts";
-import Header from "../header/Header.tsx";
-import Section from "../section/Section.tsx";
-import SectionTop from "../section/sectionTop/SectionTop.tsx";
-import SearchBar from "../section/searchBar/SearchBar.tsx";
-import HeaderTop from "../header/headerTop/HeaderTop.tsx";
-import Menu from "../section/menu/Menu.tsx";
-import HeaderBottom from "../header/headerBottom/HeaderBottom.tsx";
-import CategoriesPanel from "../header/headerBottom/categories/CategoriesPanel.tsx";
-import SortPanel from "../header/headerBottom/sort/SortPanel.tsx";
-import Footer from "../footer/Footer.tsx";
-import Pagination from "../footer/pagination/Pagination.tsx";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../redux/store.ts";
+import { useAppDispatch, RootState } from "../../redux/store.ts";
+import { Tpizzas } from "../../redux/slices/pizzas/types.ts";
+import {
+	Header,
+	HeaderTop,
+	HeaderBottom,
+	CategoriesPanel,
+	SortPanel,
+	Section,
+	SectionTop,
+	SearchBar,
+	Menu,
+	NotFound,
+	Footer,
+	Pagination,
+} from "../index.ts";
 import {
 	fetchPizzasByUrl,
 	setUrl,
@@ -23,9 +26,6 @@ import {
 	setInputValue,
 	setSearchValue,
 } from "../../redux/slices/pizzas/pizzaSlice.ts";
-import NotFound from "../section/NotFound.tsx";
-import { RootState } from "../../redux/store.ts";
-import { Tpizzas } from "../../redux/slices/pizzas/types.ts";
 
 const MainPage: React.FC = (): ReactElement => {
 	const categories = useMemo(() => ["All", "Meat", "Spicy", "Cheese"], []);

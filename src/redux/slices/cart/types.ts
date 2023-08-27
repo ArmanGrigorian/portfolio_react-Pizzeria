@@ -7,7 +7,6 @@ export type TcartItem = {
 	sizes: string;
 	doughs: string;
 	count: number;
-	currentTotalCount: number;
 };
 
 export interface IinitialStateCart {

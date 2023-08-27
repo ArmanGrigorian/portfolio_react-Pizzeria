@@ -1,7 +1,6 @@
 import React from "react";
 import "./Menu.scss";
-import PizzaCard from "../pizza/pizzaCard/PizzaCard.tsx";
-import PizzaCardPlaceholder from "../pizza/PizzaCardPlaceholder.tsx";
+import { PizzaCard, PizzaCardPlaceholder } from "../../index.ts";
 import { Tpizzas } from "../../../redux/slices/pizzas/types.ts";
 
 type TmenuProps = {

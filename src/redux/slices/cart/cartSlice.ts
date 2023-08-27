@@ -3,6 +3,7 @@ import getLocalCart from "../../../utilities/getLocalCart";
 import calcTotalPrice from "../../../utilities/calcTotalPrice";
 import calcTotalCount from "../../../utilities/calcTotalCount";
 import { IinitialStateCart, TcartItem } from "./types";
+import { Tobj } from "../../../components/section/pizza/pizzaCard/PizzaCard";
 
 const localCart: IinitialStateCart = getLocalCart();
 
@@ -26,6 +27,17 @@ export const cartSlice = createSlice({
 
 			if (findItem) {
 				findItem.count += 1;
+
+				const request: string | null = localStorage.getItem(`${findItem.title}`);
+				const data: Tobj = request && JSON.parse(request);
+
+				localStorage.setItem(
+					`${data.title}`,
+					JSON.stringify({
+						title: data.title,
+						count: data.count + 1,
+					}),
+				);
 			} else state.items.push(payload);
 
 			state.totalPrice = calcTotalPrice(state.items);
@@ -41,10 +53,17 @@ export const cartSlice = createSlice({
 
 			if (findItem) {
 				findItem.count -= 1;
-				const data: string | null = localStorage.getItem(findItem.title);
-				const localItem: TcartItem = data ? JSON.parse(data) : findItem;
-				localItem.currentTotalCount = findItem.count;
-				localStorage.setItem(findItem.title, JSON.stringify(localItem));
+
+				const request: string | null = localStorage.getItem(`${findItem.title}`);
+				const data: Tobj = request && JSON.parse(request);
+
+				localStorage.setItem(
+					`${data.title}`,
+					JSON.stringify({
+						title: data.title,
+						count: data.count - 1,
+					}),
+				);
 			}
 
 			state.totalPrice -= payload.price;

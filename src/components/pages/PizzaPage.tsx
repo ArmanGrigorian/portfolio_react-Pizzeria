@@ -1,10 +1,7 @@
 import React, { ReactElement } from "react";
-import Header from "../header/Header.tsx";
-import HeaderTop from "../header/headerTop/HeaderTop.tsx";
-import Section from "../section/Section.tsx";
-import PizzaInfo from "../section/pizza/pizzaInfo/PizzaInfo.tsx";
+import { Header, HeaderTop, Section, PizzaInfo } from "../index.ts";
 
-const PizzaPage: React.FC =(): ReactElement=> {
+const PizzaPage: React.FC = (): ReactElement => {
 	return (
 		<>
 			<Header>
@@ -14,9 +11,8 @@ const PizzaPage: React.FC =(): ReactElement=> {
 			<Section>
 				<PizzaInfo />
 			</Section>
-
 		</>
 	);
-}
+};
 
 export default PizzaPage;

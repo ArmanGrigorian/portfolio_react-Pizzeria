@@ -1,39 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PizzaCard.scss";
 import { useAppDispatch } from "../../../../redux/store.ts";
 import { Link } from "react-router-dom";
 import { addPizzaToCart } from "../../../../redux/slices/cart/cartSlice.ts";
 import { Tpizzas } from "../../../../redux/slices/pizzas/types.ts";
+import { TcartItem } from "../../../../redux/slices/cart/types.ts";
 
 type TpizzaCardProps = {
 	info: Tpizzas;
 };
 
-type Titem = {
-	id: string;
+export type Tobj = {
 	title: string;
-	price: number;
-	imgSrc: string;
-	imgAlt: string;
-	sizes: string;
-	doughs: string;
 	count: number;
-	currentTotalCount: number;
 };
 
 const PizzaCard: React.FC<TpizzaCardProps> = ({ info }): JSX.Element => {
 	const { id, sizes, doughs, imgSrc, imgAlt, title, price } = info;
 
 	const appDispatch = useAppDispatch();
-	const data: string | null = localStorage.getItem(title);
-	const currentCount: number = data ? JSON.parse(data).currentTotalCount : 0;
-
 	const [pizzaSize, setPizzaSize] = useState<string>(sizes[0]);
 	const [pizzaDough, setPizzaDough] = useState<string>(doughs[0]);
-	const [pizzaCount, setPizzaCount] = useState<number>(currentCount);
+	const [pizzaCount, setPizzaCount] = useState<number>(0);
+
+	const response: string | null = localStorage.getItem(title);
+	const data: Tobj = JSON.parse(response!);
+
+	const obj: Tobj = {
+		title: title,
+		count: data ? data.count : pizzaCount,
+	};
+
+	useEffect(() => {
+		if (data) {
+			localStorage.setItem(
+				`${title}`,
+				JSON.stringify({
+					title: title,
+					count: data.count,
+				}),
+			);
+		} else {
+			localStorage.setItem(`${title}`, JSON.stringify(obj));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	function handleAddPizzaToCart(): void {
-		const item: Titem = {
+		const item: TcartItem = {
 			id,
 			title,
 			price,
@@ -42,13 +56,22 @@ const PizzaCard: React.FC<TpizzaCardProps> = ({ info }): JSX.Element => {
 			sizes: pizzaSize,
 			doughs: pizzaDough,
 			count: 1,
-			currentTotalCount: pizzaCount,
 		};
+
 		appDispatch(addPizzaToCart(item));
 		setPizzaCount((prevPizzaCount) => (prevPizzaCount += 1));
-		const newItem = { ...item };
-		newItem.currentTotalCount += 1;
-		localStorage.setItem(title, JSON.stringify(newItem));
+
+		if (data) {
+			localStorage.setItem(
+				`${title}`,
+				JSON.stringify({
+					title: title,
+					count: data.count + 1,
+				}),
+			);
+		} else {
+			localStorage.setItem(`${title}`, JSON.stringify(obj));
+		}
 	}
 
 	function handleSetPizzaInfo(e: React.MouseEvent<HTMLLIElement, MouseEvent>, arr: string[]): void {
@@ -117,7 +140,7 @@ const PizzaCard: React.FC<TpizzaCardProps> = ({ info }): JSX.Element => {
 
 				<button type="button" className="addButton" onClick={handleAddPizzaToCart}>
 					<p>+ Add</p>
-					<p>{pizzaCount}</p>
+					<p>{obj.count}</p>
 				</button>
 			</div>
 		</div>
